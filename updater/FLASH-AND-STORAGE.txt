@@ -1,0 +1,9 @@
+Tommy UI v1.003 USB update for XT2413-2 on v1.002
+
+Extract the entire ZIP on Windows. Install Python 3.11+ with Tk and Android platform-tools on PATH. Connect the unlocked phone with USB debugging enabled. Open Tommy-USB-Updater.pyw, check the connected phone and confirm the offered update. Keep USB connected through restart.
+
+Open Settings > About Tommy UI. Tap the version seven times for the constellation. Tommy Browser saves direct web downloads to Downloads; open an APK from Files to start Android installation.
+
+Storage check: Open Settings > Storage and select the SD card. Switch to phone storage and back. The card’s total should reflect its mounted filesystem and its used space should never exceed that total. You do not need to format your card to use the reporting fix. If you still see an impossible number, record the card capacity, the total and used values shown, and whether the card is portable or formatted as internal storage.
+
+Update scope: This kit updates an existing Tommy UI v1.002 installation on XT2413-2, slot a. It writes only system_a; it does not format the SD card or erase user data. Installation and SD totals have not been tested on hardware for this release. Make a backup of anything important before updating.

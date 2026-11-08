@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tommyui_version_title" translatable="false">Tommy UI</string>
+    <string name="tommyui_version_summary" translatable="false">v1.003 (experimental)</string>
+    <string name="tommyui_controls_title" translatable="false">Tommy UI</string>
+    <string name="tommyui_controls_summary" translatable="false">v1.003 · Apps, SD card and shared files</string>
+</resources>

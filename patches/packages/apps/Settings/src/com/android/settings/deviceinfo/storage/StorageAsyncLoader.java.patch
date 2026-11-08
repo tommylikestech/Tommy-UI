@@ -1,0 +1,55 @@
+--- a/packages/apps/Settings/src/com/android/settings/deviceinfo/storage/StorageAsyncLoader.java
++++ b/packages/apps/Settings/src/com/android/settings/deviceinfo/storage/StorageAsyncLoader.java
+@@ -85,24 +85,33 @@
+         Collections.sort(infos,
+                 (userInfo, otherUser) -> Integer.compare(userInfo.id, otherUser.id));
+ 
++        StorageManager manager = getContext().getSystemService(StorageManager.class);
++        String mediaVolume = java.util.Objects.equals(mUuid, manager.getPrimaryStorageUuid())
++                ? MediaStore.VOLUME_EXTERNAL_PRIMARY : mUuid;
+         for (UserInfo info : infos) {
+             final StorageResult result = getAppsAndGamesSize(info.id);
++            result.systemSize = mUuid == null ? Math.max(0L, getSystemSize()) : 0;
++            if (mediaVolume == null || !MediaStore.getExternalVolumeNames(getContext()).contains(mediaVolume.toLowerCase(java.util.Locale.ROOT))) {
++                results.put(info.id, result);
++                continue;
++            }
++            mediaVolume = mediaVolume.toLowerCase(java.util.Locale.ROOT);
+             final Bundle media = new Bundle();
+             media.putString(ContentResolver.QUERY_ARG_SQL_SELECTION, MediaColumns.VOLUME_NAME
+-                    + "= '" + MediaStore.VOLUME_EXTERNAL_PRIMARY + "'");
++                    + "= '" + mediaVolume + "'");
+             result.imagesSize = getFilesSize(info.id, MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                     media /* queryArgs */);
+             result.videosSize = getFilesSize(info.id, MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                     media /* queryArgs */);
+             result.audioSize = getFilesSize(info.id, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                     media /* queryArgs */);
+-            result.systemSize = getSystemSize();
++
+ 
+             final Bundle documentsQueryArgs = new Bundle();
+             documentsQueryArgs.putString(ContentResolver.QUERY_ARG_SQL_SELECTION,
+                     FileColumns.MEDIA_TYPE + "=" + FileColumns.MEDIA_TYPE_DOCUMENT);
+             result.documentsSize = getFilesSize(info.id,
+-                    MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY),
++                    MediaStore.Files.getContentUri(mediaVolume),
+                     documentsQueryArgs);
+ 
+             final Bundle otherQueryArgs = new Bundle();
+@@ -114,13 +123,13 @@
+                             + FileColumns.MEDIA_TYPE_DOCUMENT
+                             + " AND " + FileColumns.MIME_TYPE + " IS NOT NULL");
+             result.otherSize = getFilesSize(info.id,
+-                    MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY),
++                    MediaStore.Files.getContentUri(mediaVolume),
+                     otherQueryArgs);
+ 
+             final Bundle trashQueryArgs = new Bundle();
+             trashQueryArgs.putInt(MediaStore.QUERY_ARG_MATCH_TRASHED, MediaStore.MATCH_ONLY);
+             result.trashSize = getFilesSize(info.id,
+-                    MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY),
++                    MediaStore.Files.getContentUri(mediaVolume),
+                     trashQueryArgs);
+ 
+             results.put(info.id, result);

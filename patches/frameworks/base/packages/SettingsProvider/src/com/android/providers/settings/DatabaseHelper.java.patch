@@ -1,0 +1,15 @@
+--- a/frameworks/base/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java
++++ b/frameworks/base/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java
+@@ -2397,6 +2397,12 @@
+             loadSetting(stmt, Settings.Global.DEFAULT_INSTALL_LOCATION,
+                     InstallLocationUtils.APP_INSTALL_AUTO);
+ 
++            // Tommy UI: prefer flexible app storage on newly initialized devices.
++            loadSetting(stmt, Settings.Global.FORCE_ALLOW_ON_EXTERNAL, 1);
++            loadSetting(stmt, Settings.Global.WINDOW_ANIMATION_SCALE, 0.75f);
++            loadSetting(stmt, Settings.Global.TRANSITION_ANIMATION_SCALE, 0.75f);
++            loadSetting(stmt, Settings.Global.ANIMATOR_DURATION_SCALE, 0.75f);
++
+             // Set default cdma emergency tone
+             loadSetting(stmt, Settings.Global.EMERGENCY_TONE, 0);
+ 

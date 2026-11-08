@@ -1,0 +1,52 @@
+--- a/frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/v2/ui/InstallLaunch.kt
++++ b/frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/v2/ui/InstallLaunch.kt
+@@ -35,6 +35,7 @@
+ import androidx.fragment.app.FragmentManager
+ import androidx.lifecycle.ViewModelProvider
+ import com.android.packageinstaller.R
++import com.android.packageinstaller.v2.model.InstallChooseStorage
+ import com.android.packageinstaller.v2.model.InstallAborted
+ import com.android.packageinstaller.v2.model.InstallFailed
+ import com.android.packageinstaller.v2.model.InstallInstalling
+@@ -99,7 +100,9 @@
+         if (savedInstanceState != null) {
+             savedIntent = savedInstanceState.getParcelable(ARGS_SAVED_INTENT, Intent::class.java)
+         }
+-        if (!intent.filterEquals(savedIntent)) {
++        val restorePicker = savedInstanceState?.getBoolean("tommy.storagePicker") == true &&
++            installViewModel!!.currentInstallStage.value !is InstallChooseStorage
++        if (!intent.filterEquals(savedIntent) || restorePicker) {
+             installViewModel!!.preprocessIntent(intent, info)
+         }
+ 
+@@ -121,6 +124,15 @@
+      */
+     private fun onInstallStageChange(installStage: InstallStage) {
+         when (installStage.stageCode) {
++            InstallStage.STAGE_CHOOSE_STORAGE -> {
++                val choice = installStage as InstallChooseStorage
++                val dialog = InstallStorageDialog()
++                dialog.arguments = Bundle().apply {
++                    putString("package", choice.packageName)
++                    putStringArray("labels", choice.choices.map { it.label }.toTypedArray())
++                }
++                showDialogInner(dialog)
++            }
+             InstallStage.STAGE_STAGING -> {
+                 val stagingDialog = InstallStagingFragment()
+                 showDialogInner(stagingDialog)
+@@ -351,7 +363,14 @@
+         appOpsManager!!.stopWatchingMode(listener)
+     }
+ 
++    fun selectStorage(index: Int) {
++        val pending = installViewModel?.currentInstallStage?.value as? InstallChooseStorage ?: return
++        val selected = pending.choices.getOrNull(index) ?: return
++        installViewModel!!.repository.stageForInstall(selected)
++    }
++
+     override fun onSaveInstanceState(outState: Bundle) {
++        outState.putBoolean("tommy.storagePicker", installViewModel?.currentInstallStage?.value is InstallChooseStorage)
+         outState.putParcelable(ARGS_SAVED_INTENT, intent)
+         super.onSaveInstanceState(outState)
+     }

@@ -1,0 +1,34 @@
+--- a/packages/apps/Settings/res/xml/top_level_settings.xml
++++ b/packages/apps/Settings/res/xml/top_level_settings.xml
+@@ -89,6 +89,17 @@
+         settings:controller="com.android.settings.fuelgauge.TopLevelBatteryPreferenceController"/>
+ 
+     <com.android.settings.widget.HomepagePreference
++        android:key="top_level_tommy_ui"
++        android:icon="@drawable/ic_storage_white"
++        android:order="-105"
++        android:title="@string/tommyui_controls_title"
++        android:summary="@string/tommyui_controls_summary">
++        <intent android:action="android.intent.action.MAIN"
++            android:targetPackage="com.tommyui.storage"
++            android:targetClass="com.tommyui.storage.MainActivity" />
++    </com.android.settings.widget.HomepagePreference>
++
++    <com.android.settings.widget.HomepagePreference
+         android:fragment="com.android.settings.deviceinfo.StorageDashboardFragment"
+         android:icon="@drawable/ic_storage_white"
+         android:key="top_level_storage"
+@@ -216,6 +227,13 @@
+         settings:controller="com.android.settings.deviceinfo.aboutphone.TopLevelAboutDevicePreferenceController"/>
+ 
+     <com.android.settings.widget.HomepagePreference
++        android:key="about_tommy_ui" android:title="About Tommy UI" android:summary="Tommy UI v1.003"
++        android:order="21" android:icon="@drawable/ic_settings_about_device">
++        <intent android:action="android.intent.action.VIEW" android:targetPackage="com.tommyui.storage"
++            android:targetClass="com.tommyui.storage.AboutTommy" />
++    </com.android.settings.widget.HomepagePreference>
++
++    <com.android.settings.widget.HomepagePreference
+         android:icon="@drawable/ic_help"
+         android:key="top_level_support"
+         android:order="100"

@@ -1,0 +1,38 @@
+--- a/packages/apps/Settings/src/com/android/settings/deviceinfo/StorageCategoryFragment.java
++++ b/packages/apps/Settings/src/com/android/settings/deviceinfo/StorageCategoryFragment.java
+@@ -111,7 +111,7 @@
+             mPreferenceController.setVolume(null);
+             return;
+         }
+-        if (mStorageCacheHelper.hasCachedSizeInfo() && mSelectedStorageEntry.isPrivate()) {
++        if ((mSelectedStorageEntry != null && mSelectedStorageEntry.isDefaultInternalStorage() && mStorageCacheHelper.hasCachedSizeInfo()) && mSelectedStorageEntry.isPrivate()) {
+             StorageCacheHelper.StorageCache cachedData = mStorageCacheHelper.retrieveCachedSize();
+             mPreferenceController.setVolume(mSelectedStorageEntry.getVolumeInfo());
+             mPreferenceController.setUsedSize(cachedData.totalUsedSize);
+@@ -120,7 +120,7 @@
+         if (mSelectedStorageEntry.isPrivate()) {
+             mStorageInfo = null;
+             mAppsResult = null;
+-            if (mStorageCacheHelper.hasCachedSizeInfo()) {
++            if ((mSelectedStorageEntry != null && mSelectedStorageEntry.isDefaultInternalStorage() && mStorageCacheHelper.hasCachedSizeInfo())) {
+                 mPreferenceController.onLoadFinished(mAppsResult, mUserId);
+             } else {
+                 maybeSetLoading(isQuotaSupported());
+@@ -149,7 +149,7 @@
+             mSelectedStorageEntry = icicle.getParcelable(SELECTED_STORAGE_ENTRY_KEY);
+         }
+ 
+-        if (mStorageCacheHelper.hasCachedSizeInfo()) {
++        if ((mSelectedStorageEntry != null && mSelectedStorageEntry.isDefaultInternalStorage() && mStorageCacheHelper.hasCachedSizeInfo())) {
+             mIsLoadedFromCache = true;
+             if (mSelectedStorageEntry != null) {
+                 refreshUi(mSelectedStorageEntry);
+@@ -217,7 +217,7 @@
+         mPreferenceController.setUsedSize(privateUsedBytes);
+         mPreferenceController.setTotalSize(mStorageInfo.totalBytes);
+         // Cache total size infor and used size info
+-        mStorageCacheHelper
++        if (mSelectedStorageEntry.isDefaultInternalStorage()) mStorageCacheHelper
+                 .cacheTotalSizeAndTotalUsedSize(mStorageInfo.totalBytes, privateUsedBytes);
+         for (NonCurrentUserController userController : mNonCurrentUsers) {
+             userController.setTotalSize(mStorageInfo.totalBytes);

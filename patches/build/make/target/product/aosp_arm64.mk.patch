@@ -1,0 +1,16 @@
+--- a/build/make/target/product/aosp_arm64.mk
++++ b/build/make/target/product/aosp_arm64.mk
+@@ -75,7 +75,11 @@
+ 
+ PRODUCT_NAME := aosp_arm64
+ PRODUCT_DEVICE := generic_arm64
+-PRODUCT_BRAND := Android
+-PRODUCT_MODEL := AOSP on ARM64
++PRODUCT_BRAND := TommyUI
++PRODUCT_MANUFACTURER := motorola
++PRODUCT_MODEL := moto g play - 2024
++
++# Retain aosp_arm64 to preserve upstream GSI compatibility behavior.
++$(call inherit-product, device/tommyui/product.mk)
+ 
+ PRODUCT_NO_BIONIC_PAGE_SIZE_MACRO := true

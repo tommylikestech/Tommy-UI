@@ -1,0 +1,14 @@
+Tommy UI v1.003
+
+Tommy UI is an independent modification of the Android Open Source Project for
+the Motorola Moto G Play 2024. The AOSP repositories and revisions used by the
+project are identified in manifests/aosp.xml. The modified files are identified
+by path in files.json and patches/. Browser2's replaced manifest originates
+from the Chromium Authors (Copyright 2015); its license is reproduced in
+licenses/packages/apps/Browser2/LICENSE. The procedural wallpaper and boot animation
+are accompanied by their generators in art/.
+
+The license for Tommy UI additions is in LICENSE. Notices and license texts
+from the affected upstream projects are preserved under licenses/, including
+the Chromium Authors' license for packages/apps/Browser2. The Android source
+checkout has additional projects with their own license and notice files.

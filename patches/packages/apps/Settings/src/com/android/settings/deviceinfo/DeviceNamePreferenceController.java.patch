@@ -1,0 +1,14 @@
+--- a/packages/apps/Settings/src/com/android/settings/deviceinfo/DeviceNamePreferenceController.java
++++ b/packages/apps/Settings/src/com/android/settings/deviceinfo/DeviceNamePreferenceController.java
+@@ -78,8 +78,9 @@
+     private void initializeDeviceName() {
+         mDeviceName = Settings.Global.getString(mContext.getContentResolver(),
+                 Settings.Global.DEVICE_NAME);
+-        if (mDeviceName == null) {
+-            mDeviceName = Build.MODEL;
++        if (mDeviceName == null || "AOSP on ARM64".equalsIgnoreCase(mDeviceName)
++                || "AOSP on ARM64 Phone".equalsIgnoreCase(mDeviceName) || mDeviceName.matches("Tommy UI v1\\.00[123]")) {
++            mDeviceName = android.os.SystemProperties.get("ro.product.vendor.model", "moto g play - 2024");
+         }
+     }
+ 

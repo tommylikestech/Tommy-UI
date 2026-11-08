@@ -1,0 +1,19 @@
+--- a/packages/apps/Settings/src/com/android/settings/deviceinfo/HardwareInfoPreferenceController.java
++++ b/packages/apps/Settings/src/com/android/settings/deviceinfo/HardwareInfoPreferenceController.java
+@@ -59,7 +59,7 @@
+         try {
+             // Wait for msv suffix value.
+             final String msvSuffix = msvSuffixTask.get();
+-            return Build.MODEL + msvSuffix;
++            return android.os.SystemProperties.get("ro.boot.hardware.sku", android.os.SystemProperties.get("ro.product.vendor.model", Build.MODEL)) + msvSuffix;
+         } catch (ExecutionException e) {
+             Log.e(TAG, "Execution error, so we only show model name");
+         } catch (InterruptedException e) {
+@@ -67,6 +67,6 @@
+         }
+         // If we can't get an msv suffix value successfully,
+         // it's better to return model name.
+-        return Build.MODEL;
++        return android.os.SystemProperties.get("ro.boot.hardware.sku", android.os.SystemProperties.get("ro.product.vendor.model", Build.MODEL));
+     }
+ }

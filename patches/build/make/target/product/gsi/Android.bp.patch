@@ -1,0 +1,13 @@
+--- a/build/make/target/product/gsi/Android.bp
++++ b/build/make/target/product/gsi/Android.bp
+@@ -173,6 +173,10 @@
+     name: "aosp_system_image",
+     defaults: ["android_gsi_defaults"],
+     deps: [
++        // Tommy UI additions must also be in this explicit Soong image list.
++        "TommyStorage",
++        "privapp-permissions-tommy-storage",
++        "TommyBootAnimation",
+         // handheld_system_ext
+         "AccessibilityMenu",
+         "WallpaperCropper",

@@ -1,0 +1,21 @@
+--- a/packages/apps/Settings/src/com/android/settings/deviceinfo/storage/StorageItemPreferenceController.java
++++ b/packages/apps/Settings/src/com/android/settings/deviceinfo/storage/StorageItemPreferenceController.java
+@@ -466,7 +466,7 @@
+                     animate);
+         }
+         // Cache the size info
+-        if (result != null) {
++        if (result != null && mVolume != null && VolumeInfo.ID_PRIVATE_INTERNAL.equals(mVolume.getId())) {
+             mStorageCacheHelper.cacheSizeInfo(storageCache);
+         }
+ 
+@@ -515,8 +515,7 @@
+         }
+         // System size is equal for each user and should be added only once
+         attributedSize += data.systemSize;
+-        storageCache.temporaryFilesSize = Math.max(DataUnit.GIBIBYTES.toBytes(1),
+-                mUsedBytes - attributedSize);
++        storageCache.temporaryFilesSize = Math.max(0L, Math.min(mUsedBytes, mUsedBytes - attributedSize));
+         return storageCache;
+     }
+ 

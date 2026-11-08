@@ -1,0 +1,41 @@
+--- a/packages/apps/Settings/src/com/android/settings/deviceinfo/StorageWizardMigrateConfirm.java
++++ b/packages/apps/Settings/src/com/android/settings/deviceinfo/StorageWizardMigrateConfirm.java
+@@ -48,6 +48,11 @@
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.storage_wizard_generic);
++        if (!validateExternalDestination()) {
++            finish();
++            return;
++        }
++
+ 
+         // When called with just disk, find the first private volume
+         if (mVolume == null) {
+@@ -95,8 +100,26 @@
+         }
+     }
+ 
++    private boolean validateExternalDestination() {
++        if (getLaunchedFromUid() == android.os.Process.myUid()) return true;
++        if (!getSystemService(UserManager.class).isAdminUser() || mVolume == null) return false;
++        VolumeInfo live = getSystemService(StorageManager.class).findVolumeById(mVolume.getId());
++        return live != null && live.isMountedWritable() && live.getType() == VolumeInfo.TYPE_PRIVATE
++                && (VolumeInfo.ID_PRIVATE_INTERNAL.equals(live.getId())
++                        || (live.getDisk() != null && live.getDisk().isSd()))
++                && getIntent().hasExtra("com.tommyui.storage.TARGET_UUID")
++                && Objects.equals(live.getFsUuid(), getIntent().getStringExtra("com.tommyui.storage.TARGET_UUID"))
++                && getPackageManager().getPrimaryStorageCandidateVolumes().contains(live);
++    }
++
+     @Override
+     public void onNavigateNext(View view) {
++        if (!validateExternalDestination()) {
++            Toast.makeText(this, "The selected storage is unavailable.", Toast.LENGTH_LONG).show();
++            finish();
++            return;
++        }
++
+         // Ensure that all users are unlocked so that we can move their data
+         final LockPatternUtils lpu = new LockPatternUtils(this);
+         if (StorageManager.isFileEncrypted()) {

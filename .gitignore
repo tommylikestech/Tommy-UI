@@ -1,0 +1,15 @@
+/dist/
+/out/
+/.cache/
+/reports/
+/art/assets/
+__pycache__/
+*.pyc
+*.img
+*.apk
+*.pk8
+*.pem
+*.jks
+*.keystore
+local.properties
+adbkey*

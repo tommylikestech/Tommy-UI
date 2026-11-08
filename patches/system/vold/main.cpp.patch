@@ -1,0 +1,13 @@
+--- a/system/vold/main.cpp
++++ b/system/vold/main.cpp
+@@ -241,7 +241,9 @@
+     }
+ 
+     /* Loop through entries looking for ones that vold manages */
+-    configs->has_adoptable = false;
++    // Tommy UI: advertise SD adoption capability. VolumeManager enables the
++    // flag only for managed MMC/SD disks; USB disk flags remain unchanged.
++    configs->has_adoptable = true;
+     configs->has_quota = false;
+     configs->has_reserved = false;
+     configs->has_compress = false;

@@ -1,0 +1,64 @@
+--- a/frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/InstallStaging.java
++++ b/frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/InstallStaging.java
+@@ -66,6 +66,8 @@
+     private int mStagedSessionId;
+ 
+     private AlertDialog mDialog;
++    private AlertDialog storageDialog;
++    private InstallDestinations.Option selectedStorage;
+ 
+     @Override
+     protected void onCreate(@Nullable Bundle savedInstanceState) {
+@@ -114,6 +116,11 @@
+     @Override
+     protected void onResume() {
+         super.onResume();
++        beginStaging();
++    }
++
++    private void beginStaging() {
++        if (isFinishing() || storageDialog != null) return;
+ 
+         // This is the first onResume in a single life of the activity.
+         if (mStagingTask == null) {
+@@ -138,6 +145,32 @@
+                     ParcelFileDescriptor pfd = afd != null ? afd.getParcelFileDescriptor() : null;
+                     PackageInstaller.SessionParams params = createSessionParams(
+                             mInstaller, getIntent(), pfd, packageUri.toString());
++                    if (selectedStorage != null) {
++                        try {
++                            InstallDestinations.apply(this, params, selectedStorage);
++                        } catch (IOException e) {
++                            android.widget.Toast.makeText(this, e.getMessage(),
++                                    android.widget.Toast.LENGTH_LONG).show();
++                            setResult(RESULT_CANCELED);
++                            finish();
++                            return;
++                        }
++                    } else {
++                        java.util.List<InstallDestinations.Option> choices = InstallDestinations.list(this, params);
++                        if (!choices.isEmpty()) {
++                            String[] labels = choices.stream().map(option -> option.label).toArray(String[]::new);
++                            storageDialog = new AlertDialog.Builder(this)
++                                    .setTitle("Install " + params.appPackageName + " on…")
++                                    .setItems(labels, (dialog, which) -> {
++                                        selectedStorage = choices.get(which);
++                                        storageDialog = null;
++                                        beginStaging();
++                                    })
++                                    .setNegativeButton(android.R.string.cancel, (dialog, which) -> finish())
++                                    .setOnCancelListener(dialog -> finish()).show();
++                            return;
++                        }
++                    }
+                     mStagedSessionId = mInstaller.createSession(params);
+                 } catch (IOException e) {
+                     Log.w(LOG_TAG, "Failed to create a staging session", e);
+@@ -165,6 +198,7 @@
+         if (mStagingTask != null) {
+             mStagingTask.cancel(true);
+         }
++        if (storageDialog != null) storageDialog.dismiss();
+         if (mDialog != null) {
+             mDialog.dismiss();
+         }

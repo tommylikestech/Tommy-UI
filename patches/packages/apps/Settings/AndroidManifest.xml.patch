@@ -1,0 +1,12 @@
+--- a/packages/apps/Settings/AndroidManifest.xml
++++ b/packages/apps/Settings/AndroidManifest.xml
+@@ -3210,7 +3210,8 @@
+                 android:exported="false"/>
+         <activity android:name=".deviceinfo.StorageWizardMigrateConfirm"
+                 android:theme="@style/GlifTheme.Light"
+-                android:exported="false"/>
++                android:permission="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
++                android:exported="true"/>
+         <activity android:name=".deviceinfo.StorageWizardMigrateProgress"
+                 android:theme="@style/GlifTheme.Light"
+                 android:exported="true"

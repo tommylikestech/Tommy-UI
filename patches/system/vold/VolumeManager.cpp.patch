@@ -1,0 +1,15 @@
+--- a/system/vold/VolumeManager.cpp
++++ b/system/vold/VolumeManager.cpp
+@@ -225,6 +225,12 @@
+                     int flags = source->getFlags();
+                     if (major == kMajorBlockMmc || IsVirtioBlkDevice(major)) {
+                         flags |= android::vold::Disk::Flags::kSd;
++                        // Tommy UI: allow Android's encrypted internal-storage setup
++                        // for the managed SD slot. No formatting occurs here.
++                        // Virtio disks retain their upstream flags for emulator use.
++                        if (major == kMajorBlockMmc) {
++                            flags |= android::vold::Disk::Flags::kAdoptable;
++                        }
+                     } else {
+                         flags |= android::vold::Disk::Flags::kUsb;
+                     }

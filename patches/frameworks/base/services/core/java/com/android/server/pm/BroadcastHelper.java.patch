@@ -1,0 +1,15 @@
+--- a/frameworks/base/services/core/java/com/android/server/pm/BroadcastHelper.java
++++ b/frameworks/base/services/core/java/com/android/server/pm/BroadcastHelper.java
+@@ -830,6 +830,12 @@
+                 packageName, extras, 0, null, null, userIds, instantUserIds,
+                 broadcastAllowlist, null /* filterExtrasForReceiver */, null /* bOptions */,
+                 null /* requiredPermissions */);
++        // Offer an optional location review for a fresh full app installed by another installer.
++        if (!isArchived && !ArrayUtils.isEmpty(userIds)) {
++            sendPackageBroadcast(Intent.ACTION_PACKAGE_ADDED, packageName, extras, 0,
++                    "com.tommyui.storage", null, userIds, null, broadcastAllowlist,
++                    null, null, null);
++        }
+         // Send to PermissionController for all new users, even if it may not be running for some
+         // users
+         if (isPrivacySafetyLabelChangeNotificationsEnabled(mContext)) {

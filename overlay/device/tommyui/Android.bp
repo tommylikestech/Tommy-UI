@@ -1,0 +1,6 @@
+// Include the original Tommy UI artwork through the Soong image dependency graph.
+prebuilt_media {
+    name: "TommyBootAnimation",
+    src: "bootanimation.zip",
+    filename: "bootanimation.zip",
+}

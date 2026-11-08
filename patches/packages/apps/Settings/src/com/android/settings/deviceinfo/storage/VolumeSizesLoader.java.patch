@@ -1,0 +1,14 @@
+--- a/packages/apps/Settings/src/com/android/settings/deviceinfo/storage/VolumeSizesLoader.java
++++ b/packages/apps/Settings/src/com/android/settings/deviceinfo/storage/VolumeSizesLoader.java
+@@ -62,6 +62,11 @@
+     static PrivateStorageInfo getVolumeSize(
+             StorageVolumeProvider storageVolumeProvider, StorageStatsManager stats, VolumeInfo info)
+             throws IOException {
++        if (info.getDisk() != null && info.getDisk().isSd()) {
++            java.io.File path = info.getPath();
++            if (path == null || !info.isMountedReadable()) throw new IOException("SD card unavailable");
++            return new PrivateStorageInfo(path.getFreeSpace(), path.getTotalSpace());
++        }
+         long privateTotalBytes = storageVolumeProvider.getTotalBytes(stats, info);
+         long privateFreeBytes = storageVolumeProvider.getFreeBytes(stats, info);
+         return new PrivateStorageInfo(privateFreeBytes, privateTotalBytes);

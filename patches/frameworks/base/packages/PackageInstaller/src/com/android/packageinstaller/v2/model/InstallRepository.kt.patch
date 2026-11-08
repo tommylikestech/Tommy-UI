@@ -1,0 +1,39 @@
+--- a/frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/v2/model/InstallRepository.kt
++++ b/frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/v2/model/InstallRepository.kt
+@@ -294,7 +294,7 @@
+     }
+ 
+     @OptIn(DelicateCoroutinesApi::class)
+-    fun stageForInstall() {
++    fun stageForInstall(chosen: com.android.packageinstaller.InstallDestinations.Option? = null) {
+         val uri = intent.data
+         if (stagedSessionId != SessionInfo.INVALID_ID
+             || isSessionInstall
+@@ -328,6 +328,27 @@
+                         val pfd: ParcelFileDescriptor? = afd?.parcelFileDescriptor
+                         val params: SessionParams =
+                             createSessionParams(originatingUid, intent, pfd, uri.toString())
++                        if (chosen == null) {
++                            val options = com.android.packageinstaller.InstallDestinations.list(context, params)
++                            if (options.isNotEmpty()) {
++                                _stagingResult.value = InstallChooseStorage(params.appPackageName, options)
++                                return
++                            }
++                        } else {
++                            try {
++                                com.android.packageinstaller.InstallDestinations.apply(context, params, chosen)
++                            } catch (e: IOException) {
++                                android.widget.Toast.makeText(context, e.message, android.widget.Toast.LENGTH_LONG).show()
++                                _stagingResult.value = InstallAborted(
++                                    ABORT_REASON_INTERNAL_ERROR,
++                                    resultIntent = Intent().putExtra(Intent.EXTRA_INSTALL_RESULT,
++                                        PackageManager.INSTALL_FAILED_INSUFFICIENT_STORAGE),
++                                    activityResultCode = Activity.RESULT_FIRST_USER
++                                )
++                                return
++                            }
++                            _stagingResult.value = InstallStaging()
++                        }
+                         stagedSessionId = packageInstaller.createSession(params)
+                     }
+                 } catch (e: Exception) {

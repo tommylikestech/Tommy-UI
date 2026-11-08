@@ -1,0 +1,252 @@
+{
+  "build/blueprint/bootstrap/command.go": {
+    "upstream": "b382d485bff92b61378fe010c904bf43a79c028bf1014f4f473693d8815f6cbd",
+    "result": "e522a81bda9ac5b1bef24f9eabbe6be81fcd573bf863d73d92c2f93176ce6279",
+    "source": "patches/build/blueprint/bootstrap/command.go.patch"
+  },
+  "build/make/target/product/aosp_arm64.mk": {
+    "upstream": "debdf9fa28ef79ad1fe915896ef396f2f48e5a1587dec0422383a9942e25ff52",
+    "result": "c6cff26b0819e8c74df55c87288a659be4cb2a0863c51ebc5d75e04f5cee3265",
+    "source": "patches/build/make/target/product/aosp_arm64.mk.patch"
+  },
+  "build/make/target/product/gsi/Android.bp": {
+    "upstream": "714adcd7a8a35590702c94370e044f686294093015aa2ec54949361148223a62",
+    "result": "24b7e5e31151a380365322c50a14a561acddf8dd7dfcc26f5293c82b27620e1e",
+    "source": "patches/build/make/target/product/gsi/Android.bp.patch"
+  },
+  "build/soong/ui/build/soong.go": {
+    "upstream": "7c370f5367bcf7bbfc1243184704b97b60351bb1fbeb84d70ab679d632bd3f86",
+    "result": "f64f7d8fd1fcdf9ad191cbd47e3f35a0b2ce0d9e005bd058b98d384f65896911",
+    "source": "patches/build/soong/ui/build/soong.go.patch"
+  },
+  "device/tommyui/Android.bp": {
+    "upstream": null,
+    "result": "256a808b46dfe3b0307ea478467b3e1f4eb89182c401558a76ac614d441aa35b",
+    "source": "overlay/device/tommyui/Android.bp"
+  },
+  "device/tommyui/bootanimation.zip": {
+    "upstream": null,
+    "result": "e2529d1ae18a99b065d697d6265044cca797e5e6d20434fa713bef1df317de42",
+    "source": "overlay/device/tommyui/bootanimation.zip"
+  },
+  "device/tommyui/product.mk": {
+    "upstream": null,
+    "result": "6f10f82e23346e9c0e7da23e3c70cea7098961471ea211edc10c04c34c9bcd1e",
+    "source": "overlay/device/tommyui/product.mk"
+  },
+  "frameworks/base/core/res/res/drawable-nodpi/default_wallpaper.png": {
+    "upstream": "4e18bbf114e4af69fccfae67d16ab18b740356108d403f3cd2a198a9d9cec066",
+    "result": "36cdfc8728a97e8a2da1db260298fb2ebe270a6be511637cec0f9b171a9c2f9f",
+    "source": "overlay/frameworks/base/core/res/res/drawable-nodpi/default_wallpaper.png"
+  },
+  "frameworks/base/core/res/res/values/config.xml": {
+    "upstream": "8d9e0bd60ab8afdd026097ae37b092954480b99c6302ebd452982d05cf18e567",
+    "result": "6e0df804827712f67d5b36c885973e37fa02517ccf4decc113a07fa94fab9761",
+    "source": "patches/frameworks/base/core/res/res/values/config.xml.patch"
+  },
+  "frameworks/base/packages/PackageInstaller/Android.bp": {
+    "upstream": "64d5fda15102d88515801be45521da0816cd13d8a134a5d5758968245bfc8cf7",
+    "result": "8bd3be8dbb00a2be8a5310e53fb7c79fc3e76a73bd9936e19eece6ca9e805f22",
+    "source": "patches/frameworks/base/packages/PackageInstaller/Android.bp.patch"
+  },
+  "frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/InstallDestinations.java": {
+    "upstream": null,
+    "result": "bbcc0e59b6c92a11acc84f62ea58dc9a22ec6f9fd19b59e6025fff75097bad0a",
+    "source": "overlay/frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/InstallDestinations.java"
+  },
+  "frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/InstallStaging.java": {
+    "upstream": "c62c7ae5ae05ce585c21d33eb3e542c1da3e7dbc8b1c4be8f8977159006d3201",
+    "result": "1f7e3191389e628c08d89cf6e1109d3b0667fdafec0fe636c8a8d770509f8022",
+    "source": "patches/frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/InstallStaging.java.patch"
+  },
+  "frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/v2/model/InstallRepository.kt": {
+    "upstream": "472975c537aebb57f8373f45cd6f7374a4191faf944d055c7687105c6a51807c",
+    "result": "5bb4d2c9cc5b318d4daed1a953f08252208cd4de68b5b75c9f696b09dc4e4f54",
+    "source": "patches/frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/v2/model/InstallRepository.kt.patch"
+  },
+  "frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/v2/model/InstallStages.kt": {
+    "upstream": "6164df316c1eaa9ed53822ad38d297efd72d88744d48311a4a8e38a23be21ef9",
+    "result": "cceec40e7a3b42e8dccfe86dcbbb5691cfaec872fa54d7fccb34a8a6f50f2ae9",
+    "source": "patches/frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/v2/model/InstallStages.kt.patch"
+  },
+  "frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/v2/ui/InstallLaunch.kt": {
+    "upstream": "aee5f17979efc9affae26210d5df2a6daff1665b913c551bf2d65ff3d70862ea",
+    "result": "13c2ee76f63abb0e05029fc914ff738edfb024bca7dbc8d9ac8441b238978daa",
+    "source": "patches/frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/v2/ui/InstallLaunch.kt.patch"
+  },
+  "frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/v2/ui/InstallStorageDialog.kt": {
+    "upstream": null,
+    "result": "1c48c1e705fd2f143f2b89313f4ba1c79975c7e82acf3cdaab497bdaaccf84e9",
+    "source": "overlay/frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/v2/ui/InstallStorageDialog.kt"
+  },
+  "frameworks/base/packages/SettingsProvider/res/values/defaults.xml": {
+    "upstream": "3f66a5bf20d3472077c4a61e1956d6740c7efd9649cd0dd5c8804c642d609cbd",
+    "result": "3f759e34ee98dea7a609813f11d8256402d9c33d9fff22e101f59fe64a8834b1",
+    "source": "patches/frameworks/base/packages/SettingsProvider/res/values/defaults.xml.patch"
+  },
+  "frameworks/base/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java": {
+    "upstream": "230e39a3a21ff685c7996fa7ecc27ca3846afb601478a1d92132e730953b6484",
+    "result": "1f0bc679a78a73543c79aa295248fcf9b0a639bafa1b1937db713fb1937fac07",
+    "source": "patches/frameworks/base/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java.patch"
+  },
+  "frameworks/base/services/core/java/com/android/server/pm/BroadcastHelper.java": {
+    "upstream": "5571e634c5c37be6e6bcef17ef724c8a5adc6b271a3845a8c27189f9e562ffcc",
+    "result": "8be296c7990542e6638e4745498166d69a0d2d8d40f81b1277f39e6db885095f",
+    "source": "patches/frameworks/base/services/core/java/com/android/server/pm/BroadcastHelper.java.patch"
+  },
+  "packages/apps/Browser2/AndroidManifest.xml": {
+    "upstream": "a07ed8196432e3dbc9c1a273bd4ee05178848864ec91fe938a209daf4bd9d5fd",
+    "result": "7cc7da7a6d6d42a06ba159acbd09a567ceb643d6811520e1fd7e97c2a254ab3c",
+    "source": "patches/packages/apps/Browser2/AndroidManifest.xml.patch"
+  },
+  "packages/apps/Browser2/src/org/chromium/webview_shell/TommyBrowser.java": {
+    "upstream": null,
+    "result": "634f1b47e9bd33128e0f738c5302c88067ed226c59d701f7aa5ad7b7eedae2ba",
+    "source": "overlay/packages/apps/Browser2/src/org/chromium/webview_shell/TommyBrowser.java"
+  },
+  "packages/apps/Launcher3/quickstep/res/values/strings.xml": {
+    "upstream": "d201f6c5495b535be13593628904d5dc1933ce5bdb4ddf8127692f46fd61afeb",
+    "result": "c4592219b726aac0fbf4ed8ff1f8ba751aba45ab1f37ab0f1ee9787da6cb41de",
+    "source": "patches/packages/apps/Launcher3/quickstep/res/values/strings.xml.patch"
+  },
+  "packages/apps/Launcher3/res/values/strings.xml": {
+    "upstream": "4aa9885c8a8fe3f5156735e756885d03443127ef0995bdf945a2bce15be55b10",
+    "result": "bb773e920d67b28d57306a532ff5dd5a72f0ac7adeb66d3b696144d811b19846",
+    "source": "patches/packages/apps/Launcher3/res/values/strings.xml.patch"
+  },
+  "packages/apps/Launcher3/src_build_config/com/android/launcher3/BuildConfig.java": {
+    "upstream": "9e415a9a83b8561f668ffb35b207cc549dc5953d0670e173e76f248cbea413ba",
+    "result": "03c0155aa9519621ef653653a8bb8d00ab339185053179a4fc7622d06f54710a",
+    "source": "patches/packages/apps/Launcher3/src_build_config/com/android/launcher3/BuildConfig.java.patch"
+  },
+  "packages/apps/Settings/AndroidManifest.xml": {
+    "upstream": "1f9b4703f4639612ff3eb1b30023abd4bddefe211868b7afa6a65889af0b22ec",
+    "result": "56d0c4182425daff773e3f095257d96721d5f3deb95d79f8b089fc24f3ace767",
+    "source": "patches/packages/apps/Settings/AndroidManifest.xml.patch"
+  },
+  "packages/apps/Settings/res/values/strings.xml": {
+    "upstream": "ceabf34884c16ab4c54a1a58db67561c8bff95b51f16d5c916a105cfe38198df",
+    "result": "1e6a26a3fd99bf420f835602c4c801623c920d897fa586d3ce8bbbb012ac55e5",
+    "source": "patches/packages/apps/Settings/res/values/strings.xml.patch"
+  },
+  "packages/apps/Settings/res/values/tommyui.xml": {
+    "upstream": null,
+    "result": "c85018f16b37d5b4cbcefb976c3f34043bdc0c1c6d26efb18b02c7e3ac84a93b",
+    "source": "overlay/packages/apps/Settings/res/values/tommyui.xml"
+  },
+  "packages/apps/Settings/res/xml/firmware_version.xml": {
+    "upstream": "2e79b3549c4cc63f14e4fa950c01c3c64d433b0a200bd5749239223578ba9c57",
+    "result": "c34719e34f17e88855f61a33edc1780dd2c46d0a7cab074c69c3eea66659e37a",
+    "source": "patches/packages/apps/Settings/res/xml/firmware_version.xml.patch"
+  },
+  "packages/apps/Settings/res/xml/top_level_settings.xml": {
+    "upstream": "5a0bc0b81f3df4795cb4e789d78c5cf414ab383fc16ca422035df0672f8ca1bc",
+    "result": "157b9a81a06eac3ebcf4407935373a39031914b33c9fdba73379a0aa52f749c4",
+    "source": "patches/packages/apps/Settings/res/xml/top_level_settings.xml.patch"
+  },
+  "packages/apps/Settings/src/com/android/settings/deviceinfo/DeviceNamePreferenceController.java": {
+    "upstream": "76ab9381c39a86e25fe3cb26ae5e6d0663d8540b136ada3466090216d89d3f98",
+    "result": "2fbea71b225006073b5fe700dcadb6b050d867f87564b24cd4fc016227f58a7e",
+    "source": "patches/packages/apps/Settings/src/com/android/settings/deviceinfo/DeviceNamePreferenceController.java.patch"
+  },
+  "packages/apps/Settings/src/com/android/settings/deviceinfo/HardwareInfoPreferenceController.java": {
+    "upstream": "da39f4bd06b3ee338e4772cc16ae99ee1d3a0c58f386d916c0503b80e7782596",
+    "result": "7dbc7aac3a83728053a249933b2e8cb8d31929bb75836229267b3d5e372653b7",
+    "source": "patches/packages/apps/Settings/src/com/android/settings/deviceinfo/HardwareInfoPreferenceController.java.patch"
+  },
+  "packages/apps/Settings/src/com/android/settings/deviceinfo/StorageCategoryFragment.java": {
+    "upstream": "1454a4253e90b21ab6979b1beed40e16ec5a7a7dc4a26e0ba19e1a10d18de54d",
+    "result": "0e22c7554820b898b1a54474f870abea663b2feb50a40362328aa3e6c1da44fd",
+    "source": "patches/packages/apps/Settings/src/com/android/settings/deviceinfo/StorageCategoryFragment.java.patch"
+  },
+  "packages/apps/Settings/src/com/android/settings/deviceinfo/StorageWizardMigrateConfirm.java": {
+    "upstream": "6828c6e1417e4c8310ec16a9c0ce22c5e52eead94fcd1d4dccbd85794d26fd3b",
+    "result": "0cd24cca1b1e19a817838ba3c19be5ac9b5150bffac36f8de2fd914f05c022a6",
+    "source": "patches/packages/apps/Settings/src/com/android/settings/deviceinfo/StorageWizardMigrateConfirm.java.patch"
+  },
+  "packages/apps/Settings/src/com/android/settings/deviceinfo/storage/StorageAsyncLoader.java": {
+    "upstream": "9ddc82046010e0c68d9bcc3c68acfec49bdc1f835216c72d9f99cc0358cfde30",
+    "result": "2d3c5d8a6359e67b0bf171b840b2efe090c590c304701ef87f1b1085a107a8b2",
+    "source": "patches/packages/apps/Settings/src/com/android/settings/deviceinfo/storage/StorageAsyncLoader.java.patch"
+  },
+  "packages/apps/Settings/src/com/android/settings/deviceinfo/storage/StorageItemPreferenceController.java": {
+    "upstream": "01f1cb809c363153928ca63f6e389b5bce50c20b84caea7e37cf1da10e446935",
+    "result": "e1c2f8f2d4da3a904c044523662b3393bbc38bdcc93e3ecb38d159f9b944d5ac",
+    "source": "patches/packages/apps/Settings/src/com/android/settings/deviceinfo/storage/StorageItemPreferenceController.java.patch"
+  },
+  "packages/apps/Settings/src/com/android/settings/deviceinfo/storage/StorageUsageProgressBarPreferenceController.java": {
+    "upstream": "91e5489581d95bd3905ee084c0b31ba561c98a332e8569bf9e6bb7c25d4acbff",
+    "result": "88af1dd510903967954b20e61f91790eb253f7e048343aa18bb419d289804f87",
+    "source": "patches/packages/apps/Settings/src/com/android/settings/deviceinfo/storage/StorageUsageProgressBarPreferenceController.java.patch"
+  },
+  "packages/apps/Settings/src/com/android/settings/deviceinfo/storage/VolumeSizesLoader.java": {
+    "upstream": "f57459a2457d800237515c45f5add44d9823315e12ed0d7179f14ae2613df307",
+    "result": "c5994472caf95b46b7fe349221e31c1c64c8f107983d1e7547ecd998b4a3e633",
+    "source": "patches/packages/apps/Settings/src/com/android/settings/deviceinfo/storage/VolumeSizesLoader.java.patch"
+  },
+  "packages/apps/TommyStorage/Android.bp": {
+    "upstream": null,
+    "result": "a5912a78b8d763203b6d984264249ecdc7273f0e2cc9991a48997762474f859c",
+    "source": "overlay/packages/apps/TommyStorage/Android.bp"
+  },
+  "packages/apps/TommyStorage/AndroidManifest.xml": {
+    "upstream": null,
+    "result": "84643d9367efb1e44b8b228ec43e7f317c383a0b7e8c215dd35a6dba0c4229f8",
+    "source": "overlay/packages/apps/TommyStorage/AndroidManifest.xml"
+  },
+  "packages/apps/TommyStorage/privapp-permissions-tommy-storage.xml": {
+    "upstream": null,
+    "result": "01ab218c20e6d7bb0c7036fc095ce7e405d8e8f4a8bf62e112bf021cb2f32657",
+    "source": "overlay/packages/apps/TommyStorage/privapp-permissions-tommy-storage.xml"
+  },
+  "packages/apps/TommyStorage/res/drawable/ic_storage.xml": {
+    "upstream": null,
+    "result": "cce7ae9718fd5e6f34c34397c8d192784dd7ad673af011a8fc36efe94030109c",
+    "source": "overlay/packages/apps/TommyStorage/res/drawable/ic_storage.xml"
+  },
+  "packages/apps/TommyStorage/res/values/styles.xml": {
+    "upstream": null,
+    "result": "4bd802eb69f21e4f113f024efa657fad809deac0734bbb56d373a1f52b1c0f87",
+    "source": "overlay/packages/apps/TommyStorage/res/values/styles.xml"
+  },
+  "packages/apps/TommyStorage/src/com/tommyui/storage/AboutTommy.java": {
+    "upstream": null,
+    "result": "27e8d3e74f6f11cfe9459a2f4d93da4cefcfba935994670eaa610f2e53d64c5e",
+    "source": "overlay/packages/apps/TommyStorage/src/com/tommyui/storage/AboutTommy.java"
+  },
+  "packages/apps/TommyStorage/src/com/tommyui/storage/MainActivity.java": {
+    "upstream": null,
+    "result": "37fb6911367ff23ecf165b815f4ed0a9eb777fa64fbc5455a45679b427dc69fe",
+    "source": "overlay/packages/apps/TommyStorage/src/com/tommyui/storage/MainActivity.java"
+  },
+  "packages/apps/TommyStorage/src/com/tommyui/storage/MoveRules.java": {
+    "upstream": null,
+    "result": "ec389eb1fc1cd66fd597592f12a15e05934b49744b429f80200711448e101a09",
+    "source": "overlay/packages/apps/TommyStorage/src/com/tommyui/storage/MoveRules.java"
+  },
+  "packages/apps/TommyStorage/src/com/tommyui/storage/NewAppReceiver.java": {
+    "upstream": null,
+    "result": "98fbf2517fe3b927cb92ef1aca178afbe69192836a9a801e83008fb80c5c766f",
+    "source": "overlay/packages/apps/TommyStorage/src/com/tommyui/storage/NewAppReceiver.java"
+  },
+  "packages/apps/TommyStorage/src/com/tommyui/storage/StorageActions.java": {
+    "upstream": null,
+    "result": "7f04c66acd720ff02d71c5e3c3b891f5a1757816897c134c3c2c9d891dc2dd6e",
+    "source": "overlay/packages/apps/TommyStorage/src/com/tommyui/storage/StorageActions.java"
+  },
+  "packages/apps/TommyStorage/tests/com/tommyui/storage/MoveRulesTest.java": {
+    "upstream": null,
+    "result": "9be5fa37f9c1de8f7e77b2ea0a46cd9f71d4ed8e28d3720adf4f3c5b4e4e1dc9",
+    "source": "overlay/packages/apps/TommyStorage/tests/com/tommyui/storage/MoveRulesTest.java"
+  },
+  "system/vold/VolumeManager.cpp": {
+    "upstream": "46c69666a5b0c32b964c38a6a060b6870cf1f5e6676992d397b2f3cb545ca002",
+    "result": "5006d0f313c7729baf414de05f128c7b3fbc24fd147473aa49315aae439d3d6a",
+    "source": "patches/system/vold/VolumeManager.cpp.patch"
+  },
+  "system/vold/main.cpp": {
+    "upstream": "2666b700f49771423ef274f57b16a9211cca51f9ac5b3987c5204764341d555a",
+    "result": "e8ad59944b54ac80d4a7e5bf85582437fd83a48d2cef88b02800c6654d9817bd",
+    "source": "patches/system/vold/main.cpp.patch"
+  }
+}

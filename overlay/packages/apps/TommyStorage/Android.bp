@@ -1,0 +1,21 @@
+android_app {
+    name: "TommyStorage",
+    srcs: ["src/**/*.java"],
+    resource_dirs: ["res"],
+    manifest: "AndroidManifest.xml",
+    platform_apis: true,
+    certificate: "platform",
+    system_ext_specific: true,
+    privileged: true,
+    required: ["privapp-permissions-tommy-storage"],
+    optimize: { enabled: true },
+    dex_preopt: { enabled: true, app_image: true },
+}
+
+prebuilt_etc {
+    name: "privapp-permissions-tommy-storage",
+    src: "privapp-permissions-tommy-storage.xml",
+    sub_dir: "permissions",
+    filename_from_src: true,
+    system_ext_specific: true,
+}

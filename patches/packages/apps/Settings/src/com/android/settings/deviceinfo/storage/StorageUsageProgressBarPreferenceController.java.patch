@@ -1,0 +1,70 @@
+--- a/packages/apps/Settings/src/com/android/settings/deviceinfo/storage/StorageUsageProgressBarPreferenceController.java
++++ b/packages/apps/Settings/src/com/android/settings/deviceinfo/storage/StorageUsageProgressBarPreferenceController.java
+@@ -75,7 +75,7 @@
+ 
+     private void getStorageStatsAndUpdateUi() {
+         // Use cached data for both total size and used size.
+-        if (mStorageEntry != null && mStorageEntry.isMounted() && mStorageEntry.isPrivate()) {
++        if (mStorageEntry != null && mStorageEntry.isMounted() && mStorageEntry.isDefaultInternalStorage()) {
+             StorageCacheHelper.StorageCache cachedData = mStorageCacheHelper.retrieveCachedSize();
+             mTotalBytes = cachedData.totalSize;
+             mUsedBytes = cachedData.totalUsedSize;
+@@ -83,37 +83,45 @@
+             updateState(mUsageProgressBarPreference);
+         }
+         // Get the latest data from StorageStatsManager.
++        final StorageEntry selected = mStorageEntry;
+         ThreadUtils.postOnBackgroundThread(() -> {
++            long total, used;
+             try {
+-                if (mStorageEntry == null || !mStorageEntry.isMounted()) {
++                if (selected == null || !selected.isMounted()) {
+                     throw new IOException();
+                 }
+ 
+-                if (mStorageEntry.isPrivate()) {
++                if (selected.isDefaultInternalStorage()) {
+                     // StorageStatsManager can only query private storages.
+-                    mTotalBytes = mStorageStatsManager.getTotalBytes(mStorageEntry.getFsUuid());
+-                    mUsedBytes = mTotalBytes
+-                            - mStorageStatsManager.getFreeBytes(mStorageEntry.getFsUuid());
++                    total = mStorageStatsManager.getTotalBytes(selected.getFsUuid());
++                    used = total
++                            - mStorageStatsManager.getFreeBytes(selected.getFsUuid());
+                 } else {
+-                    final File rootFile = mStorageEntry.getPath();
++                    final File rootFile = selected.getPath();
+                     if (rootFile == null) {
+-                        Log.d(TAG, "Mounted public storage has null root path: " + mStorageEntry);
++                        Log.d(TAG, "Mounted public storage has null root path: " + selected);
+                         throw new IOException();
+                     }
+-                    mTotalBytes = rootFile.getTotalSpace();
+-                    mUsedBytes = mTotalBytes - rootFile.getFreeSpace();
++                    total = rootFile.getTotalSpace();
++                    used = total - rootFile.getFreeSpace();
+                 }
+             } catch (IOException e) {
+                 // The storage device isn't present.
+-                mTotalBytes = 0;
+-                mUsedBytes = 0;
++                total = 0;
++                used = 0;
+             }
+ 
+             if (mUsageProgressBarPreference == null) {
+                 return;
+             }
+-            mIsUpdateStateFromSelectedStorageEntry = true;
+-            ThreadUtils.postOnMainThread(() -> updateState(mUsageProgressBarPreference));
++            final long bytes = total, usedBytes = used;
++            ThreadUtils.postOnMainThread(() -> {
++                if (selected != mStorageEntry) return;
++                mTotalBytes = bytes;
++                mUsedBytes = Math.max(0, Math.min(bytes, usedBytes));
++                mIsUpdateStateFromSelectedStorageEntry = true;
++                updateState(mUsageProgressBarPreference);
++            });
+         });
+     }
+ 

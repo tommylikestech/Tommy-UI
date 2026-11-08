@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tommyui.storage" android:versionCode="1004" android:versionName="1.003"
+    android:installLocation="internalOnly">
+    <uses-sdk android:minSdkVersion="36" android:targetSdkVersion="36" />
+    <uses-permission android:name="android.permission.MOVE_PACKAGE" />
+    <!-- Android also requires this signature permission to read move progress. -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- getPackageCandidateVolumes checks for protected admins across users. -->
+    <uses-permission android:name="android.permission.MANAGE_USERS" />
+    <!-- The protected-admin query can inspect other profiles; signature grant. -->
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <application android:label="Tommy Storage" android:icon="@drawable/ic_storage"
+        android:theme="@style/AppTheme" android:allowBackup="false"
+        android:supportsRtl="true" android:usesCleartextTraffic="false">
+        <receiver android:name=".NewAppReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <activity android:name=".AboutTommy" android:label="About Tommy UI" android:exported="true" />
+        <activity android:name=".MainActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- Settings discovers this only when the app is bundled in a system image. -->
+            <intent-filter>
+                <action android:name="com.android.settings.action.EXTRA_SETTINGS" />
+            </intent-filter>
+            <meta-data android:name="com.android.settings.category"
+                android:value="com.android.settings.category.ia.storage" />
+            <meta-data android:name="com.android.settings.title" android:value="Tommy Storage" />
+            <meta-data android:name="com.android.settings.summary" android:value="Move apps between your phone and SD card" />
+        </activity>
+    </application>
+</manifest>

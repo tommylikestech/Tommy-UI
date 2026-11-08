@@ -1,0 +1,19 @@
+--- a/frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/v2/model/InstallStages.kt
++++ b/frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/v2/model/InstallStages.kt
+@@ -33,10 +33,16 @@
+         const val STAGE_INSTALLING = 4
+         const val STAGE_SUCCESS = 5
+         const val STAGE_FAILED = 6
++        const val STAGE_CHOOSE_STORAGE = 7
+     }
+ }
+ 
+ class InstallStaging : InstallStage(STAGE_STAGING)
++
++class InstallChooseStorage(
++    val packageName: String,
++    val choices: List<com.android.packageinstaller.InstallDestinations.Option>
++) : InstallStage(STAGE_CHOOSE_STORAGE)
+ 
+ class InstallReady : InstallStage(STAGE_READY)
+ 

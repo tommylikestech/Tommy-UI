@@ -1,0 +1,9 @@
+{
+  "version": "v1.003",
+  "base_release": "v1.002",
+  "build_number": "TommyUI.v1.003.dev.20261106",
+  "build_datetime": 1794032000,
+  "manifest_commit": "f4c1bb87279ebd557af20ad303fa889e1c50b68d",
+  "baseline": "android-security-16.0.0_r8",
+  "security_patch": "2025-08-05"
+}

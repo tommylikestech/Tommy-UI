@@ -1,0 +1,17 @@
+--- a/packages/apps/Settings/res/xml/firmware_version.xml
++++ b/packages/apps/Settings/res/xml/firmware_version.xml
+@@ -20,6 +20,14 @@
+     xmlns:settings="http://schemas.android.com/apk/res-auto"
+     android:title="@string/firmware_version"
+     settings:keywords="@string/keywords_android_version">
++
++    <!-- Tommy UI branding; Android and security versions below remain truthful. -->
++    <Preference
++        android:key="tommyui_version"
++        android:title="@string/tommyui_version_title"
++        android:summary="@string/tommyui_version_summary"
++        android:selectable="false"
++        settings:enableCopying="true"/>
+ 
+     <!-- Android version -->
+     <Preference

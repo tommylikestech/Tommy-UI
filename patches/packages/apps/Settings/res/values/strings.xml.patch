@@ -1,0 +1,14 @@
+--- a/packages/apps/Settings/res/values/strings.xml
++++ b/packages/apps/Settings/res/values/strings.xml
+@@ -679,9 +679,9 @@
+     <string name="remove">Remove</string>
+ 
+     <!-- Title of the Settings activity shown within the application itself. -->
+-    <string name="settings_label">Settings</string>
++    <string name="settings_label">Tommy UI Settings</string>
+     <!-- Title of the Settings activity shown in the Launcher. [CHAR LIMIT=20] -->
+-    <string name="settings_label_launcher">Settings</string>
++    <string name="settings_label_launcher">Tommy UI Settings</string>
+     <!-- Label for option to select a settings panel as a shortcut -->
+     <string name="settings_shortcut">Settings shortcut</string>
+     <!-- Wireless controls settings screen, setting check box label -->
