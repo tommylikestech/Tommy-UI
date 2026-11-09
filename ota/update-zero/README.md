@@ -12,6 +12,8 @@ Development preflight for the XT2413-2 on `TommyUI.v1.003.dev.20261106`. The tit
 
 The separate v1.004 candidate uses numeric build `TommyUI.v1.004.dev.20261108` so the updater can distinguish it from v1.003. Its system image includes the Phone and Messaging warnings. The candidate is an incremental, signed Android payload. For fixed firmware partitions it contains source-copy operations and hashes. It copies firmware from the running phone into the inactive slot, including bootloaders and verified-boot partitions. The manufacturer's newer factory package supplies partition names only.
 
+Android's update engine rejects a partial update with error 23 (manifest parse error), just after the manifest downloads, unless every partition in it carries a `version` timestamp. The builder stamps system and each firmware copy with the target's `ro.system.build.date.utc` and refuses to sign a manifest with an unversioned partition. `update_engine_client --verify` checks signatures and source hashes only, so it does not catch a missing version.
+
 The opt-in **Check staged OTA trial** button uses a separate signed Pages feed. **Stage trial update** requests `SWITCH_SLOT_ON_REBOOT=0`. Staging writes slot B and may create snapshots. A successful stage still requires checking boot control, target partitions and snapshot status before a separate activation decision. Cold boot, fallback and snapshot merge require hardware validation.
 
 For maintainers reproducing the exact audited configuration:

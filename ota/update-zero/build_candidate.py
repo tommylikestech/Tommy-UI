@@ -43,7 +43,25 @@ def pb(raw):
     return '"' + "".join(f"\\{v:03o}" for v in raw) + '"'
 
 
-def copy_operations(factory, inventory):
+def build_date(props):
+    """Read the timestamp the update engine compares against the phone's system partition."""
+    dates = [p.partition("=")[2] for p in props if p.startswith("ro.system.build.date.utc=")]
+    if len(dates) != 1 or not re.fullmatch(r"[1-9][0-9]*", dates[0]):
+        raise ValueError("Missing system build date")
+    return int(dates[0])
+
+
+def unversioned(manifest):
+    """Name partitions in a decoded manifest that lack the version a partial update requires."""
+    missing = []
+    for block in re.split(r"^partitions \{$", manifest, flags=re.M)[1:]:
+        body = re.split(r"^\}$", block, maxsplit=1, flags=re.M)[0]
+        if not re.search(r'^  version: "[0-9]+"$', body, re.M):
+            missing.append(re.search(r'^  partition_name: "(.*)"$', body, re.M).group(1))
+    return missing
+
+
+def copy_operations(factory, inventory, version):
     names = firmware_names(factory)
     covered = set()
     updates = []
@@ -66,7 +84,8 @@ def copy_operations(factory, inventory):
         digest = pb(bytes.fromhex(source))
         info = f"size:{size} hash:{digest}"
         ext = f"start_block:0 num_blocks:{size // 4096}"
-        updates.append(f'partitions {{ partition_name:"{part}" old_partition_info{{{info}}} '
+        updates.append(f'partitions {{ partition_name:"{part}" version:"{version}" '
+                       f'old_partition_info{{{info}}} '
                        f'new_partition_info{{{info}}} operations {{ type:SOURCE_COPY '
                        f'src_extents{{{ext}}} dst_extents{{{ext}}} src_sha256_hash:{digest} }} }}')
     if covered != names:
@@ -81,10 +100,17 @@ def main():
     args = parser.parse_args()
     if sha(args.source_system) != SOURCE_HASH:
         parser.error("Expected the original v1.003 system image")
-    props = subprocess.check_output(["debugfs", "-R", "cat /system/build.prop", args.target_system], text=True)
-    if "ro.build.version.incremental=TommyUI.v1.004.dev.20261108" not in props.splitlines():
+    def read_props(image):
+        return subprocess.check_output(["debugfs", "-R", "cat /system/build.prop", image], text=True).splitlines()
+    props = read_props(args.target_system)
+    if "ro.build.version.incremental=TommyUI.v1.004.dev.20261108" not in props:
         parser.error("Unexpected test target build")
-    copies = copy_operations(args.factory, args.inventory)
+    # The update engine rejects a partial update with error 23 unless every partition carries a
+    # version, and with error 51 when one is older than the phone's ro.<partition>.build.date.utc.
+    version = build_date(props)
+    if version < build_date(read_props(args.source_system)):
+        parser.error("Target build is older than the source")
+    copies = copy_operations(args.factory, args.inventory, version)
     host = args.aosp / "out/host/linux-x86/bin"
     generator = host / "delta_generator"
     certdir = args.aosp / "build/make/target/product/security"
@@ -107,6 +133,7 @@ def main():
             f"--new_partitions={args.target_system}",f"--out_file={system}",
             f"--dynamic_partition_info_file={dynamic}","--is_partial_update=true",
             "--major_version=2","--minor_version=8","--max_timestamp=1794182400",
+            f"--partition_timestamps=system:{version}",
             "--max_threads=3","--enable_puffdiff=false","--enable_zucchini=false")
         # Replay the generated system delta with the host implementation before adding firmware.
         replay = work / "replayed.img"
@@ -123,6 +150,9 @@ def main():
                 raise ValueError("Unexpected unsigned delta")
             text = protobuf("decode",inp.read(length))
             manifest = protobuf("encode",text+b"\n"+"\n".join(copies).encode())
+            missing = unversioned(protobuf("decode",manifest).decode())
+            if missing:
+                raise ValueError("Partitions without a version: " + ", ".join(missing))
             out.write(struct.pack(">4sQQI",magic,major,len(manifest),0))
             out.write(manifest)
             shutil.copyfileobj(inp,out)
