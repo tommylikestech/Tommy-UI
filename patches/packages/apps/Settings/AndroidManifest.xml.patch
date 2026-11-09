@@ -4,7 +4,7 @@
            xmlns:tools="http://schemas.android.com/tools"
            package="com.android.settings"
            coreApp="true"
-+          android:versionCode="37"
++          android:versionCode="38"
            android:sharedUserId="android.uid.system">
  
      <original-package android:name="com.android.settings"/>

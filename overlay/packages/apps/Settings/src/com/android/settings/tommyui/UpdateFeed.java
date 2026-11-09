@@ -97,3 +97,16 @@ public final class UpdateFeed {
         } finally { c.disconnect(); }
     }
 }
+
+/** The engine status and a same-boot target audit together determine the next trial action. */
+enum TrialFinish {
+    NORMAL, WAIT, SELECT, BUSY, RESTART;
+
+    static TrialFinish action(boolean pending, boolean audited, boolean activationRequested,
+            boolean selecting, int engineStatus) {
+        if (!audited) return pending ? WAIT : NORMAL;
+        if (engineStatus == 6 && activationRequested) return RESTART;
+        if (engineStatus == 0 && !selecting) return SELECT;
+        return BUSY;
+    }
+}

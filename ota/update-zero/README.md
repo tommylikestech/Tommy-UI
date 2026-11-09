@@ -24,3 +24,19 @@ For maintainers reproducing the exact audited configuration:
 2. Run `bash ota/update-zero/build_system.sh /path/to/aosp` in the source repository.
 3. Run `python3 ota/update-zero/build_candidate.py AOSP FACTORY INVENTORY SOURCE_SYSTEM TARGET_SYSTEM PRIVATE_OUTPUT` on Linux. Use the original v1.003 image and the just-built target. The factory recipe is for XT2413-2 fogona_g retail revision U1TFS34.100-35-14-1-21. The source phone's vendor revision is U1TFS34.100-35-14-1-12.
 4. Recheck the inventory immediately before enrollment. Verify the **new** `candidate.metadata` using the device's `update_engine_client --verify` and confirm unchanged, omitted partitions match across both slots. Enroll only the audited device. The normal stable feed remains independent.
+
+## Diagnosing an already-staged R2 (private hardware test)
+
+The R2 timestamp fix addresses manifest error 23. A completed staging attempt uses
+`SWITCH_SLOT_ON_REBOOT=0`: engine result **52** means the payload was applied while the old slot stayed selected.
+The old Settings client stored a per-build staging flag and disabled its Restart action indefinitely.
+That flag alone cannot establish what is currently on the inactive slot. Both public feeds remain withdrawn.
+
+For the original XT2413-2 test unit, use the local R2 metadata whose SHA-256 is
+`026f47d7579541683dc4a911f6d32433627e625c6ac56e0ff8f6db6e2d784c51`.
+
+1. With USB debugging connected, run `python ota/update-zero/audit_staged_r2.py --serial SERIAL candidate-r2.metadata` from the repository root. This checks the running build and slot, Android's snapshot and postinstall state, the target system hash, fixed firmware pairs and unchanged logical partition extents. Record the **first failing check** if it stops. A normal reboot while slot A is selected starts v1.003 again.
+2. With the private Settings repair APK installed, repeat the command with `--authorize-ui` to prepare the finish action. This mode may map staged snapshots, makes a verified copy of the metadata available to Android, and grants a ticket for the current boot. It leaves boot selection unchanged.
+3. Reopen **Settings → About Tommy UI → Update Tommy UI**. **Finish verified trial** requests a separate confirmation to have Android finish the update and select the audited target. **Restart into v1.004** becomes available when Android reports that a reboot is required. If either action fails, preserve its exact error and the update-engine log before attempting recovery.
+
+Tests cover the audit and UI state transitions with simulated inputs. A successful target boot, fallback and snapshot merge still require testing on hardware. No public rollout is implied by this repair.

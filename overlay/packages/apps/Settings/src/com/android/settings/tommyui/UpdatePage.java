@@ -13,7 +13,7 @@ public final class UpdatePage extends Activity {
     private Button install, check;
     private UpdateFeed candidate;
     private UpdateEngine engine;
-    private boolean bound, applying, trial;
+    private boolean bound, applying, trial, selecting;
     private int requestId;
     private int engineState = -1;
 
@@ -95,6 +95,42 @@ public final class UpdatePage extends Activity {
     private boolean trialPending() {
         return Build.VERSION.INCREMENTAL.equals(getPreferences(MODE_PRIVATE).getString("stagingSource", ""));
     }
+    private String verifiedTicket() {
+        if (!"TommyUI.v1.003.dev.20261106".equals(Build.VERSION.INCREMENTAL)
+                || !"XT2413-2".equals(SystemProperties.get("ro.boot.hardware.sku"))
+                || !"_a".equals(SystemProperties.get("ro.boot.slot_suffix"))) return "";
+        int boot = android.provider.Settings.Global.getInt(getContentResolver(),
+                android.provider.Settings.Global.BOOT_COUNT, -1);
+        String ticket = "r2:" + boot;
+        String value = android.provider.Settings.Global.getString(getContentResolver(), "tommyui_verified_target");
+        return boot >= 0 && (ticket.equals(value) || (ticket + ":selected").equals(value)) ? value : "";
+    }
+    private TrialFinish finishAction() {
+        String ticket = verifiedTicket();
+        return TrialFinish.action(trialPending(), !ticket.isEmpty(), ticket.endsWith(":selected")
+                || (!ticket.isEmpty() && ticket.equals(getPreferences(MODE_PRIVATE).getString("activationTicket", ""))),
+                selecting, engineState);
+    }
+    private void selectVerifiedTarget() {
+        new AlertDialog.Builder(this).setTitle("Select verified v1.004 for next boot?")
+            .setMessage(UpdateCheck.NOTICE + "\n\nAndroid will finish the staged update and select slot B. "
+                    + "The phone stays on until you choose Restart. First boot and rollback are experimental.")
+            .setNegativeButton("Cancel",null).setPositiveButton("I understand. Select slot B",(d,i)-> {
+                if (finishAction()!=TrialFinish.SELECT) return;
+                String ticket = verifiedTicket();
+                if (ticket.isEmpty() || !getPreferences(MODE_PRIVATE).edit()
+                        .putString("activationTicket", ticket).commit()) return;
+                selecting=true; updateButton();
+                progress.setText("Asking Android to finish the verified update…");
+                try {
+                    engine.setShouldSwitchSlotOnReboot("/data/misc/tommyui-r2-" + ticket.split(":")[1] + ".metadata");
+                } catch (RuntimeException e) {
+                    selecting=false;
+                    getPreferences(MODE_PRIVATE).edit().remove("activationTicket").apply();
+                    progress.setText("Could not finish the update: " + e.getMessage()); updateButton();
+                }
+            }).show();
+    }
     private void refresh() { refresh(false); }
     private void refresh(boolean testing) {
         final int currentRequest = ++requestId;
@@ -120,19 +156,34 @@ public final class UpdatePage extends Activity {
         },"TommyReleaseCheck").start();
     }
     private void updateButton() {
-        boolean pending = trialPending();
-        boolean ready = engineState == 6 && !pending;
-        install.setText(pending ? "Trial in progress or staged" : ready ? "Restart to finish" : trial ? "Stage trial update" : "Download and install");
-        install.setEnabled(bound && !pending && (ready || (engineState==0 && !applying && candidate!=null
+        TrialFinish action = finishAction();
+        if (action != TrialFinish.NORMAL) {
+            switch (action) {
+                case WAIT: install.setText("Trial pending · target audit required"); break;
+                case SELECT: install.setText("Finish verified trial"); break;
+                case BUSY: install.setText("Checking update engine…"); break;
+                case RESTART: install.setText("Restart into v1.004"); break;
+                default: break;
+            }
+            install.setEnabled(bound && (action==TrialFinish.SELECT || action==TrialFinish.RESTART));
+            return;
+        }
+        boolean ready = engineState == 6;
+        install.setText(ready ? "Restart to finish" : trial ? "Stage trial update" : "Download and install");
+        install.setEnabled(bound && (ready || (engineState==0 && !applying && candidate!=null
             && UpdateCheck.eligible(candidate) && UpdateFeed.ordinal(candidate.version) >
                     UpdateFeed.ordinal(UpdateFeed.installed(Build.VERSION.INCREMENTAL)))));
     }
     private void installOrRestart() {
-        if (trialPending()) return;
+        TrialFinish action=finishAction();
+        if (action==TrialFinish.SELECT) { selectVerifiedTarget(); return; }
+        if (action==TrialFinish.WAIT || action==TrialFinish.BUSY) return;
         if (engineState == 6) {
             new AlertDialog.Builder(this).setMessage(UpdateCheck.NOTICE + "\n\nRestart to finish the system update?")
-                .setNegativeButton("Later",null).setPositiveButton("I understand. Restart",(d,i)->
-                     getSystemService(PowerManager.class).reboot(null)).show();
+                .setNegativeButton("Later",null).setPositiveButton("I understand. Restart",(d,i)-> {
+                    if (engineState==6 && finishAction()==action)
+                        getSystemService(PowerManager.class).reboot(null);
+                }).show();
             return;
         }
         UpdateFeed r = candidate;
@@ -155,14 +206,24 @@ public final class UpdatePage extends Activity {
     private final UpdateEngineCallback callback = new UpdateEngineCallback() {
         public void onStatusUpdate(int status,float percent) {
             engineState=status;
-            if (status==6) progress.setText(trialPending() ? "Trial staged. Leave slot A selected until the target is verified." : "Ready to restart.");
+            if (status==6) progress.setText(finishAction()==TrialFinish.RESTART
+                    ? "Android is ready to boot the verified update."
+                    : trialPending() ? "Trial pending. Verify the target before restarting." : "Ready to restart.");
             else if (status>0) progress.setText(String.format(Locale.getDefault(),"System update · %d%%",Math.round(100*percent)));
             updateButton();
         }
         public void onPayloadApplicationComplete(int error) {
             applying=false;
-            if (trialPending() && (error==0 || error==UpdateEngine.ErrorCodeConstants.UPDATED_BUT_NOT_ACTIVE)) {
-                progress.setText("Trial staged. Keep slot A selected until slot B is verified.");
+            boolean finishing = selecting || (!verifiedTicket().isEmpty() && verifiedTicket().equals(
+                    getPreferences(MODE_PRIVATE).getString("activationTicket","")));
+            selecting=false;
+            if (finishing && error==0) {
+                progress.setText("Activation finished. Waiting for Android’s restart-ready status.");
+            } else if (finishing && error!=0) {
+                getPreferences(MODE_PRIVATE).edit().remove("activationTicket").apply();
+                progress.setText("Activation did not finish (code "+error+").");
+            } else if (trialPending() && error==UpdateEngine.ErrorCodeConstants.UPDATED_BUT_NOT_ACTIVE) {
+                progress.setText("Staging finished. Verify slot B before selecting it for restart.");
             } else if (error!=0) {
                 getPreferences(MODE_PRIVATE).edit().remove("stagingSource").apply();
                 progress.setText("Android could not install the update (code "+error+").");

@@ -15,7 +15,10 @@ jobs:
           src=overlay/packages/apps/Settings
           mkdir -p "$RUNNER_TEMP/feed-classes"
           openssl pkey -pubin -in feed-public.pem -outform DER | cmp - "$src/res/raw/tommy_feed_key.der"
-          javac -d "$RUNNER_TEMP/feed-classes" "$src/src/com/android/settings/tommyui/UpdateFeed.java" tests/UpdateFeedTest.java
+          javac -d "$RUNNER_TEMP/feed-classes" "$src/src/com/android/settings/tommyui/UpdateFeed.java" tests/UpdateFeedTest.java tests/TrialFinishTest.java
+          java -cp "$RUNNER_TEMP/feed-classes" com.android.settings.tommyui.TrialFinishTest
+          python3 tests/test_update_zero_candidate.py
+          python3 tests/test_r2_audit.py
           java -cp "$RUNNER_TEMP/feed-classes" com.android.settings.tommyui.UpdateFeedTest docs/version.txt "$src/res/raw/tommy_feed_key.der"
           if [ -f docs/trial/version.txt ]; then
             java -cp "$RUNNER_TEMP/feed-classes" com.android.settings.tommyui.UpdateFeedTest docs/trial/version.txt "$src/res/raw/tommy_feed_key.der"

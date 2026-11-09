@@ -22,7 +22,11 @@ try {
     Device @('shell','su','0','cp',$stage,$verify)
     Device @('shell','su','0','chcon','u:object_r:ota_package_file:s0',$verify)
     Device @('shell','su','0','chmod','644',$verify)
-    Device @('shell','su','0','update_engine_client','--verify',"--metadata=$verify")
+    $result = (& adb -s $Serial shell su 0 update_engine_client --verify "--metadata=$verify" 2>&1 | Out-String)
+    if ($LASTEXITCODE -ne 0 -or $result -notmatch 'Payload is applicable\.' -or $result -match 'Payload is not applicable\.') {
+        throw "Android did not confirm payload applicability. $result"
+    }
+    $result.Trim()
 } finally {
     & adb -s $Serial shell su 0 rm -f $stage $verify
     if (Test-Path -LiteralPath $local) { Remove-Item -LiteralPath $local }
