@@ -1,3 +1,5 @@
+USE AT YOUR OWN RISK. Calling, texting, cell data and cell service might not work. This operating system is very unstable and might break. Flash at your own risk. We do not guarantee that anything works, and we are not responsible if you break your device.
+
 Tommy UI v1.003 USB update for XT2413-2 on v1.002
 
 Extract the entire ZIP on Windows. Install Python 3.11+ with Tk and Android platform-tools on PATH. Connect the unlocked phone with USB debugging enabled. Open Tommy-USB-Updater.pyw, check the connected phone and confirm the offered update. Keep USB connected through restart.

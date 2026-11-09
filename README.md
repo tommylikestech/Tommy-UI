@@ -1,3 +1,15 @@
+# USE AT YOUR OWN RISK
+
+> [!CAUTION]
+> ## **Calling and texting might not work.**
+> ## **Cell data and cell service might not work.**
+> ## **This operating system is very unstable and might break.**
+> ## **Flash at your own risk. Use at your own risk.**
+> ## **We do not guarantee that anything works.**
+> ## **We are not responsible if you break your device.**
+>
+> Tommy UI is an experimental build with no warranty of any kind. Back up anything you care about before you flash it.
+
 # ![Tommy UI](docs/assets/tommy-ui.png)
 
 Tommy UI brings Android 16 to the **Motorola Moto G Play 2024** and lets you move eligible apps to a microSD card. It’s an experimental community build for the **North American retail XT2413-2** (codename `fogona`).
