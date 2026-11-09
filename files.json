@@ -121,8 +121,13 @@
   },
   "packages/apps/Settings/AndroidManifest.xml": {
     "upstream": "1f9b4703f4639612ff3eb1b30023abd4bddefe211868b7afa6a65889af0b22ec",
-    "result": "56d0c4182425daff773e3f095257d96721d5f3deb95d79f8b089fc24f3ace767",
+    "result": "34ebd35be7f246b96e83b56b41b83f47edf219f32d9cc1d6f26d746e59fdb044",
     "source": "patches/packages/apps/Settings/AndroidManifest.xml.patch"
+  },
+  "packages/apps/Settings/res/raw/tommy_feed_key.der": {
+    "upstream": null,
+    "result": "a4fad7f174e7c45f6e80fa541bcd887cf1cc95f24c1bc804dd65d35508dd149b",
+    "source": "overlay/packages/apps/Settings/res/raw/tommy_feed_key.der"
   },
   "packages/apps/Settings/res/values/strings.xml": {
     "upstream": "ceabf34884c16ab4c54a1a58db67561c8bff95b51f16d5c916a105cfe38198df",
@@ -184,6 +189,21 @@
     "result": "c5994472caf95b46b7fe349221e31c1c64c8f107983d1e7547ecd998b4a3e633",
     "source": "patches/packages/apps/Settings/src/com/android/settings/deviceinfo/storage/VolumeSizesLoader.java.patch"
   },
+  "packages/apps/Settings/src/com/android/settings/tommyui/UpdateCheck.java": {
+    "upstream": null,
+    "result": "8ddee6f70a76195ca6e0208caa4b733ad56fb394924609f9f88e238dbd4d58cb",
+    "source": "overlay/packages/apps/Settings/src/com/android/settings/tommyui/UpdateCheck.java"
+  },
+  "packages/apps/Settings/src/com/android/settings/tommyui/UpdateFeed.java": {
+    "upstream": null,
+    "result": "1e16d0a4d9143fb6c8d00e8956641e492566eabcb5fbe350e8577ac58fa02e3c",
+    "source": "overlay/packages/apps/Settings/src/com/android/settings/tommyui/UpdateFeed.java"
+  },
+  "packages/apps/Settings/src/com/android/settings/tommyui/UpdatePage.java": {
+    "upstream": null,
+    "result": "89c2ec4c4213e2b1cd422f77f471661802ebc9e050e37233713869c9609e1530",
+    "source": "overlay/packages/apps/Settings/src/com/android/settings/tommyui/UpdatePage.java"
+  },
   "packages/apps/TommyStorage/Android.bp": {
     "upstream": null,
     "result": "a5912a78b8d763203b6d984264249ecdc7273f0e2cc9991a48997762474f859c",
@@ -211,7 +231,7 @@
   },
   "packages/apps/TommyStorage/src/com/tommyui/storage/AboutTommy.java": {
     "upstream": null,
-    "result": "27e8d3e74f6f11cfe9459a2f4d93da4cefcfba935994670eaa610f2e53d64c5e",
+    "result": "9d1ddbd209cf6101b5760fc3c73e430e3858c66fe8f0c879efec9f825858ac95",
     "source": "overlay/packages/apps/TommyStorage/src/com/tommyui/storage/AboutTommy.java"
   },
   "packages/apps/TommyStorage/src/com/tommyui/storage/MainActivity.java": {

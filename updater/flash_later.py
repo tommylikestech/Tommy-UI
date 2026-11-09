@@ -25,7 +25,7 @@ def main():
     if not image.exists() and args.image is None:
         image = folder.parent / "dist" / IMAGE
     manifest = json.loads((image.parent / "Tommy-UI-v1.003-build.json").read_text(encoding="utf-8"))
-    if (manifest["build_number"] != "TommyUI.v1.003.dev.20261106" or
+    if (manifest["build_number"] != "TommyUI.v1.003.dev.20261108" or
             image.stat().st_size != manifest["image_bytes"] or sha256(image) != manifest["image_sha256"]):
         raise SystemExit("Image verification failed.")
 

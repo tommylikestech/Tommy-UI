@@ -16,7 +16,7 @@ class UsbUpdaterTest(unittest.TestCase):
         script = Path(__file__).resolve().parents[1] / "updater/Tommy-USB-Updater.pyw"
         self.image = folder / "system.img"
         (folder / "Tommy-UI-v1.003-build.json").write_text(json.dumps({
-            "build_number": "TommyUI.v1.003.dev.20261106",
+            "build_number": "TommyUI.v1.003.dev.20261108",
             "image": self.image.name, "image_sha256": "0" * 64,
         }))
         self.api = runpy.run_path(shutil.copy(script, folder))

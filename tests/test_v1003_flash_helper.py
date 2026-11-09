@@ -42,7 +42,7 @@ class FlashHelperTest(unittest.TestCase):
         self.image = self.folder / "fixture.img"
         self.image.write_bytes(bytes(8192))
         (self.folder / "Tommy-UI-v1.003-build.json").write_text(json.dumps({
-            "build_number": "TommyUI.v1.003.dev.20261106", "image_bytes": 8192,
+            "build_number": "TommyUI.v1.003.dev.20261108", "image_bytes": 8192,
             "image_sha256": hashlib.sha256(self.image.read_bytes()).hexdigest()}))
         self.fake = self.folder / "simulated-fastboot"
         self.fake.write_text(FAKE)

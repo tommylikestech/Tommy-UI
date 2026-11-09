@@ -1,7 +1,15 @@
 --- a/packages/apps/Settings/AndroidManifest.xml
 +++ b/packages/apps/Settings/AndroidManifest.xml
-@@ -3210,7 +3210,8 @@
+@@ -3208,9 +3208,16 @@
+         <activity android:name=".deviceinfo.StorageWizardFormatSlow"
+                 android:theme="@style/GlifTheme.Light"
                  android:exported="false"/>
++        <activity android:name=".tommyui.UpdatePage" android:exported="true" android:label="Update Tommy UI" />
++        <receiver android:name=".tommyui.UpdateCheck$Boot" android:exported="false">
++            <intent-filter><action android:name="android.intent.action.BOOT_COMPLETED" /></intent-filter>
++        </receiver>
++        <service android:name=".tommyui.UpdateCheck" android:exported="true"
++            android:permission="android.permission.BIND_JOB_SERVICE" />
          <activity android:name=".deviceinfo.StorageWizardMigrateConfirm"
                  android:theme="@style/GlifTheme.Light"
 -                android:exported="false"/>

@@ -17,10 +17,16 @@ public class AboutTommy extends Activity {
         version.setOnClickListener(v->{long now=SystemClock.elapsedRealtime(); if(now-last>1300)taps=0; last=now;
             if(++taps==7){taps=0; constellation();}});
         TextView detail=new TextView(this); detail.setText("Android "+android.os.Build.VERSION.RELEASE+"  ·  "+android.os.Build.VERSION.INCREMENTAL); page.addView(detail);
-        Button update=new Button(this); update.setText("System update"); page.addView(update);
-        update.setOnClickListener(v->new AlertDialog.Builder(this).setTitle("Connect to USB to update")
-            .setMessage("Connect your phone to your PC with a USB cable. Enable USB debugging, then open the Tommy USB Updater included in the new flash kit.")
-            .setPositiveButton("OK",null).show());
+        Button update=new Button(this); update.setText("Update Tommy UI"); page.addView(update);
+        update.setOnClickListener(v -> {
+            android.content.Intent intent = new android.content.Intent().setClassName(
+                    "com.android.settings", "com.android.settings.tommyui.UpdatePage");
+            try { startActivity(intent); }
+            catch (android.content.ActivityNotFoundException e) {
+                new AlertDialog.Builder(this).setMessage("Install the companion Tommy Settings update to check for releases.")
+                    .setPositiveButton("OK",null).show();
+            }
+        });
     }
     private void constellation(){
         TextView sky=new TextView(this); sky.setGravity(Gravity.CENTER); sky.setTextSize(25);

@@ -113,7 +113,7 @@ def main():
         browser_manifest = run(aapt, "dump", "badging", browser)
         require("Tommy Browser" in browser_manifest and "TommyBrowser" in browser_manifest, "Browser missing")
         require(b"application/vnd.android.package-archive" in dex(browser), "APK download support missing")
-        require("Connect to USB to update".encode() in app_code, "About/update entry missing")
+        require("Update Tommy UI".encode() in app_code, "About/update entry missing")
         home = run(aapt, "dump", "xmltree", settings, "--file", "res/xml/top_level_settings.xml")
         require("about_tommy_ui" in home and "com.tommyui.storage.AboutTommy" in home, "About row or activity link missing")
         about = run(aapt, "dump", "xmltree", storage, "--file", "AndroidManifest.xml")
@@ -121,7 +121,7 @@ def main():
         require(b"ro.boot.hardware.sku" in dex(settings), "Hardware model lookup absent")
         require("ro.product.product.model=moto g play - 2024" in
                 run("debugfs", "-R", "cat /system/product/etc/build.prop", image), "Moto product model missing")
-        checks.append("About Tommy UI, USB update entry and Tommy Browser download activity verified")
+        checks.append("About Tommy UI, Pages update entry and Tommy Browser download activity verified")
         install_code = dex(installer)
         for label in ("The selected storage is no longer available for this app.", "Phone storage", "SD card"):
             require(label.encode() in install_code, "Install destination chooser missing: " + label)
