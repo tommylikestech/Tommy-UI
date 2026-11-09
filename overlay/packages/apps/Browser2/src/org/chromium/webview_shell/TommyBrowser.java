@@ -13,13 +13,25 @@ public class TommyBrowser extends Activity {
     static boolean remote(Uri u){return u!=null && u.getHost()!=null && ("https".equalsIgnoreCase(u.getScheme())||"http".equalsIgnoreCase(u.getScheme()));}
     @Override public void onCreate(Bundle state){
         super.onCreate(state); LinearLayout page=new LinearLayout(this);page.setOrientation(1);setContentView(page);
-        LinearLayout bar=new LinearLayout(this); page.addView(bar);
+        LinearLayout bar = new LinearLayout(this);
+        bar.setGravity(android.view.Gravity.CENTER_VERTICAL);
+        bar.setBackgroundColor(0xff16392e);
+        bar.setPadding(dp(10), dp(6), dp(6), dp(6));
+        page.addView(bar);
         address=new EditText(this);address.setSingleLine();address.setHint("Search or enter address");address.setSelectAllOnFocus(true);
         address.setInputType(17);address.setImeOptions(EditorInfo.IME_ACTION_GO);
-        bar.addView(address,new LinearLayout.LayoutParams(0,-2,1));
-        Button go=new Button(this);go.setText("Go");bar.addView(go);go.setOnClickListener(v->navigate());
+        android.graphics.drawable.GradientDrawable field = new android.graphics.drawable.GradientDrawable();
+        field.setColor(0xffedf5ed);
+        field.setCornerRadius(dp(24));
+        address.setBackground(field);
+        address.setTextSize(16);
+        address.setTextColor(0xff182d25);
+        address.setHintTextColor(0xff4a6255);
+        address.setPadding(dp(16), 0, dp(8), 0);
+        bar.addView(address,new LinearLayout.LayoutParams(0,dp(48),1));
+        Button go=toolbarButton("Go");bar.addView(go);go.setOnClickListener(v->navigate());
         address.setOnEditorActionListener((v,id,e)->{navigate();return true;});
-        Button files=new Button(this);files.setText("Downloads");bar.addView(files);
+        Button files=toolbarButton("Downloads");bar.addView(files);
         files.setOnClickListener(v->startActivity(new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS)));
         web=new WebView(this);page.addView(web,new LinearLayout.LayoutParams(-1,0,1));
         web.getSettings().setJavaScriptEnabled(true);web.getSettings().setDomStorageEnabled(true);
@@ -34,6 +46,17 @@ public class TommyBrowser extends Activity {
         web.setDownloadListener((url,ua,disposition,type,length)->download(Uri.parse(url),disposition,type));
         if(state!=null && web.restoreState(state)!=null)return;
         Uri launch=getIntent().getData();if(remote(launch))visit(launch);
+    }
+    private int dp(int value) { return Math.round(value * getResources().getDisplayMetrics().density); }
+    private Button toolbarButton(String label) {
+        Button button = new Button(this, null, android.R.attr.borderlessButtonStyle);
+        button.setText(label);
+        button.setAllCaps(false);
+        button.setTextColor(0xffd9f0de);
+        button.setMinWidth(dp(48));
+        button.setMinimumWidth(dp(48));
+        button.setMinHeight(dp(48));
+        return button;
     }
     static boolean apk(Uri u){String p=u.getPath();return p!=null && p.toLowerCase(Locale.ROOT).endsWith(".apk");}
     void navigate(){String s=address.getText().toString().trim();if(s.isEmpty())return;

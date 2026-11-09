@@ -25,11 +25,25 @@ public final class UpdatePage extends Activity {
         page.setOrientation(LinearLayout.VERTICAL);
         int margin = Math.round(20 * getResources().getDisplayMetrics().density);
         page.setPadding(margin,margin,margin,margin);
+        scroll.setFillViewport(true);
         scroll.addView(page); setContentView(scroll);
+        scroll.setOnApplyWindowInsetsListener((v, insets) -> {
+            android.graphics.Insets bars = insets.getInsets(android.view.WindowInsets.Type.systemBars()
+                    | android.view.WindowInsets.Type.displayCutout());
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+            return insets;
+        });
         TextView installed = new TextView(this);
         installed.setText("Android " + Build.VERSION.RELEASE + "\nInstalled build  " + Build.VERSION.INCREMENTAL);
+        android.graphics.drawable.GradientDrawable cover = new android.graphics.drawable.GradientDrawable(
+                android.graphics.drawable.GradientDrawable.Orientation.TL_BR, new int[]{0xff254e40, 0xff0f2922});
+        cover.setCornerRadius(margin);
+        installed.setBackground(cover);
+        installed.setTextColor(0xfff1f8ed);
+        installed.setTextSize(18);
+        installed.setPadding(margin, margin, margin, margin);
         page.addView(installed);
-        release = new TextView(this); page.addView(release);
+        release = new TextView(this); release.setTextSize(16); release.setPadding(0, margin, 0, margin / 2); page.addView(release);
         progress = new TextView(this); page.addView(progress);
         check = button(page,"Check for updates",this::refresh);
         install = button(page,"Download and install",this::installOrRestart);
@@ -55,7 +69,7 @@ public final class UpdatePage extends Activity {
         refresh();
     }
     private Button button(LinearLayout page,String title,Runnable action) {
-        Button b = new Button(this); b.setText(title); page.addView(b);
+        Button b = new Button(this); b.setText(title); b.setAllCaps(false); page.addView(b);
         b.setOnClickListener(v -> action.run()); return b;
     }
     private void runDownloadTest(Button test) {
@@ -131,6 +145,9 @@ public final class UpdatePage extends Activity {
                 }
             }).show();
     }
+    private static String displayVersion(String version) {
+        return "v1.100".equals(version) ? "v1.1" : version;
+    }
     private void refresh() { refresh(false); }
     private void refresh(boolean testing) {
         final int currentRequest = ++requestId;
@@ -142,8 +159,8 @@ public final class UpdatePage extends Activity {
                 UpdateFeed r = UpdateCheck.fetch(this, testing);
                 String local = UpdateFeed.installed(Build.VERSION.INCREMENTAL);
                 boolean newer = UpdateFeed.ordinal(r.version) > UpdateFeed.ordinal(local);
-                String text = newer ? "Tommy UI " + r.version + " is available." : "Your build is up to date.";
-                text += "\nLatest release  " + r.version + "\n" +
+                String text = newer ? "Tommy UI " + displayVersion(r.version) + " is available." : "Your build is up to date.";
+                text += "\nLatest release  " + displayVersion(r.version) + "\n" +
                     ("security".equals(r.kind) ? "Security update" : "Content update") + "\n" + r.summary;
                 if (newer && !UpdateCheck.eligible(r)) text += "\nNo wireless package for this device and build.";
                 final String result = testing ? "Staged OTA trial\n" + text : text;
@@ -189,7 +206,7 @@ public final class UpdatePage extends Activity {
         UpdateFeed r = candidate;
         if (r == null || !UpdateCheck.eligible(r)) return;
         final boolean stage = trial;
-        new AlertDialog.Builder(this).setTitle((stage ? "Stage Tommy UI " : "Install Tommy UI ") + r.version + "?")
+        new AlertDialog.Builder(this).setTitle((stage ? "Stage Tommy UI " : "Install Tommy UI ") + displayVersion(r.version) + "?")
             .setMessage(UpdateCheck.NOTICE + (stage ? "\n\nThis experimental update writes system and boot firmware to slot B. Slot A remains selected for restart. Keep the phone powered until staging completes." : "") + "\n\n" + r.summary + "\nDownload size: " + android.text.format.Formatter.formatFileSize(this,r.size))
             .setNegativeButton("Cancel",null).setPositiveButton("I understand and agree",(d,i)-> {
                 if (engineState!=0 || applying) return;

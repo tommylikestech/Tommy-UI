@@ -1,0 +1,12 @@
+<resources>
+    <string name="classic_name" translatable="false">Tommy UI Classic</string>
+    <string name="classic_version">Version %1$s</string>
+    <string name="classic_version_unknown">Version unavailable</string>
+    <string name="classic_android">Android %1$s</string>
+    <string name="classic_build">Build</string>
+    <string name="classic_update">Update Tommy UI</string>
+    <string name="classic_wallpaper">Classic wallpaper</string>
+    <string name="classic_apply">Set home wallpaper</string>
+    <string name="classic_applied">Classic wallpaper applied</string>
+    <string name="classic_wallpaper_error">Couldn’t set the wallpaper.</string>
+</resources>

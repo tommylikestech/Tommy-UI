@@ -1,4 +1,4 @@
-"""Inspect the rebuilt image read-only and export the v1.003 flash kit."""
+"""Inspect the rebuilt image read-only and export the Tommy UI Classic system image."""
 import argparse
 import hashlib
 import json
@@ -12,8 +12,7 @@ import tempfile
 import zipfile
 
 PROJECT = Path(__file__).resolve().parents[1]
-RELEASE = PROJECT / "updater"
-STEM = "Tommy-UI-v1.003"
+STEM = "Tommy-UI-v1.1-Classic"
 IMAGE = STEM + "-Android16-arm64-system.img"
 
 def digest(path):
@@ -55,7 +54,7 @@ def main():
                         ("ro.build.version.release", "16"), ("ro.build.version.sdk", "36"),
                         ("ro.build.version.security_patch", config["security_patch"]), ("ro.build.type", "userdebug")):
         require(props.get(prop) == value, f"Unexpected {prop}: {props.get(prop)}")
-    checks.append("Android 16, API 36, exact v1.003 build ID and security patch label verified")
+    checks.append("Android 16, API 36, exact v1.1 Classic build ID and security patch label verified")
 
     host = root / "out/host/linux-x86"
     aapt = host / "bin/aapt2"
@@ -64,7 +63,7 @@ def main():
             "build/make/target/product/security/platform.x509.pem").read_text())).hexdigest()
     require(cert == "c8a2e9bccf597c2fb6dc66bee293fc13f2fc47ec77bc6b2b0d52c11f51192ab8", "Platform key mismatch")
     package_hashes = {}
-    with tempfile.TemporaryDirectory(prefix="tommy-v1003-verify-") as folder:
+    with tempfile.TemporaryDirectory(prefix="tommy-classic-verify-") as folder:
         tmp = Path(folder)
         def extract(name):
             target = tmp / Path(name).name
@@ -91,7 +90,7 @@ def main():
                 return b"".join(archive.read(n) for n in archive.namelist() if n.endswith(".dex"))
 
         manifest = run(aapt, "dump", "badging", storage)
-        require("versionCode='1005'" in manifest and "versionName='1.003'" in manifest, "Wrong mover version")
+        require("versionCode='1100'" in manifest and "versionName='1.1'" in manifest, "Wrong mover version")
         for perm in ("MANAGE_USERS", "WRITE_SECURE_SETTINGS", "MOVE_PACKAGE", "MOUNT_UNMOUNT_FILESYSTEMS",
                      "INTERACT_ACROSS_USERS_FULL", "POST_NOTIFICATIONS"):
             require("android.permission." + perm in manifest, "Missing permission " + perm)
@@ -99,7 +98,7 @@ def main():
         for label in ("Set up or format SD card", "Photos and files location", "StorageWizardInit",
                       "StorageWizardMigrateConfirm", "New app storage choices", "Change storage", "Browse photos and files"):
             require(label.encode() in app_code, "Missing Tommy Storage code: " + label)
-        checks.append("Tommy Storage 1.003 includes card setup, primary storage migration, file browsing, app moves and new-install notifications")
+        checks.append("Tommy Storage 1.1 includes card setup, primary storage migration, file browsing, app moves and new-install notifications")
         require("com.tommyui.storage.TARGET_UUID".encode() in dex(settings), "Settings migration destination validation missing")
         tree = run(aapt, "dump", "xmltree", settings, "--file", "AndroidManifest.xml")
         blocks = re.split(r"(?m)^\s*E: (?:activity|activity-alias|receiver|service|provider)\b", tree)
@@ -107,13 +106,14 @@ def main():
         require("android.permission.MOUNT_UNMOUNT_FILESYSTEMS" in migration and
                 re.search(r'android:exported[^\r\n]*(?:true|0xffffffff)', migration),
                 "Migration wizard is not correctly permission-protected and exported")
-        require("v1.003 (experimental)" in run(aapt, "dump", "resources", settings), "Settings version missing")
-        checks.append("Settings exposes the guarded migration confirmation and shows v1.003")
+        require("Tommy UI Classic · v1.1" in run(aapt, "dump", "resources", settings), "Settings version missing")
+        checks.append("Settings exposes the guarded migration confirmation and shows v1.1 Classic")
         browser = extract("product/app/Browser2/Browser2.apk")
         browser_manifest = run(aapt, "dump", "badging", browser)
         require("Tommy Browser" in browser_manifest and "TommyBrowser" in browser_manifest, "Browser missing")
         require(b"application/vnd.android.package-archive" in dex(browser), "APK download support missing")
-        require("Update Tommy UI".encode() in app_code, "About/update entry missing")
+        storage_resources = run(aapt, "dump", "resources", storage)
+        require("Update Tommy UI" in storage_resources, "About/update entry missing")
         for layout in ("top_level_settings", "top_level_settings_v2", "top_level_settings_expressive"):
             home = run(aapt, "dump", "xmltree", settings, "--file", f"res/xml/{layout}.xml")
             require("about_tommy_ui" in home and "com.tommyui.storage.AboutTommy" in home,
@@ -139,11 +139,34 @@ def main():
         require(digest(animation) == changes["device/tommyui/bootanimation.zip"], "Wrong boot animation")
         with zipfile.ZipFile(animation) as archive:
             require(archive.testzip() is None, "Corrupt boot animation")
-        checks.append("v1.003 boot animation present and verified")
+        checks.append("Classic boot animation present and verified")
         launcher = extract("system_ext/priv-app/Launcher3QuickStep/Launcher3QuickStep.apk")
         require("application-label:'Tommy Home'" in run(aapt, "dump", "badging", launcher), "Wrong launcher")
         require("ARM aarch64" in run("file", extract("bin/vold")), "Wrong storage daemon")
         checks.append("Tommy Home and the ARM64 storage daemon are present")
+        def default_resource(table, resource, expected):
+            pattern = r"(?m)^\s*resource \S+ " + re.escape(resource) + r"\s*\n\s*\(\) " + re.escape(expected) + r"[ \t]*$"
+            require(re.search(pattern, table), "Wrong default for " + resource)
+        framework = extract("framework/framework-res.apk")
+        system_resources = run(aapt, "dump", "resources", framework)
+        default_resource(system_resources, "string/config_icon_mask",
+                         '"M50,0 A50,50 0 1,1 50,100 A50,50 0 1,1 50,0 Z"')
+        default_resource(system_resources, "bool/config_useRoundIcon", "true")
+        home_resources = run(aapt, "dump", "resources", launcher)
+        default_resource(home_resources, "integer/config_allAppsOpenDuration", "360")
+        default_resource(home_resources, "integer/config_allAppsCloseDuration", "240")
+        checks.append("Circular adaptive icon mask, round-icon selection and 360/240 ms drawer timings verified")
+        wallpaper = tmp / "classic-wallpaper.png"
+        with zipfile.ZipFile(framework) as archive:
+            wallpaper.write_bytes(archive.read("res/drawable-nodpi-v4/default_wallpaper.png"))
+        original = root / "frameworks/base/core/res/res/drawable-nodpi/default_wallpaper.png"
+        def pixels(p):
+            return subprocess.check_output(["convert", str(p), "-depth", "8", "rgba:-"])
+        require(pixels(wallpaper) == pixels(original), "Default wallpaper pixels differ")
+        layout = run(aapt, "dump", "xmltree", storage, "--file", "res/layout/about_tommy.xml")
+        require("E: ScrollView" in layout and layout.count("E: Button") == 3 and
+                "Tommy UI Classic" in storage_resources, "Classic About layout missing")
+        checks.append("Default Classic wallpaper pixels and About Tommy UI resources verified")
         # Confirm the explicit per-user notification delivery is in the compiled service.
         services = extract("framework/services.jar")
         with zipfile.ZipFile(services) as archive:
@@ -157,7 +180,7 @@ def main():
     sha = digest(image)
     require(image.stat().st_size < 6710886400, "Image exceeds super capacity")
     if target.exists():
-        require(digest(target) == sha, "Different exported v1.003 image already exists")
+        require(digest(target) == sha, "Different exported Classic image already exists")
     else:
         part = target.with_suffix(".img.partial")
         part.unlink(missing_ok=True)
@@ -167,15 +190,15 @@ def main():
         part.rename(target)
     meta = dict(config, image=IMAGE, image_bytes=target.stat().st_size, image_sha256=sha,
                 checks=checks, changed_apks=package_hashes, device_tested=False, sd_transfer_tested=False,
-                flashed=False, scope="Build only. No v1.003 installation or card formatting.")
+                flashed=False, scope="Experimental v1.1 system image; hardware validation pending.")
     metadata = out / (STEM + "-build.json")
     metadata.write_text(json.dumps(meta, indent=2) + "\n")
-    kit = out / (STEM + "-flash-kit.zip")
+    kit = out / (STEM + "-system-image.zip")
     with zipfile.ZipFile(kit, "w", zipfile.ZIP_DEFLATED, compresslevel=1) as archive:
-        for item in (target, metadata, RELEASE / "flash_later.py", RELEASE / "FLASH-AND-STORAGE.txt", RELEASE / "Tommy-USB-Updater.pyw"):
+        for item in (target, metadata):
             archive.write(item, item.name)
     with zipfile.ZipFile(kit) as archive:
-        require(archive.testzip() is None, "Flash kit integrity check failed")
+        require(archive.testzip() is None, "System image archive integrity check failed")
     (out / (STEM + "-SHA256SUMS.txt")).write_text(
         "".join(f"{digest(p)}  {p.name}\n" for p in (target, metadata, kit)))
     print(json.dumps(meta, indent=2), flush=True)

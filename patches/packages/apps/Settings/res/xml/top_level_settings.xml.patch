@@ -22,7 +22,7 @@
          settings:controller="com.android.settings.deviceinfo.aboutphone.TopLevelAboutDevicePreferenceController"/>
  
      <com.android.settings.widget.HomepagePreference
-+        android:key="about_tommy_ui" android:title="About Tommy UI" android:summary="Tommy UI v1.003"
++        android:key="about_tommy_ui" android:title="About Tommy UI" android:summary="Tommy UI Classic · v1.1"
 +        android:order="21" android:icon="@drawable/ic_settings_about_device">
 +        <intent android:action="android.intent.action.VIEW" android:targetPackage="com.tommyui.storage"
 +            android:targetClass="com.tommyui.storage.AboutTommy" />

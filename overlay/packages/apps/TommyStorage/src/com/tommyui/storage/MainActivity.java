@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
@@ -47,9 +46,9 @@ public final class MainActivity extends Activity {
         "android.permission.WRITE_SECURE_SETTINGS", "android.permission.MANAGE_USERS",
         "android.permission.INTERACT_ACROSS_USERS_FULL"
     };
-    private static final int INK = Color.rgb(24, 38, 32);
-    private static final int MUTED = Color.rgb(79, 96, 87);
-    private static final int GREEN = Color.rgb(22, 107, 82);
+    private int ink;
+    private int muted;
+    private int green;
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final ExecutorService worker = Executors.newSingleThreadExecutor();
     private final List<AppRow> apps = new ArrayList<>();
@@ -68,6 +67,7 @@ public final class MainActivity extends Activity {
     private static final class AppRow {
         ApplicationInfo info;
         String label, currentName;
+        android.graphics.drawable.Drawable icon;
         List<VolumeInfo> targets;
         AppRow(ApplicationInfo i, String l, String c, List<VolumeInfo> t) {
             info = i; label = l; currentName = c; targets = t;
@@ -76,6 +76,9 @@ public final class MainActivity extends Activity {
 
     @Override public void onCreate(Bundle saved) {
         super.onCreate(saved);
+        ink = getColor(R.color.classic_ink);
+        muted = getColor(R.color.classic_muted);
+        green = getColor(R.color.classic_accent);
         pm = getPackageManager();
         storage = getSystemService(StorageManager.class);
         preferences = getSharedPreferences("moves", MODE_PRIVATE);
@@ -94,7 +97,7 @@ public final class MainActivity extends Activity {
     private void buildScreen() {
         ScrollView scroll = new ScrollView(this);
         scroll.setFillViewport(true);
-        scroll.setBackgroundColor(Color.rgb(244, 247, 243));
+        scroll.setBackgroundColor(getColor(R.color.classic_page));
         LinearLayout page = column();
         page.setPadding(dp(20), dp(20), dp(20), dp(28));
         scroll.addView(page);
@@ -105,25 +108,25 @@ public final class MainActivity extends Activity {
             return insets;
         });
         setContentView(scroll);
-        page.addView(text("TOMMY UI  /  v1.003", 12, GREEN, true));
-        TextView title = text("Tommy Storage", 30, INK, true);
+        page.addView(text("TOMMY UI CLASSIC  /  v1.1", 12, green, true));
+        TextView title = text("Tommy Storage", 30, ink, true);
         title.setPadding(0, dp(8), 0, dp(8)); page.addView(title);
-        page.addView(text("Choose where your apps live.", 16, MUTED, false));
+        page.addView(text("Choose where your apps live.", 16, muted, false));
 
         LinearLayout storageBox = card(page);
-        storageTitle = text("Checking storage…", 20, INK, true); storageBox.addView(storageTitle);
-        storageNote = text("", 14, MUTED, false); storageBox.addView(storageNote);
+        storageTitle = text("Checking storage…", 20, ink, true); storageBox.addView(storageTitle);
+        storageNote = text("", 14, muted, false); storageBox.addView(storageNote);
         StorageActions actions = new StorageActions(this);
         storageBox.addView(button("Set up or format SD card", actions::formatCard));
         storageBox.addView(button("Photos and files location", actions::sharedStorage));
-        storageBox.addView(text("Changing the location moves existing shared files and sets the default for apps that save there.", 14, MUTED, false));
+        storageBox.addView(text("Changing the location moves existing shared files and sets the default for apps that save there.", 14, muted, false));
         storageBox.addView(button("Browse photos and files", actions::files));
         storageBox.addView(button("Open storage settings", () -> openSettings(Settings.ACTION_INTERNAL_STORAGE_SETTINGS)));
 
         LinearLayout control = card(page);
         forceSwitch = new Switch(this);
         forceSwitch.setText("Allow more apps on SD"); forceSwitch.setTextSize(17);
-        forceSwitch.setTextColor(INK); forceSwitch.setPadding(0, dp(8), 0, dp(8));
+        forceSwitch.setTextColor(ink); forceSwitch.setPadding(0, dp(8), 0, dp(8));
         control.addView(forceSwitch);
         control.addView(button("New app storage alerts", () -> {
             if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS)
@@ -137,7 +140,7 @@ public final class MainActivity extends Activity {
                 startActivity(settings);
             }
         }));
-        control.addView(text("Override an app’s preference to stay on the phone. System apps and protected apps still cannot move.", 14, MUTED, false));
+        control.addView(text("Override an app’s preference to stay on the phone. System apps and protected apps still cannot move.", 14, muted, false));
         forceSwitch.setOnCheckedChangeListener((view, enabled) -> {
             if (updatingSwitch) return;
             syncSwitch();
@@ -150,23 +153,24 @@ public final class MainActivity extends Activity {
         });
 
         LinearLayout appearance = card(page);
-        appearance.addView(text("Make it yours", 19, INK, true));
+        appearance.addView(text("Make it yours", 19, ink, true));
+        appearance.addView(button(getString(R.string.classic_name), () -> startActivity(new Intent(this, AboutTommy.class))));
         appearance.addView(button("Wallpaper and colors", () -> openSettings(Intent.ACTION_SET_WALLPAPER)));
         appearance.addView(button("Animation speed", this::chooseAnimationSpeed));
 
         progressCard = card(page);
-        progressText = text("", 16, INK, true); progressCard.addView(progressText);
+        progressText = text("", 16, ink, true); progressCard.addView(progressText);
         progress = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
         progress.setMax(100); progressCard.addView(progress);
-        progressCard.addView(text("Android handles the transfer. Keep the card inserted until it finishes. You can leave this app and reopen it to check progress.", 14, MUTED, false));
+        progressCard.addView(text("Android handles the transfer. Keep the card inserted until it finishes. You can leave this app and reopen it to check progress.", 14, muted, false));
         progressCard.setVisibility(View.GONE);
-        resultText = text("", 15, GREEN, true); resultText.setPadding(0, dp(14), 0, 0);
+        resultText = text("", 15, green, true); resultText.setPadding(0, dp(14), 0, 0);
         page.addView(resultText);
 
-        TextView appsHeading = text("Your apps", 22, INK, true);
+        TextView appsHeading = text("Your apps", 22, ink, true);
         appsHeading.setPadding(0, dp(26), 0, dp(8)); page.addView(appsHeading);
         search = new EditText(this); search.setSingleLine(true); search.setHint("Search apps");
-        search.setTextSize(16); search.setTextColor(INK); search.setHintTextColor(MUTED);
+        search.setTextSize(16); search.setTextColor(ink); search.setHintTextColor(muted);
         page.addView(search, new LinearLayout.LayoutParams(-1, dp(56)));
         if (NewAppReceiver.ACTION_REVIEW.equals(getIntent().getAction())
                 && getIntent().getData() != null && "package".equals(getIntent().getData().getScheme())) {
@@ -174,13 +178,13 @@ public final class MainActivity extends Activity {
         }
         search.addTextChangedListener(new TextWatcher() {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            public void onTextChanged(CharSequence s, int start, int before, int count) { renderApps(); }
+            public void onTextChanged(CharSequence s, int start, int before, int count) { filterApps(); }
             public void afterTextChanged(Editable e) {}
         });
-        listNote = text("", 14, MUTED, false); page.addView(listNote);
+        listNote = text("", 14, muted, false); page.addView(listNote);
         page.addView(button("Refresh apps and storage", this::refresh));
         appList = column(); page.addView(appList);
-        TextView footer = text("Only adopted SD cards can hold apps. Setting up a card as phone storage formats and encrypts it. Confirm formatting in Android’s card setup to erase the selected card.", 13, MUTED, false);
+        TextView footer = text("Only adopted SD cards can hold apps. Setting up a card as phone storage formats and encrypts it. Confirm formatting in Android’s card setup to erase the selected card.", 13, muted, false);
         footer.setPadding(0, dp(20), 0, dp(12)); page.addView(footer);
         if (!access) {
             storageTitle.setText("System permission unavailable");
@@ -197,7 +201,7 @@ public final class MainActivity extends Activity {
     }
 
     private void copyDiagnostics() {
-        StringBuilder details = new StringBuilder("Tommy Storage 1.003\nAndroid: ")
+        StringBuilder details = new StringBuilder("Tommy Storage 1.1\nAndroid: ")
                 .append(Build.VERSION.RELEASE).append(" / SDK ").append(Build.VERSION.SDK_INT)
                 .append("\nBuild: ").append(Build.DISPLAY).append("\nType: ").append(Build.TYPE)
                 .append("\nSystem app: ").append((getApplicationInfo().flags & ApplicationInfo.FLAG_SYSTEM) != 0)
@@ -296,7 +300,9 @@ public final class MainActivity extends Activity {
                 for (ApplicationInfo info : pm.getInstalledApplications(PackageManager.MATCH_DISABLED_COMPONENTS)) {
                     if (protectedApp(info)) continue;
                     VolumeInfo current = pm.getPackageCurrentVolume(info);
-                    rows.add(new AppRow(info, info.loadLabel(pm).toString(), volumeName(current), targets(info, current)));
+                    AppRow row = new AppRow(info, info.loadLabel(pm).toString(), volumeName(current), targets(info, current));
+                    try { row.icon = info.loadIcon(pm); } catch (RuntimeException ignored) { }
+                    rows.add(row);
                 }
                 rows.sort(Comparator.comparing(r -> r.label.toLowerCase(Locale.ROOT)));
                 runOnUiThread(() -> {
@@ -336,25 +342,22 @@ public final class MainActivity extends Activity {
     private void renderApps() {
         if (appList == null) return;
         appList.removeAllViews();
-        String query = search.getText().toString().trim().toLowerCase(Locale.ROOT);
-        int shown = 0;
+        boolean allowMore = forceEnabled();
         for (AppRow app : apps) {
-            if (!app.label.toLowerCase(Locale.ROOT).contains(query)
-                    && !app.info.packageName.toLowerCase(Locale.ROOT).contains(query)) continue;
-            shown++;
             LinearLayout box = card(appList);
+            box.setTag((app.label + "\n" + app.info.packageName).toLowerCase(Locale.ROOT));
             LinearLayout row = new LinearLayout(this); row.setGravity(Gravity.CENTER_VERTICAL);
             ImageView icon = new ImageView(this);
-            try { icon.setImageDrawable(app.info.loadIcon(pm)); } catch (RuntimeException ignored) {}
+            icon.setImageDrawable(app.icon);
             LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(dp(40), dp(40));
             iconParams.setMarginEnd(dp(12)); row.addView(icon, iconParams);
-            LinearLayout labels = column(); labels.addView(text(app.label, 17, INK, true));
-            labels.addView(text(app.currentName, 13, MUTED, false)); row.addView(labels, new LinearLayout.LayoutParams(0, -2, 1));
+            LinearLayout labels = column(); labels.addView(text(app.label, 17, ink, true));
+            labels.addView(text(app.currentName, 13, muted, false)); row.addView(labels, new LinearLayout.LayoutParams(0, -2, 1));
             box.addView(row);
-            TextView pkg = text(app.info.packageName, 12, MUTED, false); pkg.setTextIsSelectable(true); box.addView(pkg);
+            TextView pkg = text(app.info.packageName, 12, muted, false); pkg.setTextIsSelectable(true); box.addView(pkg);
             if (app.targets.isEmpty()) {
-                box.addView(text(forceEnabled() ? "Android is not offering another usable storage destination for this app."
-                        : "No move available. Set up an SD card, or try ‘Allow more apps on SD’.", 13, MUTED, false));
+                box.addView(text(allowMore ? "Android is not offering another usable storage destination for this app."
+                        : "No move available. Set up an SD card, or try ‘Allow more apps on SD’.", 13, muted, false));
             } else {
                 Button move = button("Change storage", () -> chooseDestination(app));
                 move.setEnabled(!busy()); box.addView(move);
@@ -363,6 +366,19 @@ public final class MainActivity extends Activity {
                 Intent i = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + app.info.packageName));
                 try { startActivity(i); } catch (RuntimeException e) { showError("Cannot open app info", e); }
             }));
+        }
+        filterApps();
+    }
+
+    private void filterApps() {
+        if (appList == null) return;
+        String query = search.getText().toString().trim().toLowerCase(Locale.ROOT);
+        int shown = 0;
+        for (int i = 0; i < appList.getChildCount(); i++) {
+            View row = appList.getChildAt(i);
+            boolean matches = ((String) row.getTag()).contains(query);
+            row.setVisibility(matches ? View.VISIBLE : View.GONE);
+            if (matches) shown++;
         }
         listNote.setText(apps.isEmpty() ? "No downloaded apps to move yet. System apps and Tommy Storage are excluded."
                 : shown == 0 ? "No apps match your search." : shown + " apps · system apps excluded");
@@ -465,8 +481,8 @@ public final class MainActivity extends Activity {
     private LinearLayout column() { LinearLayout v = new LinearLayout(this); v.setOrientation(LinearLayout.VERTICAL); return v; }
     private LinearLayout card(LinearLayout parent) {
         LinearLayout v = column(); v.setPadding(dp(18), dp(18), dp(18), dp(14));
-        GradientDrawable bg = new GradientDrawable(); bg.setColor(Color.WHITE); bg.setCornerRadius(dp(20));
-        bg.setStroke(dp(1), Color.rgb(222, 231, 222)); v.setBackground(bg);
+        GradientDrawable bg = new GradientDrawable(); bg.setColor(getColor(R.color.classic_panel)); bg.setCornerRadius(dp(20));
+        bg.setStroke(dp(1), getColor(R.color.classic_stroke)); v.setBackground(bg);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2); params.topMargin = dp(16);
         parent.addView(v, params); return v;
     }
@@ -476,7 +492,7 @@ public final class MainActivity extends Activity {
         if (bold) t.setTypeface(null, Typeface.BOLD); return t;
     }
     private Button button(String value, Runnable click) {
-        Button b = new Button(this); b.setText(value); b.setAllCaps(false); b.setTextColor(GREEN);
+        Button b = new Button(this); b.setText(value); b.setAllCaps(false); b.setTextColor(green);
         b.setMinHeight(dp(48)); b.setOnClickListener(v -> click.run()); return b;
     }
 }

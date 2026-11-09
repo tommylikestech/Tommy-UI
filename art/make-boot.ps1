@@ -21,10 +21,10 @@ for ($frame = 0; $frame -lt 12; $frame++) {
     $graphics.TextRenderingHint = [System.Drawing.Text.TextRenderingHint]::AntiAliasGridFit
     $ink = [System.Drawing.SolidBrush]::new([System.Drawing.Color]::FromArgb(219, 235, 219))
     $accent = [System.Drawing.SolidBrush]::new([System.Drawing.Color]::FromArgb(145, 196, 153))
-    $graphics.FillRectangle($accent, 294, 570, 132, 17)
-    $graphics.FillRectangle($accent, 351, 587, 18, 100)
+    $ring=[Drawing.Pen]::new($accent,4); $graphics.DrawEllipse($ring,262,510,196,196); $ring.Dispose(); $graphics.FillRectangle($accent, 308, 568, 104, 14)
+    $graphics.FillRectangle($accent, 353, 582, 14, 74)
     $graphics.DrawString('Tommy UI', $font, $ink, [System.Drawing.PointF]::new(360, 730), $center)
-    $graphics.DrawString('v1.003', $smallFont, $accent, [System.Drawing.PointF]::new(360, 803), $center)
+    $graphics.DrawString('Classic   /   v1.1', $smallFont, $accent, [System.Drawing.PointF]::new(360, 803), $center)
     for ($dot = 0; $dot -lt 12; $dot++) {
         $angle = $dot * [Math]::PI / 6
         $age = ($frame - $dot + 12) % 12
@@ -42,4 +42,4 @@ for ($frame = 0; $frame -lt 12; $frame++) {
     $memory.Dispose(); $bitmap.Dispose()
 }
 $font.Dispose(); $smallFont.Dispose(); $center.Dispose(); $archive.Dispose(); $bootStream.Dispose()
-Write-Output 'Generated v1.003 boot animation.'
+Write-Output 'Generated v1.1 Classic boot animation.'

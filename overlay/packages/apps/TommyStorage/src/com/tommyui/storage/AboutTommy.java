@@ -9,17 +9,42 @@ public class AboutTommy extends Activity {
     int taps; long last;
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
-        LinearLayout page=new LinearLayout(this);
-        page.setOrientation(1); int pad=(int)(24*getResources().getDisplayMetrics().density);
-        page.setPadding(pad,pad,pad,pad); setContentView(page);
-        TextView heading=new TextView(this); heading.setText("Tommy UI"); heading.setTextSize(36); page.addView(heading);
-        Button version=new Button(this); String build = android.os.Build.VERSION.INCREMENTAL;
-        java.util.regex.Matcher match = java.util.regex.Pattern.compile("TommyUI\\.(v[0-9]+\\.[0-9]{3})\\.dev\\.[0-9]{8}").matcher(build);
-        version.setText(match.matches() ? "Tommy UI " + match.group(1) : "Tommy UI"); page.addView(version);
-        version.setOnClickListener(v->{long now=SystemClock.elapsedRealtime(); if(now-last>1300)taps=0; last=now;
-            if(++taps==7){taps=0; constellation();}});
-        TextView detail=new TextView(this); detail.setText("Android "+android.os.Build.VERSION.RELEASE+"  ·  "+android.os.Build.VERSION.INCREMENTAL); page.addView(detail);
-        Button update=new Button(this); update.setText("Update Tommy UI"); page.addView(update);
+        setContentView(R.layout.about_tommy);
+        android.view.View root = ((android.view.ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
+        root.setOnApplyWindowInsetsListener((view, insets) -> {
+            android.graphics.Insets bars = insets.getInsets(android.view.WindowInsets.Type.systemBars()
+                    | android.view.WindowInsets.Type.displayCutout());
+            view.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+            return insets;
+        });
+        String build = android.os.Build.VERSION.INCREMENTAL;
+        java.util.regex.Matcher match = java.util.regex.Pattern.compile(
+                "TommyUI\\.(v[0-9]+\\.[0-9]{3})\\.dev\\.[0-9]{8}").matcher(build);
+        Button version = findViewById(R.id.classic_version);
+        if (match.matches()) {
+            String versionName = match.group(1);
+            version.setText(getString(R.string.classic_version, "v1.100".equals(versionName) ? "1.1" : versionName.substring(1)));
+        } else {
+            version.setText(R.string.classic_version_unknown);
+        }
+        version.setOnClickListener(v -> {
+            long now = SystemClock.elapsedRealtime();
+            if (now - last > 1300) taps = 0;
+            last = now;
+            if (++taps == 7) { taps = 0; constellation(); }
+        });
+        TextView androidVersion = findViewById(R.id.classic_android);
+        androidVersion.setText(getString(R.string.classic_android, android.os.Build.VERSION.RELEASE));
+        ((TextView) findViewById(R.id.classic_build)).setText(build);
+        Button wallpaper = findViewById(R.id.classic_wallpaper);
+        WallpaperManager manager = getSystemService(WallpaperManager.class);
+        int art = getResources().getIdentifier("default_wallpaper", "drawable", "android");
+        if (art == 0 || manager == null || !manager.isWallpaperSupported() || !manager.isSetWallpaperAllowed()) {
+            wallpaper.setVisibility(android.view.View.GONE);
+        } else {
+            wallpaper.setOnClickListener(v -> previewWallpaper(manager, art, wallpaper));
+        }
+        Button update = findViewById(R.id.classic_update);
         update.setOnClickListener(v -> {
             android.content.Intent intent = new android.content.Intent().setClassName(
                     "com.android.settings", "com.android.settings.tommyui.UpdatePage");
@@ -30,6 +55,34 @@ public class AboutTommy extends Activity {
             }
         });
     }
+    private void previewWallpaper(WallpaperManager manager, int art, Button button) {
+        ImageView preview = new ImageView(this);
+        preview.setAdjustViewBounds(true);
+        preview.setMaxHeight(getResources().getDisplayMetrics().heightPixels / 2);
+        preview.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        preview.setImageResource(art);
+        new AlertDialog.Builder(this).setTitle(R.string.classic_wallpaper).setView(preview)
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(R.string.classic_apply, (dialog, which) -> {
+                button.setEnabled(false);
+                new Thread(() -> {
+                    int result;
+                    try {
+                        manager.setResource(art, WallpaperManager.FLAG_SYSTEM);
+                        result = R.string.classic_applied;
+                    } catch (java.io.IOException | RuntimeException e) {
+                        result = R.string.classic_wallpaper_error;
+                    }
+                    final int message = result;
+                    runOnUiThread(() -> {
+                        if (isDestroyed()) return;
+                        button.setEnabled(true);
+                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                    });
+                }, "TommyWallpaper").start();
+            }).show();
+    }
+
     private void constellation(){
         TextView sky=new TextView(this); sky.setGravity(Gravity.CENTER); sky.setTextSize(25);
         sky.setPadding(16,64,16,64); sky.setBackgroundColor(0xff102f32); sky.setTextColor(0xffcdf9da);
