@@ -26,7 +26,7 @@
   },
   "device/tommyui/bootanimation.zip": {
     "upstream": null,
-    "result": "e2529d1ae18a99b065d697d6265044cca797e5e6d20434fa713bef1df317de42",
+    "result": "73b24e7ed6bdcda1ef59b21e71ab1ba8f1184dcd73eb8047364fab711d300471",
     "source": "overlay/device/tommyui/bootanimation.zip"
   },
   "device/tommyui/product.mk": {
@@ -36,12 +36,12 @@
   },
   "frameworks/base/core/res/res/drawable-nodpi/default_wallpaper.png": {
     "upstream": "4e18bbf114e4af69fccfae67d16ab18b740356108d403f3cd2a198a9d9cec066",
-    "result": "36cdfc8728a97e8a2da1db260298fb2ebe270a6be511637cec0f9b171a9c2f9f",
+    "result": "39e4f3d4fd154b618d8c363ed7b7ff08b9277285828e22740f880fc4c5904774",
     "source": "overlay/frameworks/base/core/res/res/drawable-nodpi/default_wallpaper.png"
   },
   "frameworks/base/core/res/res/values/config.xml": {
     "upstream": "8d9e0bd60ab8afdd026097ae37b092954480b99c6302ebd452982d05cf18e567",
-    "result": "6e0df804827712f67d5b36c885973e37fa02517ccf4decc113a07fa94fab9761",
+    "result": "e77d68e5f0e09fc3e823ce669192f90ea80e47c8d8a897094b7fe109db200671",
     "source": "patches/frameworks/base/core/res/res/values/config.xml.patch"
   },
   "frameworks/base/packages/PackageInstaller/Android.bp": {
@@ -96,12 +96,12 @@
   },
   "packages/apps/Browser2/AndroidManifest.xml": {
     "upstream": "a07ed8196432e3dbc9c1a273bd4ee05178848864ec91fe938a209daf4bd9d5fd",
-    "result": "7cc7da7a6d6d42a06ba159acbd09a567ceb643d6811520e1fd7e97c2a254ab3c",
+    "result": "b2e38552031c4be559f25a6e9550f5e8ebc6700741eba3907a1f009c85ab063c",
     "source": "patches/packages/apps/Browser2/AndroidManifest.xml.patch"
   },
   "packages/apps/Browser2/src/org/chromium/webview_shell/TommyBrowser.java": {
     "upstream": null,
-    "result": "634f1b47e9bd33128e0f738c5302c88067ed226c59d701f7aa5ad7b7eedae2ba",
+    "result": "9d142f5af68bab4f8cc27d8b8ce425f0d096b478a83a22a9a2bfceae1f4f54fb",
     "source": "overlay/packages/apps/Browser2/src/org/chromium/webview_shell/TommyBrowser.java"
   },
   "packages/apps/Dialer/java/com/android/dialer/main/impl/MainActivity.java": {
@@ -113,6 +113,16 @@
     "upstream": "d201f6c5495b535be13593628904d5dc1933ce5bdb4ddf8127692f46fd61afeb",
     "result": "c4592219b726aac0fbf4ed8ff1f8ba751aba45ab1f37ab0f1ee9787da6cb41de",
     "source": "patches/packages/apps/Launcher3/quickstep/res/values/strings.xml.patch"
+  },
+  "packages/apps/Launcher3/res/values/colors.xml": {
+    "upstream": "a3deaf488c7c03ad58442a92c2add332dcf0ed2f544b5364780f11712b94a936",
+    "result": "8ffa2b7af104e54d4159813acf50a418af7d5fd25d38030e4ed8bce237d89f85",
+    "source": "patches/packages/apps/Launcher3/res/values/colors.xml.patch"
+  },
+  "packages/apps/Launcher3/res/values/config.xml": {
+    "upstream": "23634af961b3b609f08312680c33628850369a6b558fabec44f70e1626742870",
+    "result": "fc985d98cc44a1caabd16412a04ef94d4668f0dd76f15c914ae181ee1763654e",
+    "source": "patches/packages/apps/Launcher3/res/values/config.xml.patch"
   },
   "packages/apps/Launcher3/res/values/strings.xml": {
     "upstream": "4aa9885c8a8fe3f5156735e756885d03443127ef0995bdf945a2bce15be55b10",
@@ -136,7 +146,7 @@
   },
   "packages/apps/Settings/AndroidManifest.xml": {
     "upstream": "1f9b4703f4639612ff3eb1b30023abd4bddefe211868b7afa6a65889af0b22ec",
-    "result": "d75216fa6eb2786e7e934c18c33d101b51c1930db7a787cfb4e7f0d19ec212a8",
+    "result": "a1b72083ed69d2c002efd3d270f67b96c3b45d8da628578917ed58e5c410f8e9",
     "source": "patches/packages/apps/Settings/AndroidManifest.xml.patch"
   },
   "packages/apps/Settings/res/raw/tommy_feed_key.der": {
@@ -151,7 +161,7 @@
   },
   "packages/apps/Settings/res/values/tommyui.xml": {
     "upstream": null,
-    "result": "c85018f16b37d5b4cbcefb976c3f34043bdc0c1c6d26efb18b02c7e3ac84a93b",
+    "result": "7efed7720f46d5f3502d9a09a150f28c9a7794e3f478ba72eec6036fff617294",
     "source": "overlay/packages/apps/Settings/res/values/tommyui.xml"
   },
   "packages/apps/Settings/res/xml/firmware_version.xml": {
@@ -166,17 +176,17 @@
   },
   "packages/apps/Settings/res/xml/top_level_settings.xml": {
     "upstream": "5a0bc0b81f3df4795cb4e789d78c5cf414ab383fc16ca422035df0672f8ca1bc",
-    "result": "157b9a81a06eac3ebcf4407935373a39031914b33c9fdba73379a0aa52f749c4",
+    "result": "330e6e1471acb1e5726932ffa99f560721ab3a190e0695bdad86d056b7f6c0df",
     "source": "patches/packages/apps/Settings/res/xml/top_level_settings.xml.patch"
   },
   "packages/apps/Settings/res/xml/top_level_settings_expressive.xml": {
     "upstream": "b9f27114200f9c7799dbf6ef5afb528109a3482016a29d940bf0c47a1040ed87",
-    "result": "728473aa6c00af4325497c0eb040cb8a46fac2edae9677c57748748a61f8a2d8",
+    "result": "21f9917275f2688d272d0c3069148ebc9eda8886cf6ac6dc9eddaf3fcf6acc29",
     "source": "patches/packages/apps/Settings/res/xml/top_level_settings_expressive.xml.patch"
   },
   "packages/apps/Settings/res/xml/top_level_settings_v2.xml": {
     "upstream": "2868b75dd30ed65b7ca501a916dbe1d49662b9fae056def00f9af66d79d5e4ab",
-    "result": "0a39aa17ba43b63e31290967352828e33546f82b47d0c45f5268fd863bce6b9b",
+    "result": "d364515dd3e083dbc52907d0e14f6d6fb66ce7573f44d5163aeecb064009e601",
     "source": "patches/packages/apps/Settings/res/xml/top_level_settings_v2.xml.patch"
   },
   "packages/apps/Settings/src/com/android/settings/deviceinfo/DeviceNamePreferenceController.java": {
@@ -231,7 +241,7 @@
   },
   "packages/apps/Settings/src/com/android/settings/tommyui/UpdatePage.java": {
     "upstream": null,
-    "result": "65f14bc59db0a98a9794bfcb9bff95ad5272b73a8c078ff15ba420b37679154b",
+    "result": "bd7f21fa9ec467a1aa97163cc281aca356aa58695bd9dacf1fc893afc41a9f7a",
     "source": "overlay/packages/apps/Settings/src/com/android/settings/tommyui/UpdatePage.java"
   },
   "packages/apps/TommyStorage/Android.bp": {
@@ -241,7 +251,7 @@
   },
   "packages/apps/TommyStorage/AndroidManifest.xml": {
     "upstream": null,
-    "result": "b45afcaf30f2d91f50ff9de689a5eac5d30a49d4c9c7e1855f192048ff95bcb2",
+    "result": "067a2f9252182412a40d51ebd67d6e58737348865cf713f2ad0672711f04450a",
     "source": "overlay/packages/apps/TommyStorage/AndroidManifest.xml"
   },
   "packages/apps/TommyStorage/privapp-permissions-tommy-storage.xml": {
@@ -249,24 +259,79 @@
     "result": "01ab218c20e6d7bb0c7036fc095ce7e405d8e8f4a8bf62e112bf021cb2f32657",
     "source": "overlay/packages/apps/TommyStorage/privapp-permissions-tommy-storage.xml"
   },
+  "packages/apps/TommyStorage/res/drawable-v26/ic_storage.xml": {
+    "upstream": null,
+    "result": "b0c69f30c720e5a1f240e332df7727acc97b66c527ae49aab1b69e7e3207bd4d",
+    "source": "overlay/packages/apps/TommyStorage/res/drawable-v26/ic_storage.xml"
+  },
+  "packages/apps/TommyStorage/res/drawable/classic_card.xml": {
+    "upstream": null,
+    "result": "d81bdbf1b0575daea5cbed0215f1599e586167b5ae2aff77fbdcb65e4cf09224",
+    "source": "overlay/packages/apps/TommyStorage/res/drawable/classic_card.xml"
+  },
+  "packages/apps/TommyStorage/res/drawable/classic_hero.xml": {
+    "upstream": null,
+    "result": "a3d89d90464fe11814a11e161d2e0af4fe59873655f4bbf45b53271443c999da",
+    "source": "overlay/packages/apps/TommyStorage/res/drawable/classic_hero.xml"
+  },
+  "packages/apps/TommyStorage/res/drawable/classic_mark.xml": {
+    "upstream": null,
+    "result": "9306153882f8dd9132b10054ca3d4a21f9ca886911199516b3f150e67654ba70",
+    "source": "overlay/packages/apps/TommyStorage/res/drawable/classic_mark.xml"
+  },
+  "packages/apps/TommyStorage/res/drawable/classic_storage_glyph.xml": {
+    "upstream": null,
+    "result": "46172afc3278f6966ec10068469f7c3fa42a670ed8da9ed8b1a5e41d7a68edb1",
+    "source": "overlay/packages/apps/TommyStorage/res/drawable/classic_storage_glyph.xml"
+  },
   "packages/apps/TommyStorage/res/drawable/ic_storage.xml": {
     "upstream": null,
     "result": "cce7ae9718fd5e6f34c34397c8d192784dd7ad673af011a8fc36efe94030109c",
     "source": "overlay/packages/apps/TommyStorage/res/drawable/ic_storage.xml"
   },
+  "packages/apps/TommyStorage/res/layout/about_tommy.xml": {
+    "upstream": null,
+    "result": "d15410c5b9874a239a46a9854980fb5624752f43051f9b2d16ab47996a5dcdfc",
+    "source": "overlay/packages/apps/TommyStorage/res/layout/about_tommy.xml"
+  },
+  "packages/apps/TommyStorage/res/values-night/classic_colors.xml": {
+    "upstream": null,
+    "result": "4a34d66bc02082b4c6a309a447410e72a848129d966d65587e7d7996845532f9",
+    "source": "overlay/packages/apps/TommyStorage/res/values-night/classic_colors.xml"
+  },
+  "packages/apps/TommyStorage/res/values-night/styles.xml": {
+    "upstream": null,
+    "result": "23861cd63e9adfe0e5224669daf6d100672bdb6c756574eb34a4571e0bf65ab8",
+    "source": "overlay/packages/apps/TommyStorage/res/values-night/styles.xml"
+  },
+  "packages/apps/TommyStorage/res/values/classic_colors.xml": {
+    "upstream": null,
+    "result": "c7cea4ebed4a601b559789b363c4281f9206432089a8b9dea0c44ccab7d140d0",
+    "source": "overlay/packages/apps/TommyStorage/res/values/classic_colors.xml"
+  },
+  "packages/apps/TommyStorage/res/values/classic_strings.xml": {
+    "upstream": null,
+    "result": "38cebd1314714012e3018a569f056627aa282e0139bea8603a23173b0bc277f4",
+    "source": "overlay/packages/apps/TommyStorage/res/values/classic_strings.xml"
+  },
+  "packages/apps/TommyStorage/res/values/icon_color.xml": {
+    "upstream": null,
+    "result": "3a8bd116f3f7a5ad075f60dbf3a8ae8c03e815759fb25ab97f142a5ee1e58e2e",
+    "source": "overlay/packages/apps/TommyStorage/res/values/icon_color.xml"
+  },
   "packages/apps/TommyStorage/res/values/styles.xml": {
     "upstream": null,
-    "result": "4bd802eb69f21e4f113f024efa657fad809deac0734bbb56d373a1f52b1c0f87",
+    "result": "92c25d8372f4eaa00ee29c87212d7bfc88895d516c8ec24f720b6cb9df10c9f8",
     "source": "overlay/packages/apps/TommyStorage/res/values/styles.xml"
   },
   "packages/apps/TommyStorage/src/com/tommyui/storage/AboutTommy.java": {
     "upstream": null,
-    "result": "636d96cea5d44f8725b4e59fca186961cf9a2f9dbb967fab531ec6878be2dcbe",
+    "result": "5814103996a6750b19fffff13e842057618fd786abb3c8d30a5f4a9ada081966",
     "source": "overlay/packages/apps/TommyStorage/src/com/tommyui/storage/AboutTommy.java"
   },
   "packages/apps/TommyStorage/src/com/tommyui/storage/MainActivity.java": {
     "upstream": null,
-    "result": "37fb6911367ff23ecf165b815f4ed0a9eb777fa64fbc5455a45679b427dc69fe",
+    "result": "980fd69fca00139905357495bdcfa03ec9d04db26dee72a669e426f3d4779b26",
     "source": "overlay/packages/apps/TommyStorage/src/com/tommyui/storage/MainActivity.java"
   },
   "packages/apps/TommyStorage/src/com/tommyui/storage/MoveRules.java": {

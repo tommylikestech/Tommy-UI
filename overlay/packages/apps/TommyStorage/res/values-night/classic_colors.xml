@@ -1,0 +1,8 @@
+<resources>
+    <color name="classic_page">#0F201B</color>
+    <color name="classic_panel">#1C3028</color>
+    <color name="classic_ink">#E8F3E9</color>
+    <color name="classic_muted">#B6CCBE</color>
+    <color name="classic_accent">#A5DABC</color>
+    <color name="classic_stroke">#385246</color>
+</resources>

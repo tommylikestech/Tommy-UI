@@ -1,0 +1,29 @@
+--- a/packages/apps/Launcher3/res/values/colors.xml
++++ b/packages/apps/Launcher3/res/values/colors.xml
+@@ -61,16 +61,16 @@
+     <color name="workspace_text_color_light">#FFF</color>
+     <color name="workspace_text_color_dark">#FF000000</color>
+ 
+-    <color name="folder_text_color_light">#1F1F1F</color>
+-    <color name="folder_text_color_dark">#E3E3E3</color>
+-    <color name="folder_hint_text_color_light">#444746</color>
+-    <color name="folder_hint_text_color_dark">#C4C7C5</color>
+-
+-    <color name="folder_background_light">#EFEDED</color>
+-    <color name="folder_background_dark">#1F2020</color>
+-
+-    <color name="folder_preview_light">#7FCFFF</color>
+-    <color name="folder_preview_dark">#1E1F20</color>
++    <color name="folder_text_color_light">#172C25</color>
++    <color name="folder_text_color_dark">#E4F2E7</color>
++    <color name="folder_hint_text_color_light">#445D52</color>
++    <color name="folder_hint_text_color_dark">#B9CDC1</color>
++
++    <color name="folder_background_light">#E6EFE6</color>
++    <color name="folder_background_dark">#1E322C</color>
++
++    <color name="folder_preview_light">#B7DBC3</color>
++    <color name="folder_preview_dark">#36594A</color>
+ 
+     <color name="pagination_indicator_dot_color_light">#0B57D0</color>
+     <color name="pagination_indicator_dot_color_dark">#A8C7FA</color>

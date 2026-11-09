@@ -1,0 +1,5 @@
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/classic_icon_ground" />
+    <foreground android:drawable="@drawable/classic_storage_glyph" />
+    <monochrome android:drawable="@drawable/classic_storage_glyph" />
+</adaptive-icon>

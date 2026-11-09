@@ -8,15 +8,16 @@ Choose the source revision for the build you want.
 | Revision | Result |
 | --- | --- |
 | [v1.003](https://github.com/tommylikestech/Tommy-UI/tree/v1.003) | Original Android 16 image flashed on the XT2413-2 |
+| `feature/tommy-ui-classic` | Experimental v1.1 Classic image for hardware testing |
 | [main](https://github.com/tommylikestech/Tommy-UI/tree/main) | Development build with the wireless update page and boot check |
 
 ## Prepare the host
 
-Use x86-64 Linux with Git, Repo, Python 3.11 or later, e2fsprogs, and the Android build dependencies. Keep the Android source tree on a Linux filesystem and allow several hundred gigabytes for source and build output. [Android host requirements](https://source.android.com/docs/setup/start/requirements)
+Use x86-64 Linux with Git, Repo, Python 3.11 or later, e2fsprogs, ImageMagick, and the Android build dependencies. Keep the Android source tree on a Linux filesystem and allow several hundred gigabytes for source and build output. [Android host requirements](https://source.android.com/docs/setup/start/requirements)
 
 ## Build the image
 
-Clone Tommy UI and choose your revision before starting the AOSP checkout. For the original release, run `git checkout v1.003` inside the clone.
+Clone Tommy UI and choose your revision before starting the AOSP checkout. For Classic, run `git checkout feature/tommy-ui-classic`. For the original release, run `git checkout v1.003` inside the clone.
 
 ```bash
 git clone https://github.com/tommylikestech/Tommy-UI.git
@@ -37,7 +38,7 @@ bash "$TOMMY_SOURCE/tools/build.sh" "$PWD"
 python3 "$TOMMY_SOURCE/tools/verify_export.py" "$PWD"
 ```
 
-The build script verifies the upstream revision, applies the Tommy UI changes, and builds `aosp_arm64-bp2a-userdebug`. Set `TOMMYUI_JOBS` to change parallelism. The verifier checks the ext4 image, app signatures, and build identity before writing the image, USB flash kit, build report, and checksums to the Tommy UI repository’s `dist/` directory.
+The build script verifies the upstream revision, applies the Tommy UI changes, and builds `aosp_arm64-bp2a-userdebug`. Set `TOMMYUI_JOBS` to change parallelism. The verifier checks the ext4 image, app signatures, and build identity before writing the raw system image, image ZIP, build report, and SHA-256 checksums to the Tommy UI repository’s `dist/` directory.
 
 ## Check your output
 

@@ -1,0 +1,35 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true"
+    android:background="@color/classic_page">
+    <LinearLayout android:orientation="vertical" android:padding="20dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="vertical" android:padding="24dp" android:background="@drawable/classic_hero"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+            <ImageView android:src="@drawable/classic_mark" android:importantForAccessibility="no"
+                android:layout_width="52dp" android:layout_height="52dp"/>
+            <TextView android:text="@string/classic_name" android:textColor="#F1F8ED" android:textSize="32sp"
+                android:fontFamily="sans-serif-medium" android:layout_marginTop="20dp"
+                android:layout_width="match_parent" android:layout_height="wrap_content"/>
+            <Button android:id="@+id/classic_version" style="?android:attr/borderlessButtonStyle"
+                android:textColor="#BEE8C9" android:textAllCaps="false" android:gravity="start|center_vertical"
+                android:minHeight="48dp" android:paddingStart="0dp" android:paddingEnd="12dp"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <TextView android:id="@+id/classic_android" android:textColor="@color/classic_ink" android:textSize="22sp"
+            android:fontFamily="sans-serif-medium" android:layout_marginTop="28dp"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <TextView android:text="@string/classic_build" android:textColor="@color/classic_muted" android:textSize="14sp"
+            android:layout_marginTop="14dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <TextView android:id="@+id/classic_build" android:textColor="@color/classic_ink" android:textSize="16sp"
+            android:textIsSelectable="true" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <Button android:id="@+id/classic_update" android:text="@string/classic_update" android:textColor="@color/classic_accent"
+            android:textSize="18sp" android:textAllCaps="false" android:gravity="start|center_vertical"
+            android:background="@drawable/classic_card" android:backgroundTint="@null" android:minHeight="64dp"
+            android:paddingStart="20dp" android:paddingEnd="20dp" android:layout_marginTop="24dp"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <Button android:id="@+id/classic_wallpaper" android:text="@string/classic_wallpaper" android:textColor="@color/classic_accent"
+            android:textSize="18sp" android:textAllCaps="false" android:gravity="start|center_vertical"
+            android:background="@drawable/classic_card" android:backgroundTint="@null" android:minHeight="64dp"
+            android:paddingStart="20dp" android:paddingEnd="20dp" android:layout_marginTop="10dp"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    </LinearLayout>
+</ScrollView>
