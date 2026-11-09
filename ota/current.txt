@@ -1,4 +1,4 @@
 version=v1.003
 type=content
-summary=Corrected SD storage reporting, Motorola hardware details, About Tommy UI, and APK downloads in Tommy Browser.
+summary=Over-the-air updates are paused while we fix them. v1.003 is the current build and there is nothing to install.
 url=

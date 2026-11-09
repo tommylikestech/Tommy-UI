@@ -1,5 +1,7 @@
 # Update Zero · 1.0.03 Test
 
+**Status: withdrawn.** Over-the-air updates are paused while they are fixed. The Update Zero and v1.004 trial releases are offline and both feeds list v1.003 with nothing to install. The notes below are kept for maintainers.
+
 Development preflight for the XT2413-2 on `TommyUI.v1.003.dev.20261106`. The title is a test label. The installed operating system version stays at v1.003.
 
 **On the phone:** install the test Settings APK, then open **Settings → About Tommy UI → Update Tommy UI → Run Update Zero download test**. This downloads the 448-byte metadata file from GitHub Releases and checks its SHA-256. The separate Phone and Messaging APKs add a launch warning. Settings asks for acknowledgment on the next regular startup and before starting an OS update.
