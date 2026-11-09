@@ -1,0 +1,16 @@
+--- a/packages/apps/Messaging/src/com/android/messaging/ui/conversation/ConversationActivity.java
++++ b/packages/apps/Messaging/src/com/android/messaging/ui/conversation/ConversationActivity.java
+@@ -58,6 +58,13 @@
+ 
+     // Tracks whether onPause is called.
+     private boolean mIsPaused;
++
++    @Override
++    protected void onStart() {
++        super.onStart();
++        android.widget.Toast.makeText(this, "Use at your own risk. Calls and texts may fail.",
++                android.widget.Toast.LENGTH_LONG).show();
++    }
+ 
+     @Override
+     protected void onCreate(final Bundle savedInstanceState) {

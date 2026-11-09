@@ -22,12 +22,35 @@ public final class UpdateCheck extends JobService {
                 && (SystemProperties.getBoolean("ro.build.ab_update", false)
                     || SystemProperties.getBoolean("ro.virtual_ab.enabled", false));
     }
+    static final String NOTICE = "Use Tommy UI at your own risk. Calling and text messaging may not work on this build.";
+    public static final class Notice extends Activity {
+        private static android.content.SharedPreferences prefs(Context c) {
+            return c.getSharedPreferences("tommy_telephony_notice", MODE_PRIVATE);
+        }
+        static void afterBoot(Context c) {
+            if (Build.VERSION.INCREMENTAL.equals(prefs(c).getString("acceptedBuild", ""))) return;
+            android.telecom.TelecomManager telecom = c.getSystemService(android.telecom.TelecomManager.class);
+            if (telecom != null && telecom.isInCall()) return;
+            c.startActivity(new Intent(c, Notice.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        }
+        @Override public void onCreate(android.os.Bundle state) {
+            super.onCreate(state);
+            new AlertDialog.Builder(this).setTitle("Calls and text messages")
+                .setMessage(NOTICE)
+                .setPositiveButton("I understand", (dialog, which) -> {
+                    prefs(this).edit().putString("acceptedBuild", Build.VERSION.INCREMENTAL).apply();
+                    finish();
+                }).setOnCancelListener(dialog -> finish()).show();
+        }
+    }
     public static final class Boot extends BroadcastReceiver {
         @Override public void onReceive(Context c, Intent intent) {
-            if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction()))
+            if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
                 c.getSystemService(JobScheduler.class).schedule(new JobInfo.Builder(0x544d5901,
                     new ComponentName(c,UpdateCheck.class)).setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                     .setBackoffCriteria(60_000,JobInfo.BACKOFF_POLICY_EXPONENTIAL).build());
+                Notice.afterBoot(c);
+            }
         }
     }
     private volatile int generation;

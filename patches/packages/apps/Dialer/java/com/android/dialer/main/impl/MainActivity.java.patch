@@ -1,0 +1,16 @@
+--- a/packages/apps/Dialer/java/com/android/dialer/main/impl/MainActivity.java
++++ b/packages/apps/Dialer/java/com/android/dialer/main/impl/MainActivity.java
+@@ -68,6 +68,13 @@
+     return new Intent(context, MainActivity.class)
+         .setAction(Intent.ACTION_VIEW)
+         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
++  }
++
++  @Override
++  protected void onStart() {
++      super.onStart();
++      android.widget.Toast.makeText(this, "Use at your own risk. Calls and texts may fail.",
++              android.widget.Toast.LENGTH_LONG).show();
+   }
+ 
+   @Override

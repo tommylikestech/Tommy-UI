@@ -104,6 +104,11 @@
     "result": "634f1b47e9bd33128e0f738c5302c88067ed226c59d701f7aa5ad7b7eedae2ba",
     "source": "overlay/packages/apps/Browser2/src/org/chromium/webview_shell/TommyBrowser.java"
   },
+  "packages/apps/Dialer/java/com/android/dialer/main/impl/MainActivity.java": {
+    "upstream": "89012d9259aeaa2dbff6b6dd166011c67ae7b50126bd4c43fce5aec52fa519f7",
+    "result": "5d13afe4fdcffdf365f5c68aed2a17e8cd3afeef3e908ff47b6ee450cd8cbc05",
+    "source": "patches/packages/apps/Dialer/java/com/android/dialer/main/impl/MainActivity.java.patch"
+  },
   "packages/apps/Launcher3/quickstep/res/values/strings.xml": {
     "upstream": "d201f6c5495b535be13593628904d5dc1933ce5bdb4ddf8127692f46fd61afeb",
     "result": "c4592219b726aac0fbf4ed8ff1f8ba751aba45ab1f37ab0f1ee9787da6cb41de",
@@ -119,9 +124,19 @@
     "result": "03c0155aa9519621ef653653a8bb8d00ab339185053179a4fc7622d06f54710a",
     "source": "patches/packages/apps/Launcher3/src_build_config/com/android/launcher3/BuildConfig.java.patch"
   },
+  "packages/apps/Messaging/src/com/android/messaging/ui/conversation/ConversationActivity.java": {
+    "upstream": "8edf204d182b3bed7c1934aafc0530e1e0365eb8f91df2fab0bad4b8b73c8360",
+    "result": "2b71607940650c19446d3a60a2510c5c62460f454acd0c0b948020705b6db9de",
+    "source": "patches/packages/apps/Messaging/src/com/android/messaging/ui/conversation/ConversationActivity.java.patch"
+  },
+  "packages/apps/Messaging/src/com/android/messaging/ui/conversationlist/ConversationListActivity.java": {
+    "upstream": "a6bafd000423748592951891a72a2be6073236db7f16ff3927f9205ef8256ef5",
+    "result": "93df56cdf331fbf0beb541743420d178bea33277dfd7db03ce7caa93a14921f8",
+    "source": "patches/packages/apps/Messaging/src/com/android/messaging/ui/conversationlist/ConversationListActivity.java.patch"
+  },
   "packages/apps/Settings/AndroidManifest.xml": {
     "upstream": "1f9b4703f4639612ff3eb1b30023abd4bddefe211868b7afa6a65889af0b22ec",
-    "result": "34ebd35be7f246b96e83b56b41b83f47edf219f32d9cc1d6f26d746e59fdb044",
+    "result": "4980c8ed820b82a47383295dfbec92383ba2cce73fef9bc880c238362299c7dd",
     "source": "patches/packages/apps/Settings/AndroidManifest.xml.patch"
   },
   "packages/apps/Settings/res/raw/tommy_feed_key.der": {
@@ -206,7 +221,7 @@
   },
   "packages/apps/Settings/src/com/android/settings/tommyui/UpdateCheck.java": {
     "upstream": null,
-    "result": "8ddee6f70a76195ca6e0208caa4b733ad56fb394924609f9f88e238dbd4d58cb",
+    "result": "5f5fc06d94a27f69ed5efa70e99472d4535f7aa5fddecea4d4c2d30f2298f05d",
     "source": "overlay/packages/apps/Settings/src/com/android/settings/tommyui/UpdateCheck.java"
   },
   "packages/apps/Settings/src/com/android/settings/tommyui/UpdateFeed.java": {
@@ -216,7 +231,7 @@
   },
   "packages/apps/Settings/src/com/android/settings/tommyui/UpdatePage.java": {
     "upstream": null,
-    "result": "89c2ec4c4213e2b1cd422f77f471661802ebc9e050e37233713869c9609e1530",
+    "result": "8f8e4a8a1f4da54a4dd12f1ca7e715ed2afc00d8cf61cbd6a6bd0235bb49a337",
     "source": "overlay/packages/apps/Settings/src/com/android/settings/tommyui/UpdatePage.java"
   },
   "packages/apps/TommyStorage/Android.bp": {

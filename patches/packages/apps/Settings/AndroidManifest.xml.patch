@@ -1,10 +1,12 @@
 --- a/packages/apps/Settings/AndroidManifest.xml
 +++ b/packages/apps/Settings/AndroidManifest.xml
-@@ -3208,9 +3208,16 @@
+@@ -3208,9 +3208,18 @@
          <activity android:name=".deviceinfo.StorageWizardFormatSlow"
                  android:theme="@style/GlifTheme.Light"
                  android:exported="false"/>
 +        <activity android:name=".tommyui.UpdatePage" android:exported="true" android:label="Update Tommy UI" />
++        <activity android:name=".tommyui.UpdateCheck$Notice" android:exported="false"
++            android:excludeFromRecents="true" android:theme="@android:style/Theme.Material.Light.Dialog.Alert" />
 +        <receiver android:name=".tommyui.UpdateCheck$Boot" android:exported="false">
 +            <intent-filter><action android:name="android.intent.action.BOOT_COMPLETED" /></intent-filter>
 +        </receiver>
