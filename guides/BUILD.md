@@ -1,7 +1,7 @@
 # Build Tommy UI from source
 
 > [!CAUTION]
-> **Use at your own risk.** Calling, texting, cell data and cell service might not work. This operating system is very unstable and might break. Flash at your own risk. We do not guarantee that anything works, and we are not responsible if you break your device.
+> **Use at your own risk.** Calling emergency services might not work. Calling, texting, cell data and cell service might not work. This operating system is very unstable and might break. Flash at your own risk. We do not guarantee that anything works, and we are not responsible if you break your device.
 
 Choose the source revision for the build you want.
 

@@ -1,6 +1,7 @@
 # USE AT YOUR OWN RISK
 
 > [!CAUTION]
+> ## **Calling emergency services might not work.**
 > ## **Calling and texting might not work.**
 > ## **Cell data and cell service might not work.**
 > ## **This operating system is very unstable and might break.**

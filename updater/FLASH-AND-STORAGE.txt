@@ -1,4 +1,4 @@
-USE AT YOUR OWN RISK. Calling, texting, cell data and cell service might not work. This operating system is very unstable and might break. Flash at your own risk. We do not guarantee that anything works, and we are not responsible if you break your device.
+USE AT YOUR OWN RISK. Calling emergency services might not work. Calling, texting, cell data and cell service might not work. This operating system is very unstable and might break. Flash at your own risk. We do not guarantee that anything works, and we are not responsible if you break your device.
 
 Tommy UI v1.003 USB update for XT2413-2 on v1.002
 
