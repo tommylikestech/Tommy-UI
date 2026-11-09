@@ -1,44 +1,26 @@
-# Tommy UI
+# ![Tommy UI](docs/assets/tommy-ui.png)
 
-Tommy UI v1.003 is an experimental Android 16 system image for the Motorola Moto G Play 2024, North America retail model **XT2413-2** (device codename **fogona**). It keeps the AOSP interface and adds controls for using a microSD card as app storage.
+Tommy UI brings Android 16 to the **Motorola Moto G Play 2024** and lets you move eligible apps to a microSD card. It’s an experimental community build for the **North American retail XT2413-2** (codename `fogona`).
 
-| On the phone | What it does |
+[Downloads and release history](https://tommylikestech.github.io/Tommy-UI/) · [Build guide](guides/BUILD.md) · [Contributing](CONTRIBUTING.md)
+
+## Start here
+
+| What’s on your phone? | Where to go |
 | --- | --- |
-| Settings → Storage | Shows usage for the selected filesystem. Tommy Storage opens Android’s card setup and migration screens and moves eligible apps between internal storage and an adopted card. Adopting a card formats it and encrypts it for that phone. |
-| APK installation | The system installer offers a destination when multiple eligible volumes are available. Stores using their own installation sessions can trigger a storage notification after installation. |
-| About phone / About Tommy UI | Shows Motorola hardware information separately from the OS version. Tap the Tommy UI version seven times to open the constellation. |
-| Tommy Home and Tommy Browser | The launcher omits the persistent search bar. The browser saves direct web downloads, including APKs, to Downloads for opening with the system installer. |
-| Wireless update | About Tommy UI → Update Tommy UI checks the signed GitHub Pages feed on demand, and a boot job checks when connected. Compatible newer releases offer a download from GitHub Releases and installation by Android’s update engine. [Release and installation details](ota/README.md) |
-| USB update | The Windows updater checks the device and starting build before offering the v1.002 → v1.003 update. |
+| **Tommy UI v1.003** | [Get the wireless updater](https://github.com/tommylikestech/Tommy-UI/releases/tag/updater-1). Install **Tommy-Settings.apk** first, then **Tommy-Storage.apk**. Open **Settings → About Tommy UI → Update Tommy UI**. |
+| **Tommy UI v1.002** | The [Windows USB updater instructions](updater/FLASH-AND-STORAGE.txt) cover upgrading an unlocked XT2413-2 on slot A using a locally built kit. |
+| **Motorola stock Android** | The published APKs require Tommy UI. The [v1.003 release](https://github.com/tommylikestech/Tommy-UI/releases/tag/v1.003) provides source code for building the OS. |
 
-## Build
+## What you can do
 
-Use Linux on x86-64 with the Android build dependencies, Repo, Git, Python 3.11 or newer, and e2fsprogs. Keep the AOSP tree on a Linux filesystem. Allow several hundred gigabytes for sources and build output. [AOSP host setup](https://source.android.com/docs/setup/start/requirements)
+- **Choose where apps live.** Tommy Storage can move eligible apps between phone storage and an adopted microSD card. The system APK installer offers a choice when multiple destinations are available. Adopting a card formats and encrypts it for that phone, so copy your files first.
+- **Download APKs on the phone.** Tommy Browser saves direct download links to Downloads, where you can open an APK with Android’s installer.
+- **Check for system updates.** The update page shows your installed build, Android version, release notes, and whether a release is a security or content update. It checks at boot and when you open the page. The current feed lists **v1.003** with no wireless OS payload. [Live update feed](https://tommylikestech.github.io/Tommy-UI/version.txt)
+- **Make yourself at home.** Tommy Home removes the persistent search bar. About phone shows the Motorola hardware model. About Tommy UI shows the OS version and has a constellation Easter egg if you tap the version seven times.
 
-From the root of this repository, run:
+## Build and test status
 
-```bash
-TOMMY_SOURCE="$PWD"
-mkdir -p "$HOME/aosp-tommy"
-cd "$HOME/aosp-tommy"
-repo init -u https://android.googlesource.com/platform/manifest \
-    -b android-security-16.0.0_r8 --depth=1
-repo sync -c -j4 --fail-fast
-python3 "$TOMMY_SOURCE/tools/prepare.py" "$PWD" --check
-bash "$TOMMY_SOURCE/tools/build.sh" "$PWD"
-python3 "$TOMMY_SOURCE/tools/verify_export.py" "$PWD"
-```
+The original v1.003 system image passed verification and was flashed on the XT2413-2. The build uses AOSP development keys and declares the **2025-08-05** Android security patch. On-device confirmation of the v1.003 build, corrected SD totals, browser APK downloads, and an end-to-end wireless OS upgrade remains pending.
 
-The build script checks the manifest commit, applies the source changes, and builds `aosp_arm64-bp2a-userdebug`. Set `TOMMYUI_JOBS` to change parallelism. The verifier reads the resulting ext4 filesystem, checks the embedded apps and build identity, then writes the system image, USB kit, verification report and SHA-256 list to this repository’s `dist/` directory.
-
-## Release status
-
-The [v1.003 tag](https://github.com/tommylikestech/Tommy-UI/tree/v1.003) reproduces the original image. The main branch adds the update client and uses the incremental build number in release.json. The original v1.003 image was built, verified, and flashed to `system_a` on the target phone. Its SHA-256 is `58672f248a7491fa026a8343f845bd648d31eb9536dd9f2481b55745d1e7d76f`. Confirmation of the running v1.003 build, the corrected SD totals on the physical card, and an end-to-end Tommy Browser APK download remains pending. The image uses AOSP development test keys and declares the upstream **2025-08-05** platform security patch. This source release targets developers.
-
-The USB kit targets an unlocked XT2413-2 already running Tommy UI v1.002 on slot A. Read the [USB update instructions](updater/FLASH-AND-STORAGE.txt) before using a locally built kit. The repository contains the GSI changes and build tools. The phone supplies the Motorola vendor firmware and kernel.
-
-## Source and licensing
-
-New Android sources and artwork live in `overlay/`. Changes to existing AOSP text files live in `patches/`, using their checkout paths. `files.json` records both baseline and result hashes. `manifests/aosp.xml` records the resolved upstream project revisions. See [Contributing](CONTRIBUTING.md) for editing and test instructions.
-
-Tommy UI additions use Apache License 2.0. Upstream code retains its original terms, including the Chromium license for Browser2. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
+For build commands, the original image checksum, and a map of the source tree, see the [build guide](guides/BUILD.md). Tommy UI additions use Apache License 2.0. Upstream components retain their own terms. [License](LICENSE) · [Third-party notices](NOTICE)

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Tommy UI downloads and release history for the Motorola Moto G Play 2024 XT2413-2.">
+<title>Downloads and releases · Tommy UI</title>
+<style>
+:root { color-scheme:light; font-family:"Segoe UI",Roboto,system-ui,sans-serif; color:#162e28; background:#f6f7f0 }
+* { box-sizing:border-box }
+body { margin:0 }
+main,nav,footer { width:min(960px,calc(100% - 36px)); margin:auto }
+nav,footer { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:20px 0 }
+nav strong { letter-spacing:-.04em;font-size:1.25rem }
+a { color:#155747; text-underline-offset:.22em }
+a:focus-visible { outline:3px solid #dd9256;outline-offset:4px }
+.hero { border-radius:16px;overflow:hidden;background:#10352e;color:white }
+.hero img { display:block;width:100%;height:auto }
+h1,h2,h3,p { margin:0 }
+h1 { margin:30px 0 8px; font-size:clamp(2rem,5vw,3.25rem);letter-spacing:-.055em;line-height:1.06 }
+h2 { font-size:1.55rem;letter-spacing:-.035em;margin:28px 0 10px }
+p { line-height:1.55 } .intro { color:#445c52 }
+.grid { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px }
+article { display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:24px;background:white;border:1px solid #ced8cc;border-radius:12px }
+article h2 { margin:0;font-size:1.45rem }
+.cta { display:inline-block;background:#174e40;color:white;border-radius:8px;padding:9px 15px;font-weight:600;text-decoration:none;margin-top:auto }
+.cta:hover { background:#206851 }
+ul { padding:0;list-style:none;margin:0 }
+li { display:grid;grid-template-columns:8rem 1fr;gap:16px;border-top:1px solid #ced8cc;padding:16px 0;line-height:1.5 }
+footer { border-top:1px solid #ced8cc;margin-top:24px;flex-wrap:wrap }
+@media(max-width:650px) { .grid { grid-template-columns:1fr } article { padding:18px } li { grid-template-columns:1fr;gap:4px } nav,footer {font-size:.95rem} }
+</style>
+</head>
+<body>
+<nav aria-label="Project links"><strong>Tommy UI</strong><a href="https://github.com/tommylikestech/Tommy-UI">View on GitHub ↗</a></nav>
+<main>
+<div class="hero"><img src="assets/tommy-ui.png" alt="Tommy UI · Android 16 for the Moto G Play 2024" width="1200" height="240"></div>
+<h1>Downloads and releases</h1>
+<p class="intro">For the North American retail Moto G Play 2024, model <strong>XT2413-2</strong> (<code>fogona</code>).</p>
+<section class="grid" aria-label="Choose a download">
+<article><h2>Already running v1.003?</h2><p>Add wireless update checks to Settings. Install <strong>Tommy-Settings.apk</strong> first, then <strong>Tommy-Storage.apk</strong>. Open <strong>Settings → About Tommy UI → Update Tommy UI</strong>.</p><a class="cta" href="https://github.com/tommylikestech/Tommy-UI/releases/tag/updater-1">Get the updater APKs</a></article>
+<article><h2>Build the operating system</h2><p>The v1.003 release contains Android source changes for developers. The build guide walks through the Linux setup, image build, and verification.</p><a class="cta" href="https://github.com/tommylikestech/Tommy-UI/blob/main/guides/BUILD.md">Read the build guide</a></article>
+</section>
+<h2>Release history</h2>
+<ul>
+<li><strong>Updater 1</strong><p>App prerelease for v1.003. Checks for updates at boot and on demand. <a href="https://github.com/tommylikestech/Tommy-UI/releases/tag/updater-1">Installation notes</a></p></li>
+<li><strong>v1.003</strong><p>OS content update. Corrects SD storage reporting, separates Motorola hardware details from the Tommy UI version, and adds APK downloads to Tommy Browser. <a href="https://github.com/tommylikestech/Tommy-UI/releases/tag/v1.003">Source release</a></p></li>
+</ul>
+<p>The signed feed currently lists <strong>v1.003</strong>. A newer wireless OS package has yet to be published.</p>
+</main><footer><a href="version.txt">Signed update feed</a><a href="https://github.com/tommylikestech/Tommy-UI/releases">All GitHub releases ↗</a></footer>
+</body></html>
