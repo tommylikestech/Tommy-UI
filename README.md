@@ -16,7 +16,7 @@ Tommy UI brings Android 16 to the **Motorola Moto G Play 2024** and lets you mov
 
 [Downloads and release history](https://tommylikestech.github.io/Tommy-UI/) · [Build guide](guides/BUILD.md) · [Contributing](CONTRIBUTING.md)
 
-> **Over-the-air updates aren’t working right now.** I’ll get to fixing them when I can. Until then the wireless updater APKs, the Update Zero test and the v1.004 trial are offline, and **Tommy UI v1.003 is the only supported build.**
+> **Over-the-air updates aren’t working right now.** I’ll get to fixing them when I can. Until then the wireless updater APKs, the Update Zero test and the v1.004 trial are offline, and **Tommy UI v1.003 is the only supported build.** [What was withdrawn and what it contained](WITHDRAWN.md)
 
 ## Start here
 
