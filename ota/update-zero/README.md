@@ -1,6 +1,6 @@
 # Update Zero · 1.0.03 Test
 
-**Status: withdrawn.** Over-the-air updates are paused while they are fixed. The Update Zero and v1.004 trial releases are offline and both feeds list v1.003 with nothing to install. The notes below are kept for maintainers.
+**Status: withdrawn.** Over-the-air updates aren’t working right now and will be fixed when time allows. The Update Zero and v1.004 trial releases are offline and both feeds list v1.003 with nothing to install. The notes below are kept for maintainers.
 
 Development preflight for the XT2413-2 on `TommyUI.v1.003.dev.20261106`. The title is a test label. The installed operating system version stays at v1.003.
 

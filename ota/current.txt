@@ -1,4 +1,4 @@
 version=v1.003
 type=content
-summary=Over-the-air updates are paused while we fix them. v1.003 is the current build and there is nothing to install.
+summary=Over-the-air updates are not working right now. I'll get to fixing them when I can. v1.003 is the current build and there is nothing to install.
 url=
