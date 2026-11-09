@@ -1,6 +1,14 @@
 --- a/packages/apps/Settings/AndroidManifest.xml
 +++ b/packages/apps/Settings/AndroidManifest.xml
-@@ -3208,9 +3208,18 @@
+@@ -2,6 +2,7 @@
+           xmlns:tools="http://schemas.android.com/tools"
+           package="com.android.settings"
+           coreApp="true"
++          android:versionCode="37"
+           android:sharedUserId="android.uid.system">
+ 
+     <original-package android:name="com.android.settings"/>
+@@ -3208,9 +3209,18 @@
          <activity android:name=".deviceinfo.StorageWizardFormatSlow"
                  android:theme="@style/GlifTheme.Light"
                  android:exported="false"/>

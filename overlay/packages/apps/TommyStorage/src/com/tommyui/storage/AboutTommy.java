@@ -13,7 +13,9 @@ public class AboutTommy extends Activity {
         page.setOrientation(1); int pad=(int)(24*getResources().getDisplayMetrics().density);
         page.setPadding(pad,pad,pad,pad); setContentView(page);
         TextView heading=new TextView(this); heading.setText("Tommy UI"); heading.setTextSize(36); page.addView(heading);
-        Button version=new Button(this); version.setText("Tommy UI version 1.003"); page.addView(version);
+        Button version=new Button(this); String build = android.os.Build.VERSION.INCREMENTAL;
+        java.util.regex.Matcher match = java.util.regex.Pattern.compile("TommyUI\\.(v[0-9]+\\.[0-9]{3})\\.dev\\.[0-9]{8}").matcher(build);
+        version.setText(match.matches() ? "Tommy UI " + match.group(1) : "Tommy UI"); page.addView(version);
         version.setOnClickListener(v->{long now=SystemClock.elapsedRealtime(); if(now-last>1300)taps=0; last=now;
             if(++taps==7){taps=0; constellation();}});
         TextView detail=new TextView(this); detail.setText("Android "+android.os.Build.VERSION.RELEASE+"  ·  "+android.os.Build.VERSION.INCREMENTAL); page.addView(detail);

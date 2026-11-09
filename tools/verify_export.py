@@ -91,7 +91,7 @@ def main():
                 return b"".join(archive.read(n) for n in archive.namelist() if n.endswith(".dex"))
 
         manifest = run(aapt, "dump", "badging", storage)
-        require("versionCode='1004'" in manifest and "versionName='1.003'" in manifest, "Wrong mover version")
+        require("versionCode='1005'" in manifest and "versionName='1.003'" in manifest, "Wrong mover version")
         for perm in ("MANAGE_USERS", "WRITE_SECURE_SETTINGS", "MOVE_PACKAGE", "MOUNT_UNMOUNT_FILESYSTEMS",
                      "INTERACT_ACROSS_USERS_FULL", "POST_NOTIFICATIONS"):
             require("android.permission." + perm in manifest, "Missing permission " + perm)

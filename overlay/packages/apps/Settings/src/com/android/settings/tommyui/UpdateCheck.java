@@ -10,8 +10,11 @@ import java.io.InputStream;
 
 public final class UpdateCheck extends JobService {
     static UpdateFeed fetch(Context context) throws Exception {
+        return fetch(context, false);
+    }
+    static UpdateFeed fetch(Context context, boolean trial) throws Exception {
         try (InputStream in = context.getResources().openRawResource(R.raw.tommy_feed_key)) {
-            return UpdateFeed.fetch(in.readAllBytes());
+            return UpdateFeed.fetch(in.readAllBytes(), trial);
         }
     }
     static boolean eligible(UpdateFeed r) {

@@ -136,7 +136,7 @@
   },
   "packages/apps/Settings/AndroidManifest.xml": {
     "upstream": "1f9b4703f4639612ff3eb1b30023abd4bddefe211868b7afa6a65889af0b22ec",
-    "result": "4980c8ed820b82a47383295dfbec92383ba2cce73fef9bc880c238362299c7dd",
+    "result": "3a3b26024deda2b8255f073aaed1d555e29eeffbbc01a633ebbe90c6b10c40f1",
     "source": "patches/packages/apps/Settings/AndroidManifest.xml.patch"
   },
   "packages/apps/Settings/res/raw/tommy_feed_key.der": {
@@ -221,17 +221,17 @@
   },
   "packages/apps/Settings/src/com/android/settings/tommyui/UpdateCheck.java": {
     "upstream": null,
-    "result": "5f5fc06d94a27f69ed5efa70e99472d4535f7aa5fddecea4d4c2d30f2298f05d",
+    "result": "203feb189fae10052ae4244ef8ff779ae72fd282c98d84e63ef63936007890a8",
     "source": "overlay/packages/apps/Settings/src/com/android/settings/tommyui/UpdateCheck.java"
   },
   "packages/apps/Settings/src/com/android/settings/tommyui/UpdateFeed.java": {
     "upstream": null,
-    "result": "1e16d0a4d9143fb6c8d00e8956641e492566eabcb5fbe350e8577ac58fa02e3c",
+    "result": "06e5cc4f0ae2b0becfadd6309f66fe3d46d9d925c697b76924368d034ced457c",
     "source": "overlay/packages/apps/Settings/src/com/android/settings/tommyui/UpdateFeed.java"
   },
   "packages/apps/Settings/src/com/android/settings/tommyui/UpdatePage.java": {
     "upstream": null,
-    "result": "8f8e4a8a1f4da54a4dd12f1ca7e715ed2afc00d8cf61cbd6a6bd0235bb49a337",
+    "result": "8594e6e7f2bc0444706298fc798d9db88dc783ace4415882d701a9ad6d595f7e",
     "source": "overlay/packages/apps/Settings/src/com/android/settings/tommyui/UpdatePage.java"
   },
   "packages/apps/TommyStorage/Android.bp": {
@@ -241,7 +241,7 @@
   },
   "packages/apps/TommyStorage/AndroidManifest.xml": {
     "upstream": null,
-    "result": "84643d9367efb1e44b8b228ec43e7f317c383a0b7e8c215dd35a6dba0c4229f8",
+    "result": "b45afcaf30f2d91f50ff9de689a5eac5d30a49d4c9c7e1855f192048ff95bcb2",
     "source": "overlay/packages/apps/TommyStorage/AndroidManifest.xml"
   },
   "packages/apps/TommyStorage/privapp-permissions-tommy-storage.xml": {
@@ -261,7 +261,7 @@
   },
   "packages/apps/TommyStorage/src/com/tommyui/storage/AboutTommy.java": {
     "upstream": null,
-    "result": "9d1ddbd209cf6101b5760fc3c73e430e3858c66fe8f0c879efec9f825858ac95",
+    "result": "636d96cea5d44f8725b4e59fca186961cf9a2f9dbb967fab531ec6878be2dcbe",
     "source": "overlay/packages/apps/TommyStorage/src/com/tommyui/storage/AboutTommy.java"
   },
   "packages/apps/TommyStorage/src/com/tommyui/storage/MainActivity.java": {
