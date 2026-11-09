@@ -114,8 +114,13 @@ def main():
         require("Tommy Browser" in browser_manifest and "TommyBrowser" in browser_manifest, "Browser missing")
         require(b"application/vnd.android.package-archive" in dex(browser), "APK download support missing")
         require("Update Tommy UI".encode() in app_code, "About/update entry missing")
-        home = run(aapt, "dump", "xmltree", settings, "--file", "res/xml/top_level_settings.xml")
-        require("about_tommy_ui" in home and "com.tommyui.storage.AboutTommy" in home, "About row or activity link missing")
+        for layout in ("top_level_settings", "top_level_settings_v2", "top_level_settings_expressive"):
+            home = run(aapt, "dump", "xmltree", settings, "--file", f"res/xml/{layout}.xml")
+            require("about_tommy_ui" in home and "com.tommyui.storage.AboutTommy" in home,
+                    "About Tommy UI navigation missing in " + layout)
+        phone = run(aapt, "dump", "xmltree", settings, "--file", "res/xml/my_device_info.xml")
+        require("tommy_ui_update" in phone and "com.android.settings.tommyui.UpdatePage" in phone,
+                "About phone update shortcut missing")
         about = run(aapt, "dump", "xmltree", storage, "--file", "AndroidManifest.xml")
         require(".AboutTommy" in about and b"Touch the stars" in app_code, "About activity or Easter egg missing")
         require(b"ro.boot.hardware.sku" in dex(settings), "Hardware model lookup absent")

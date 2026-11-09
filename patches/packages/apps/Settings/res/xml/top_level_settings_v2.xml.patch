@@ -1,0 +1,20 @@
+--- a/packages/apps/Settings/res/xml/top_level_settings_v2.xml
++++ b/packages/apps/Settings/res/xml/top_level_settings_v2.xml
+@@ -165,6 +165,17 @@
+             android:summary="@string/summary_placeholder"
+             settings:highlightableMenuKey="@string/menu_key_about_device"
+             settings:controller="com.android.settings.deviceinfo.aboutphone.TopLevelAboutDevicePreferenceController"/>
++
++        <com.android.settings.widget.HomepagePreference
++            android:key="about_tommy_ui"
++            android:order="-9"
++            android:title="About Tommy UI"
++            android:summary="Version and system updates"
++            android:icon="@drawable/ic_settings_about_device_filled">
++            <intent android:action="android.intent.action.VIEW"
++                android:targetPackage="com.tommyui.storage"
++                android:targetClass="com.tommyui.storage.AboutTommy" />
++        </com.android.settings.widget.HomepagePreference>
+     </PreferenceCategory>
+ 
+     <PreferenceCategory

@@ -1,0 +1,19 @@
+--- a/packages/apps/Settings/res/xml/my_device_info.xml
++++ b/packages/apps/Settings/res/xml/my_device_info.xml
+@@ -146,6 +146,16 @@
+             android:fragment="com.android.settings.deviceinfo.firmwareversion.FirmwareVersionSettings"
+             settings:controller="com.android.settings.deviceinfo.firmwareversion.FirmwareVersionPreferenceController"/>
+ 
++        <Preference
++            android:key="tommy_ui_update"
++            android:order="42"
++            android:title="Update Tommy UI"
++            android:summary="Check for system updates">
++            <intent android:action="android.intent.action.VIEW"
++                android:targetPackage="com.android.settings"
++                android:targetClass="com.android.settings.tommyui.UpdatePage" />
++        </Preference>
++
+         <!-- Battery information -->
+         <Preference
+             android:key="battery_info"

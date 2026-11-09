@@ -8,7 +8,7 @@ Tommy UI brings Android 16 to the **Motorola Moto G Play 2024** and lets you mov
 
 | What’s on your phone? | Where to go |
 | --- | --- |
-| **Tommy UI v1.003** | [Get the wireless updater](https://github.com/tommylikestech/Tommy-UI/releases/tag/updater-1). Install **Tommy-Settings.apk** first, then **Tommy-Storage.apk**. Open **Settings → About Tommy UI → Update Tommy UI**. |
+| **Tommy UI v1.003** | [Get the wireless updater](https://github.com/tommylikestech/Tommy-UI/releases/tag/updater-2). Install **Tommy-Settings.apk** first, then **Tommy-Storage.apk**. Open **Settings → About Tommy UI → Update Tommy UI**. The About Tommy UI row is directly below About phone. |
 | **Tommy UI v1.002** | The [Windows USB updater instructions](updater/FLASH-AND-STORAGE.txt) cover upgrading an unlocked XT2413-2 on slot A using a locally built kit. |
 | **Motorola stock Android** | The published APKs require Tommy UI. The [v1.003 release](https://github.com/tommylikestech/Tommy-UI/releases/tag/v1.003) provides source code for building the OS. |
 

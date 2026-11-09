@@ -141,13 +141,28 @@
   },
   "packages/apps/Settings/res/xml/firmware_version.xml": {
     "upstream": "2e79b3549c4cc63f14e4fa950c01c3c64d433b0a200bd5749239223578ba9c57",
-    "result": "c34719e34f17e88855f61a33edc1780dd2c46d0a7cab074c69c3eea66659e37a",
+    "result": "fb50efc578b8661609310fd68a07e0ee73fbeb68fd732d5ccbdbae9175d68ba8",
     "source": "patches/packages/apps/Settings/res/xml/firmware_version.xml.patch"
+  },
+  "packages/apps/Settings/res/xml/my_device_info.xml": {
+    "upstream": "80125e0118e64fc70e6362b120143699e006fc4f19b62880c1a709484944437b",
+    "result": "b8e31bf5cd158b62ceedf5233ae76617846758c41ce8a9dd5bccf31125f14afb",
+    "source": "patches/packages/apps/Settings/res/xml/my_device_info.xml.patch"
   },
   "packages/apps/Settings/res/xml/top_level_settings.xml": {
     "upstream": "5a0bc0b81f3df4795cb4e789d78c5cf414ab383fc16ca422035df0672f8ca1bc",
     "result": "157b9a81a06eac3ebcf4407935373a39031914b33c9fdba73379a0aa52f749c4",
     "source": "patches/packages/apps/Settings/res/xml/top_level_settings.xml.patch"
+  },
+  "packages/apps/Settings/res/xml/top_level_settings_expressive.xml": {
+    "upstream": "b9f27114200f9c7799dbf6ef5afb528109a3482016a29d940bf0c47a1040ed87",
+    "result": "728473aa6c00af4325497c0eb040cb8a46fac2edae9677c57748748a61f8a2d8",
+    "source": "patches/packages/apps/Settings/res/xml/top_level_settings_expressive.xml.patch"
+  },
+  "packages/apps/Settings/res/xml/top_level_settings_v2.xml": {
+    "upstream": "2868b75dd30ed65b7ca501a916dbe1d49662b9fae056def00f9af66d79d5e4ab",
+    "result": "0a39aa17ba43b63e31290967352828e33546f82b47d0c45f5268fd863bce6b9b",
+    "source": "patches/packages/apps/Settings/res/xml/top_level_settings_v2.xml.patch"
   },
   "packages/apps/Settings/src/com/android/settings/deviceinfo/DeviceNamePreferenceController.java": {
     "upstream": "76ab9381c39a86e25fe3cb26ae5e6d0663d8540b136ada3466090216d89d3f98",
