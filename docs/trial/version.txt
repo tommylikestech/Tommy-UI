@@ -1,0 +1,13 @@
+version=v1.004
+type=content
+summary=Update Zero staged trial for the audited Moto G Play 2024. Writes slot B; slot A stays selected.
+url=https://github.com/tommylikestech/Tommy-UI/releases/download/v1.004/Tommy-UI-fogona.bin
+device=fogona
+sku=XT2413-2
+vendor=motorola/fogona/fogona:13/U1TFS34.100-35-14-1-12/ad64fa:user/release-keys
+from=TommyUI.v1.003.dev.20261106
+FILE_HASH=EaGF31Yik+9h1uxo236Ut7YNiJKtP2J3Z+uM3WqHZmc=
+FILE_SIZE=2518555
+METADATA_HASH=pABt1CP5L/jdptnGxn81YQuZ3iPDk12PJ7PfDb78SKU=
+METADATA_SIZE=245982
+signature=w7EeCbOQJzuy3pGcsjNlovM0JTvz8XRP8bTx/fTkfXEIhKSa7egtWxqQV9UxkcUUmm882ju/UrrqM46mr8R9bLxBUh6PvAKwP+s9P4Gr2m2MZnA6nS6TfkLnQBprhUgdqa5S1LXLXOoSDERKVYKt3BcS9znWFHSKkm8J8i2iRV5ZoOi5gVgRz3QjXNLWXCr8m8Qm7d3ooRdf4E8rJOflaEwvNfJ92qDdPfMf8tb20xHsVLXFZWF4iIgVBx+72OlaZimeqLBAkzcv338Is0DzfmU9hK6nskuuWCPnKBUKRm5IcnYoE9auFDtF4vXvycWun9hrNm47i8YCW16vHu1qmi32GjY9mKDi5zlnJM3nLMAMPYAtnu1uTGkMl20cJMRvqC+6f2c4kJBhIJE3W0ZKPB/3jaw1es51EoaJ0/j/dCHWrrLCmvt9+R7V+tKOXLfBzHSv9LWtBE1U8Z7uFAmhQo128SXYL5ezNi8idWIy5/QvYxM+VnLQ6nxUFxKP6t27
