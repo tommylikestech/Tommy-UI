@@ -146,7 +146,7 @@ public final class UpdatePage extends Activity {
             }).show();
     }
     private static String displayVersion(String version) {
-        return "v1.100".equals(version) ? "v1.1" : version;
+        return "v1.100".equals(version) ? "v1.1" : "v1.101".equals(version) ? "v1.1.1" : version;
     }
     private void refresh() { refresh(false); }
     private void refresh(boolean testing) {
@@ -209,7 +209,7 @@ public final class UpdatePage extends Activity {
         new AlertDialog.Builder(this).setTitle((stage ? "Stage Tommy UI " : "Install Tommy UI ") + displayVersion(r.version) + "?")
             .setMessage(UpdateCheck.NOTICE + (stage ? "\n\nThis experimental update writes system and boot firmware to slot B. Slot A remains selected for restart. Keep the phone powered until staging completes." : "") + "\n\n" + r.summary + "\nDownload size: " + android.text.format.Formatter.formatFileSize(this,r.size))
             .setNegativeButton("Cancel",null).setPositiveButton("I understand and agree",(d,i)-> {
-                if (engineState!=0 || applying) return;
+                if (engineState!=0 || applying || candidate!=r || !UpdateCheck.eligible(r)) return;
                 if (stage && !getPreferences(MODE_PRIVATE).edit().putString("stagingSource", Build.VERSION.INCREMENTAL).commit()) {
                     progress.setText("Could not save trial state."); return;
                 }
@@ -226,7 +226,10 @@ public final class UpdatePage extends Activity {
             if (status==6) progress.setText(finishAction()==TrialFinish.RESTART
                     ? "Android is ready to boot the verified update."
                     : trialPending() ? "Trial pending. Verify the target before restarting." : "Ready to restart.");
-            else if (status>0) progress.setText(String.format(Locale.getDefault(),"System update · %d%%",Math.round(100*percent)));
+            else if (status==3) progress.setText(String.format(Locale.getDefault(),"Downloading · %d%%",Math.round(100*percent)));
+            else if (status==4) progress.setText("Verifying the update…");
+            else if (status==5) progress.setText("Finishing installation…");
+            else if (status>0) progress.setText("Android is preparing the update…");
             updateButton();
         }
         public void onPayloadApplicationComplete(int error) {

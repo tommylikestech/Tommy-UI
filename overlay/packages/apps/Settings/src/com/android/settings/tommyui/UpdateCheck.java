@@ -14,7 +14,9 @@ public final class UpdateCheck extends JobService {
     }
     static UpdateFeed fetch(Context context, boolean trial) throws Exception {
         try (InputStream in = context.getResources().openRawResource(R.raw.tommy_feed_key)) {
-            return UpdateFeed.fetch(in.readAllBytes(), trial);
+            boolean preview = "TommyUI.v1.100.dev.20261109".equals(Build.VERSION.INCREMENTAL)
+                    && android.provider.Settings.Global.getInt(context.getContentResolver(), "tommyui_classic_preview", 0) == 1;
+            return UpdateFeed.fetch(in.readAllBytes(), trial, preview);
         }
     }
     static boolean eligible(UpdateFeed r) {

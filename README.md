@@ -19,7 +19,9 @@ Tommy UI brings Android 16 to the **Motorola Moto G Play 2024** and lets you mov
 
 > **Over-the-air updates aren’t working right now.** I’ll get to fixing them when I can. Until then the wireless updater APKs, the Update Zero test and the v1.004 trial are offline, and **Tommy UI v1.003 is the only supported build.** [What was withdrawn and what it contained](WITHDRAWN.md)
 
-## Tommy UI Classic v1.1
+## Tommy UI Classic v1.1.1 preview
+
+This maintenance build moves the status bar clock inward by 4 dp, opens Tommy Browser on a native start page, and adds progress, reload and home controls. The preview offers a signed wireless upgrade from Classic v1.1 for the enrolled test device. [Preview details](ota/README.md#classic-v111-preview)
 
 This development branch introduces a circular adaptive icon mask, a pine-and-mint wallpaper and boot animation, and shorter app-drawer transitions in Tommy Home. In **Settings > About Tommy UI**, you can see the version, preview the wallpaper, and apply it to your home screen. Existing wallpaper choices are preserved on upgrade. The build ID uses `v1.100` for updater compatibility. The image ZIP is for hardware testing and cannot be installed through the wireless updater.
 

@@ -61,15 +61,19 @@ def unversioned(manifest):
     return missing
 
 
-def copy_operations(factory, inventory, version):
+def copy_operations(factory, inventory, version, classic=False):
     names = firmware_names(factory)
     covered = set()
     updates = []
+    suffix = None
     for line in inventory.read_text(encoding="utf-8-sig").splitlines():
         part, old_size, new_size, source, inactive = line.split()
-        if not re.fullmatch(r"[a-z0-9_]+_a", part) or not all(
+        if not re.fullmatch(r"[a-z0-9_]+_[ab]" if classic else r"[a-z0-9_]+_a", part) or not all(
                 re.fullmatch(r"[0-9a-f]{64}", x) for x in (source, inactive)):
             raise ValueError("Malformed partition inventory")
+        if suffix is not None and suffix != part[-2:]:
+            raise ValueError("Mixed source slots in inventory")
+        suffix = part[-2:]
         part = part[:-2]
         if part not in names:
             if source != inactive:
@@ -79,7 +83,7 @@ def copy_operations(factory, inventory, version):
         if part in covered or size != int(new_size) or size <= 0 or size % 4096:
             raise ValueError("Incompatible partition layout: " + part)
         covered.add(part)
-        if source == inactive:
+        if source == inactive and not classic:
             continue
         digest = pb(bytes.fromhex(source))
         info = f"size:{size} hash:{digest}"
@@ -97,20 +101,23 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("aosp", "factory", "inventory", "source_system", "target_system", "output"):
         parser.add_argument(name, type=Path)
+    parser.add_argument("--classic", action="store_true", help="Build the v1.1 to v1.1.1 Classic payload")
     args = parser.parse_args()
-    if sha(args.source_system) != SOURCE_HASH:
-        parser.error("Expected the original v1.003 system image")
+    source_hash = "b2c95b70bc2d2a57acb345b026075c50d7224b57730c58ccb0cd1e191bacf95e" if args.classic else SOURCE_HASH
+    if sha(args.source_system) != source_hash:
+        parser.error("Unexpected source system image")
     def read_props(image):
         return subprocess.check_output(["debugfs", "-R", "cat /system/build.prop", image], text=True).splitlines()
     props = read_props(args.target_system)
-    if "ro.build.version.incremental=TommyUI.v1.004.dev.20261108" not in props:
+    target = "TommyUI.v1.101.dev.20261109" if args.classic else "TommyUI.v1.004.dev.20261108"
+    if "ro.build.version.incremental=" + target not in props:
         parser.error("Unexpected test target build")
     # The update engine rejects a partial update with error 23 unless every partition carries a
     # version, and with error 51 when one is older than the phone's ro.<partition>.build.date.utc.
     version = build_date(props)
     if version < build_date(read_props(args.source_system)):
         parser.error("Target build is older than the source")
-    copies = copy_operations(args.factory, args.inventory, version)
+    copies = copy_operations(args.factory, args.inventory, version, args.classic)
     host = args.aosp / "out/host/linux-x86/bin"
     generator = host / "delta_generator"
     certdir = args.aosp / "build/make/target/product/security"
@@ -132,7 +139,7 @@ def main():
         gen("--partition_names=system",f"--old_partitions={args.source_system}",
             f"--new_partitions={args.target_system}",f"--out_file={system}",
             f"--dynamic_partition_info_file={dynamic}","--is_partial_update=true",
-            "--major_version=2","--minor_version=8","--max_timestamp=1794182400",
+            "--major_version=2","--minor_version=8",f"--max_timestamp={max(version,1794182400)}",
             f"--partition_timestamps=system:{version}",
             "--max_threads=3","--enable_puffdiff=false","--enable_zucchini=false")
         # Replay the generated system delta with the host implementation before adding firmware.

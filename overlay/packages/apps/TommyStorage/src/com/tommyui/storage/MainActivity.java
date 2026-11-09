@@ -61,7 +61,7 @@ public final class MainActivity extends Activity {
     private Switch forceSwitch;
     private EditText search;
     private boolean access, updatingSwitch, startingMove, destroyed, resumed;
-    private int generation;
+    private volatile int generation;
     private final Runnable poll = this::pollMove;
 
     private static final class AppRow {
@@ -108,7 +108,7 @@ public final class MainActivity extends Activity {
             return insets;
         });
         setContentView(scroll);
-        page.addView(text("TOMMY UI CLASSIC  /  v1.1", 12, green, true));
+        page.addView(text("TOMMY UI CLASSIC  /  v1.1.1", 12, green, true));
         TextView title = text("Tommy Storage", 30, ink, true);
         title.setPadding(0, dp(8), 0, dp(8)); page.addView(title);
         page.addView(text("Choose where your apps live.", 16, muted, false));
@@ -269,6 +269,7 @@ public final class MainActivity extends Activity {
         final int request = ++generation;
         listNote.setText("Checking installed apps…");
         worker.execute(() -> {
+            if (request != generation) return;
             try {
                 List<VolumeInfo> volumes = storage.getVolumes();
                 boolean adopted = false, portable = false, unmounted = false;

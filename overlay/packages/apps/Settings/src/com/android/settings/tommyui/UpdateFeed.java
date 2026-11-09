@@ -77,8 +77,8 @@ public final class UpdateFeed {
         }
         return new UpdateFeed(values);
     }
-    static UpdateFeed fetch(byte[] key, boolean trial) throws Exception {
-        HttpsURLConnection c = (HttpsURLConnection) new URL(trial ? FEED.replace("/version.txt", "/trial/version.txt") : FEED).openConnection();
+    static UpdateFeed fetch(byte[] key, boolean trial, boolean classicPreview) throws Exception {
+        HttpsURLConnection c = (HttpsURLConnection) new URL(trial ? FEED.replace("/version.txt", "/trial/version.txt") : classicPreview ? FEED.replace("/version.txt", "/classic-preview/version.txt") : FEED).openConnection();
         c.setConnectTimeout(10000);
         c.setReadTimeout(15000);
         c.setUseCaches(false);
