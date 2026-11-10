@@ -45,6 +45,25 @@ public final class UpdatePage extends Activity {
         page.addView(installed);
         release = new TextView(this); release.setTextSize(16); release.setPadding(0, margin, 0, margin / 2); page.addView(release);
         progress = new TextView(this); page.addView(progress);
+        TextView warning = new TextView(this);
+        warning.setText(UpdateCheck.OTA_NOTICE);
+        warning.setPadding(0, margin / 2, 0, margin / 2);
+        page.addView(warning);
+        button(page,"USB update instructions",() -> {
+            String guide = UpdateFeed.REPO + "/blob/main/guides/CLASSIC-UPDATE.md";
+            try { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(guide))); }
+            catch (android.content.ActivityNotFoundException e) { progress.setText(guide); }
+        });
+        if (UpdateCheck.previewSupported()) {
+            CheckBox preview = new CheckBox(this);
+            preview.setText("Include Classic preview updates");
+            preview.setChecked(UpdateCheck.previewEnabled(this));
+            page.addView(preview);
+            preview.setOnCheckedChangeListener((box, enabled) -> {
+                android.provider.Settings.Global.putInt(getContentResolver(), UpdateCheck.PREVIEW_SETTING, enabled ? 1 : 0);
+                refresh();
+            });
+        }
         check = button(page,"Check for updates",this::refresh);
         install = button(page,"Download and install",this::installOrRestart);
         if ("TommyUI.v1.003.dev.20261106".equals(Build.VERSION.INCREMENTAL)
@@ -207,7 +226,7 @@ public final class UpdatePage extends Activity {
         if (r == null || !UpdateCheck.eligible(r)) return;
         final boolean stage = trial;
         new AlertDialog.Builder(this).setTitle((stage ? "Stage Tommy UI " : "Install Tommy UI ") + displayVersion(r.version) + "?")
-            .setMessage(UpdateCheck.NOTICE + (stage ? "\n\nThis experimental update writes system and boot firmware to slot B. Slot A remains selected for restart. Keep the phone powered until staging completes." : "") + "\n\n" + r.summary + "\nDownload size: " + android.text.format.Formatter.formatFileSize(this,r.size))
+            .setMessage(UpdateCheck.OTA_NOTICE + "\n\n" + UpdateCheck.NOTICE + (stage ? "\n\nThis experimental update writes system and boot firmware to slot B. Slot A remains selected for restart. Keep the phone powered until staging completes." : "") + "\n\n" + r.summary + "\nDownload size: " + android.text.format.Formatter.formatFileSize(this,r.size))
             .setNegativeButton("Cancel",null).setPositiveButton("I understand and agree",(d,i)-> {
                 if (engineState!=0 || applying || candidate!=r || !UpdateCheck.eligible(r)) return;
                 if (stage && !getPreferences(MODE_PRIVATE).edit().putString("stagingSource", Build.VERSION.INCREMENTAL).commit()) {

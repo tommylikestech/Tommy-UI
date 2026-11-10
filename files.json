@@ -151,7 +151,7 @@
   },
   "packages/apps/Settings/AndroidManifest.xml": {
     "upstream": "1f9b4703f4639612ff3eb1b30023abd4bddefe211868b7afa6a65889af0b22ec",
-    "result": "ba220591a5acd435b901abd97ac77960bfea3f1a515f52d215a31d9c28e0dc6a",
+    "result": "c0ce08531be0d1eece53c4977df7afcf0fa4bf4646ef486a98cc5a04b9033a50",
     "source": "patches/packages/apps/Settings/AndroidManifest.xml.patch"
   },
   "packages/apps/Settings/res/raw/tommy_feed_key.der": {
@@ -236,17 +236,17 @@
   },
   "packages/apps/Settings/src/com/android/settings/tommyui/UpdateCheck.java": {
     "upstream": null,
-    "result": "b60fb73fed666458e57acc712222dfc1151901d0bb7dbc48cbca9b22a4542f77",
+    "result": "7a1a22c9ca4a835ef07215a3d144c514fb1b997d94bb63a9051ca086010be512",
     "source": "overlay/packages/apps/Settings/src/com/android/settings/tommyui/UpdateCheck.java"
   },
   "packages/apps/Settings/src/com/android/settings/tommyui/UpdateFeed.java": {
     "upstream": null,
-    "result": "3ba959cdcf9d4c85f8b7a54ca6e493654e42de80e208f62cb85b582d4f95427b",
+    "result": "11c20d2a2408415ce30a9c19f40ec4bc82259692d210f0f1761f766de3782d35",
     "source": "overlay/packages/apps/Settings/src/com/android/settings/tommyui/UpdateFeed.java"
   },
   "packages/apps/Settings/src/com/android/settings/tommyui/UpdatePage.java": {
     "upstream": null,
-    "result": "c6400bdec4bdef844d6cccc47cdeb254143fbb4384af15e5dae0a347557ee2cb",
+    "result": "68d83594ad04c99425791853f4605f763883c86d6050569cdf18b61a49f9d6d9",
     "source": "overlay/packages/apps/Settings/src/com/android/settings/tommyui/UpdatePage.java"
   },
   "packages/apps/TommyStorage/Android.bp": {

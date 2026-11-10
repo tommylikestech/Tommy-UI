@@ -20,6 +20,8 @@ jobs:
           python3 tests/test_update_zero_candidate.py
           python3 tests/test_r2_audit.py
           java -cp "$RUNNER_TEMP/feed-classes" com.android.settings.tommyui.UpdateFeedTest docs/version.txt "$src/res/raw/tommy_feed_key.der"
-          if [ -f docs/trial/version.txt ]; then
-            java -cp "$RUNNER_TEMP/feed-classes" com.android.settings.tommyui.UpdateFeedTest docs/trial/version.txt "$src/res/raw/tommy_feed_key.der"
-          fi
+          for feed in docs/trial/version.txt docs/classic-preview/version.txt docs/classic-preview/from-v1.003/version.txt; do
+            if [ -f "$feed" ]; then
+              java -cp "$RUNNER_TEMP/feed-classes" com.android.settings.tommyui.UpdateFeedTest "$feed" "$src/res/raw/tommy_feed_key.der"
+            fi
+          done

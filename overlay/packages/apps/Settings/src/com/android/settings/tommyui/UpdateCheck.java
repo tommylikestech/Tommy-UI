@@ -14,10 +14,24 @@ public final class UpdateCheck extends JobService {
     }
     static UpdateFeed fetch(Context context, boolean trial) throws Exception {
         try (InputStream in = context.getResources().openRawResource(R.raw.tommy_feed_key)) {
-            boolean preview = "TommyUI.v1.100.dev.20261109".equals(Build.VERSION.INCREMENTAL)
-                    && android.provider.Settings.Global.getInt(context.getContentResolver(), "tommyui_classic_preview", 0) == 1;
-            return UpdateFeed.fetch(in.readAllBytes(), trial, preview);
+            String channel = trial ? "trial" : "";
+            if (!trial && previewSupported() && previewEnabled(context)) {
+                channel = "TommyUI.v1.003.dev.20261106".equals(Build.VERSION.INCREMENTAL)
+                        ? "classic-preview/from-v1.003" : "classic-preview";
+            }
+            return UpdateFeed.fetch(in.readAllBytes(), channel);
         }
+    }
+    static final String PREVIEW_SETTING = "tommyui_classic_preview";
+    static final String OTA_NOTICE = "USB is the recommended update method. Wireless updates are experimental and may fail. Back up important files, including your SD card. "
+            + "Keep the phone charged. If installation fails, keep the error code. Only restart when Android says the update is ready.";
+    static boolean previewSupported() {
+        return "XT2413-2".equals(SystemProperties.get("ro.boot.hardware.sku"))
+                && ("TommyUI.v1.100.dev.20261109".equals(Build.VERSION.INCREMENTAL)
+                    || "TommyUI.v1.003.dev.20261106".equals(Build.VERSION.INCREMENTAL));
+    }
+    static boolean previewEnabled(Context context) {
+        return android.provider.Settings.Global.getInt(context.getContentResolver(), PREVIEW_SETTING, 0) == 1;
     }
     static boolean eligible(UpdateFeed r) {
         return !r.url.isEmpty() && Build.VERSION.INCREMENTAL.equals(r.sourceBuild)

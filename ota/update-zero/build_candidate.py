@@ -101,7 +101,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("aosp", "factory", "inventory", "source_system", "target_system", "output"):
         parser.add_argument(name, type=Path)
-    parser.add_argument("--classic", action="store_true", help="Build the v1.1 to v1.1.1 Classic payload")
+    channel = parser.add_mutually_exclusive_group()
+    channel.add_argument("--skip-to-latest", action="store_true", help="Build v1.003 directly to Classic v1.1.1")
+    channel.add_argument("--to-classic", action="store_true", help="Build the original v1.003 to v1.1 Classic payload")
+    channel.add_argument("--classic", action="store_true", help="Build the v1.1 to v1.1.1 Classic payload")
     args = parser.parse_args()
     source_hash = "b2c95b70bc2d2a57acb345b026075c50d7224b57730c58ccb0cd1e191bacf95e" if args.classic else SOURCE_HASH
     if sha(args.source_system) != source_hash:
@@ -109,7 +112,11 @@ def main():
     def read_props(image):
         return subprocess.check_output(["debugfs", "-R", "cat /system/build.prop", image], text=True).splitlines()
     props = read_props(args.target_system)
-    target = "TommyUI.v1.101.dev.20261109" if args.classic else "TommyUI.v1.004.dev.20261108"
+    target = "TommyUI.v1.101.dev.20261109" if args.classic or args.skip_to_latest else "TommyUI.v1.004.dev.20261108"
+    if args.to_classic:
+        target = "TommyUI.v1.100.dev.20261109"
+        if sha(args.target_system) != "b2c95b70bc2d2a57acb345b026075c50d7224b57730c58ccb0cd1e191bacf95e":
+            parser.error("Expected the released Classic v1.1 target")
     if "ro.build.version.incremental=" + target not in props:
         parser.error("Unexpected test target build")
     # The update engine rejects a partial update with error 23 unless every partition carries a
@@ -117,7 +124,7 @@ def main():
     version = build_date(props)
     if version < build_date(read_props(args.source_system)):
         parser.error("Target build is older than the source")
-    copies = copy_operations(args.factory, args.inventory, version, args.classic)
+    copies = copy_operations(args.factory, args.inventory, version, args.classic or args.to_classic or args.skip_to_latest)
     host = args.aosp / "out/host/linux-x86/bin"
     generator = host / "delta_generator"
     certdir = args.aosp / "build/make/target/product/security"
