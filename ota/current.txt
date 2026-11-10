@@ -1,4 +1,4 @@
-version=v1.003
+version=v1.101
 type=content
-summary=Over-the-air updates are not working right now. I'll get to fixing them when I can. v1.003 is the current build and there is nothing to install.
+summary=Classic v1.1.1 is available. USB is recommended. Original v1.003 and Classic v1.1 can opt in to separate wireless previews. Back up your data. Wireless updates may fail.
 url=

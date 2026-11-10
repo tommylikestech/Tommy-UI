@@ -1,0 +1,13 @@
+version=v1.101
+type=content
+summary=Classic v1.1.1 updates the status bar clock, browser and storage app. USB is recommended. Wireless installation or restart may fail. Back up your data first.
+url=https://github.com/tommylikestech/Tommy-UI/releases/download/v1.101/Tommy-UI-fogona-from-v1-100.bin
+sku=XT2413-2
+device=fogona
+from=TommyUI.v1.100.dev.20261109
+vendor=motorola/fogona/fogona:13/U1TFS34.100-35-14-1-12/ad64fa:user/release-keys
+FILE_HASH=iIAh2oZWhgMrbV/t0puaCervw7HBtZZiLFNp4I61KpI=
+FILE_SIZE=3569316
+METADATA_HASH=GvYejJscADzOoWAaHfcjXNnFzhJRePTC3YG+JdhF51k=
+METADATA_SIZE=2396695
+signature=0o88q7xpt8YxYqa8VK/YU1+iOrUI2B4ULdMPnGrEPxji7aROeZW4lS7P/ldPGJ6yKz+ercvvexrWjxh4AKIusg3KYSgIKPmZWFJPywsxBDvps+xYe6DyQv+RNjDrFhRcq1Sso8jGyyYIA7lzyWiNDeFEReKEImjkMbQZktX6uNs4O9k9vNCnw86ckAmho0r427vPziIxkAoV2yt8/hxt5GIpHQR/4dc4+OKXvyRkxRMtA0OKj1ay3JJbjmjf7hZPFjOW/2X89wdxWcwUoH/Ld2KcBzHTR9JMDGfHCR1VRVZBZdhzZKkMpQSpQ+Sgm9IH2x7PUxrLyLEE2nVMdhUdYrcWCP2RH/RjI4a4OQLWNK3oliiJHnV06eFYMKvWdX5GWJJ6qyfm4aviiDKbETCEQ0aLLLn7udfoNb16ilSU4XadPpgsjOjeMVcH25ROTmWgiBCDB3qHtIXofhR0eZhAT8jGwEOd+lbfynS2zw3gO8ChXgUqCEV9Pi5F8aGonOIy
