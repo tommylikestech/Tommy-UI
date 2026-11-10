@@ -77,8 +77,9 @@ public final class UpdateFeed {
         }
         return new UpdateFeed(values);
     }
-    static UpdateFeed fetch(byte[] key, boolean trial) throws Exception {
-        HttpsURLConnection c = (HttpsURLConnection) new URL(trial ? FEED.replace("/version.txt", "/trial/version.txt") : FEED).openConnection();
+    static UpdateFeed fetch(byte[] key, String channel) throws Exception {
+        String endpoint = channel.isEmpty() ? FEED : FEED.replace("/version.txt", "/" + channel + "/version.txt");
+        HttpsURLConnection c = (HttpsURLConnection) new URL(endpoint).openConnection();
         c.setConnectTimeout(10000);
         c.setReadTimeout(15000);
         c.setUseCaches(false);

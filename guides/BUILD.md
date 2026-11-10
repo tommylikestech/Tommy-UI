@@ -8,7 +8,8 @@ Choose the source revision for the build you want.
 | Revision | Result |
 | --- | --- |
 | [v1.003](https://github.com/tommylikestech/Tommy-UI/tree/v1.003) | Original Android 16 image flashed on the XT2413-2 |
-| `feature/tommy-ui-classic` | Experimental v1.1 Classic image for hardware testing |
+| `v1.100` | Archived v1.1 Classic image, confirmed running on the retail XT2413-2 |
+| `v1.101` | Classic v1.1.1 with a recommended USB path and experimental OTA previews |
 | [main](https://github.com/tommylikestech/Tommy-UI/tree/main) | Development build with the wireless update page and boot check |
 
 ## Prepare the host
@@ -17,7 +18,7 @@ Use x86-64 Linux with Git, Repo, Python 3.11 or later, e2fsprogs, ImageMagick, a
 
 ## Build the image
 
-Clone Tommy UI and choose your revision before starting the AOSP checkout. For Classic, run `git checkout feature/tommy-ui-classic`. For the original release, run `git checkout v1.003` inside the clone.
+Clone Tommy UI and choose your revision before starting the AOSP checkout. For Classic v1.1.1, run `git checkout v1.101`. For the original release, run `git checkout v1.003` inside the clone.
 
 ```bash
 git clone https://github.com/tommylikestech/Tommy-UI.git

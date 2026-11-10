@@ -17,25 +17,17 @@ Tommy UI brings Android 16 to the **Motorola Moto G Play 2024** and lets you mov
 
 [Releases](https://github.com/tommylikestech/Tommy-UI/releases) · [Build guide](guides/BUILD.md) · [Contributing](CONTRIBUTING.md)
 
-> **Over-the-air updates aren’t working right now.** I’ll get to fixing them when I can. Until then the wireless updater APKs, the Update Zero test and the v1.004 trial are offline, and **Tommy UI v1.003 is the only supported build.** [What was withdrawn and what it contained](WITHDRAWN.md)
+## Tommy UI Classic v1.1.1
 
-## Tommy UI Classic v1.1
+**USB is the recommended way to update.** Classic v1.1.1 moves the clock 4 dp inward and gives Tommy Browser a native start page, loading progress and a navigation menu. The original v1.003 and Classic v1.1 have direct paths to v1.1.1. Wireless installation and restart may fail. Back up the phone and SD card before updating. [USB instructions and wireless preview](guides/CLASSIC-UPDATE.md) · [Release files](https://github.com/tommylikestech/Tommy-UI/releases/tag/v1.101)
 
-This development branch introduces a circular adaptive icon mask, a pine-and-mint wallpaper and boot animation, and shorter app-drawer transitions in Tommy Home. In **Settings > About Tommy UI**, you can see the version, preview the wallpaper, and apply it to your home screen. Existing wallpaper choices are preserved on upgrade. The build ID uses `v1.100` for updater compatibility. The image ZIP is for hardware testing and cannot be installed through the wireless updater.
-
-## Start here
-
-| What’s on your phone? | Where to go |
-| --- | --- |
-| **Tommy UI v1.003** | You’re on the current build. Wireless updates aren’t working right now, so there is nothing to install. |
-| **Tommy UI v1.002** | The [Windows USB updater instructions](updater/FLASH-AND-STORAGE.txt) cover upgrading an unlocked XT2413-2 on slot A using a locally built kit. |
-| **Motorola stock Android** | The [v1.003 release](https://github.com/tommylikestech/Tommy-UI/releases/tag/v1.003) provides source code for building the OS. |
+Older versions are retained for existing installations. Archived v1.1 is tagged v1.100 and v1.1.1 is tagged v1.101. The Update Zero and v1.004 trials remain withdrawn. [Release history](WITHDRAWN.md)
 
 ## What you can do
 
 - **Choose where apps live.** Tommy Storage can move eligible apps between phone storage and an adopted microSD card. The system APK installer offers a choice when multiple destinations are available. Adopting a card formats and encrypts it for that phone, so copy your files first.
 - **Download APKs on the phone.** Tommy Browser saves direct download links to Downloads, where you can open an APK with Android’s installer.
-- **Check for system updates.** The update page shows your installed build, Android version, release notes, and whether a release is a security or content update. It checks at boot and when you open the page. Wireless updates aren’t working right now, so the feed lists **v1.003** with nothing to install. [Live update feed](https://tommylikestech.github.io/Tommy-UI/version.txt)
+- **Check for system updates.** Settings checks GitHub Pages at boot and on request. The preview offers a signed payload for your installed build. [Update guide](guides/CLASSIC-UPDATE.md)
 - **Make yourself at home.** Tommy Home removes the persistent search bar. About phone shows the Motorola hardware model. About Tommy UI shows the OS version and has a constellation Easter egg if you tap the version seven times.
 
 ## Build and test status

@@ -54,6 +54,16 @@ class CandidateTest(unittest.TestCase):
         for copy in copies:
             self.assertIn('version:"1794182400"', copy)
 
+    def test_classic_uses_the_active_slot_as_copy_source(self):
+        rows = self.inventory.read_text().replace("_a ", "_b ").replace("b" * 64, "a" * 64)
+        self.inventory.write_text(rows)
+        copies = self.api["copy_operations"](self.factory, self.inventory, 1794240000, classic=True)
+        self.assertEqual(3, len(copies))
+        self.assertTrue(all('version:"1794240000"' in operation for operation in copies))
+        self.inventory.write_text(rows.replace("abl_b ", "abl_a "))
+        with self.assertRaisesRegex(ValueError, "Mixed source slots"):
+            self.api["copy_operations"](self.factory, self.inventory, 1794240000, classic=True)
+
     def test_unversioned_names_what_a_partial_update_would_reject(self):
         self.assertEqual(["boot"], self.api["unversioned"](MANIFEST))
         self.assertEqual([], self.api["unversioned"](MANIFEST.replace(

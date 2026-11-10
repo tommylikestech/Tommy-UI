@@ -12,7 +12,7 @@ import tempfile
 import zipfile
 
 PROJECT = Path(__file__).resolve().parents[1]
-STEM = "Tommy-UI-v1.1-Classic"
+STEM = "Tommy-UI-v1.1.1-Classic"
 IMAGE = STEM + "-Android16-arm64-system.img"
 
 def digest(path):
@@ -54,7 +54,7 @@ def main():
                         ("ro.build.version.release", "16"), ("ro.build.version.sdk", "36"),
                         ("ro.build.version.security_patch", config["security_patch"]), ("ro.build.type", "userdebug")):
         require(props.get(prop) == value, f"Unexpected {prop}: {props.get(prop)}")
-    checks.append("Android 16, API 36, exact v1.1 Classic build ID and security patch label verified")
+    checks.append("Android 16, API 36, exact v1.1.1 Classic build ID and security patch label verified")
 
     host = root / "out/host/linux-x86"
     aapt = host / "bin/aapt2"
@@ -90,7 +90,7 @@ def main():
                 return b"".join(archive.read(n) for n in archive.namelist() if n.endswith(".dex"))
 
         manifest = run(aapt, "dump", "badging", storage)
-        require("versionCode='1100'" in manifest and "versionName='1.1'" in manifest, "Wrong mover version")
+        require("versionCode='1101'" in manifest and "versionName='1.1.1'" in manifest, "Wrong mover version")
         for perm in ("MANAGE_USERS", "WRITE_SECURE_SETTINGS", "MOVE_PACKAGE", "MOUNT_UNMOUNT_FILESYSTEMS",
                      "INTERACT_ACROSS_USERS_FULL", "POST_NOTIFICATIONS"):
             require("android.permission." + perm in manifest, "Missing permission " + perm)
@@ -98,20 +98,29 @@ def main():
         for label in ("Set up or format SD card", "Photos and files location", "StorageWizardInit",
                       "StorageWizardMigrateConfirm", "New app storage choices", "Change storage", "Browse photos and files"):
             require(label.encode() in app_code, "Missing Tommy Storage code: " + label)
-        checks.append("Tommy Storage 1.1 includes card setup, primary storage migration, file browsing, app moves and new-install notifications")
-        require("com.tommyui.storage.TARGET_UUID".encode() in dex(settings), "Settings migration destination validation missing")
+        checks.append("Tommy Storage 1.1.1 includes card setup, primary storage migration, file browsing, app moves and new-install notifications")
+        settings_code = dex(settings)
+        require(b"tommyui_classic_preview" in settings_code, "Classic preview channel missing")
+        require("com.tommyui.storage.TARGET_UUID".encode() in settings_code, "Settings migration destination validation missing")
         tree = run(aapt, "dump", "xmltree", settings, "--file", "AndroidManifest.xml")
         blocks = re.split(r"(?m)^\s*E: (?:activity|activity-alias|receiver|service|provider)\b", tree)
         migration = next(b for b in blocks if ".deviceinfo.StorageWizardMigrateConfirm" in b)
         require("android.permission.MOUNT_UNMOUNT_FILESYSTEMS" in migration and
                 re.search(r'android:exported[^\r\n]*(?:true|0xffffffff)', migration),
                 "Migration wizard is not correctly permission-protected and exported")
-        require("Tommy UI Classic · v1.1" in run(aapt, "dump", "resources", settings), "Settings version missing")
-        checks.append("Settings exposes the guarded migration confirmation and shows v1.1 Classic")
+        require("Tommy UI Classic · v1.1.1" in run(aapt, "dump", "resources", settings), "Settings version missing")
+        checks.append("Settings exposes the guarded migration confirmation and shows v1.1.1 Classic")
         browser = extract("product/app/Browser2/Browser2.apk")
         browser_manifest = run(aapt, "dump", "badging", browser)
         require("Tommy Browser" in browser_manifest and "TommyBrowser" in browser_manifest, "Browser missing")
-        require(b"application/vnd.android.package-archive" in dex(browser), "APK download support missing")
+        browser_code = dex(browser)
+        for label in ("application/vnd.android.package-archive", "Browser menu", "Search the web"):
+            require(label.encode() in browser_code, "Missing browser feature: " + label)
+        system_ui = extract("system_ext/priv-app/SystemUI/SystemUI.apk")
+        dimensions = run(aapt, "dump", "resources", system_ui)
+        require(re.search(r"(?m)resource [^\n]+ dimen/status_bar_left_clock_starting_padding\s*\n\s*\(\) 4(?:\.0+)?(?:dp|dip)\b",
+                          dimensions), "Wrong status bar clock inset")
+        checks.append("Classic browser home, menu, and 4 dp status bar clock inset verified")
         storage_resources = run(aapt, "dump", "resources", storage)
         require("Update Tommy UI" in storage_resources, "About/update entry missing")
         for layout in ("top_level_settings", "top_level_settings_v2", "top_level_settings_expressive"):
@@ -190,7 +199,7 @@ def main():
         part.rename(target)
     meta = dict(config, image=IMAGE, image_bytes=target.stat().st_size, image_sha256=sha,
                 checks=checks, changed_apks=package_hashes, device_tested=False, sd_transfer_tested=False,
-                flashed=False, scope="Experimental v1.1 system image; hardware validation pending.")
+                flashed=False, scope="Experimental v1.1.1 system image; hardware validation pending.")
     metadata = out / (STEM + "-build.json")
     metadata.write_text(json.dumps(meta, indent=2) + "\n")
     kit = out / (STEM + "-system-image.zip")

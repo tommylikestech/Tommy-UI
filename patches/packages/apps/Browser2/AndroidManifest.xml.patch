@@ -133,7 +133,7 @@
 -
 -        <uses-library android:name="android.test.runner" />
 -    </application>
-+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.chromium.webview_shell" android:versionCode="3" android:versionName="1.1">
++<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.chromium.webview_shell" android:versionCode="4" android:versionName="1.1.1">
 + <uses-sdk android:minSdkVersion="29" android:targetSdkVersion="32"/>
 + <uses-permission android:name="android.permission.INTERNET"/>
 + <application android:label="Tommy Browser" android:icon="@drawable/ic_launcher" android:theme="@android:style/Theme.Material.Light.NoActionBar" android:usesCleartextTraffic="true">
