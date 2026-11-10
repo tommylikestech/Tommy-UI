@@ -17,11 +17,13 @@ Tommy UI brings Android 16 to the **Motorola Moto G Play 2024** and lets you mov
 
 [Releases](https://github.com/tommylikestech/Tommy-UI/releases) · [Build guide](guides/BUILD.md) · [Contributing](CONTRIBUTING.md)
 
-## Tommy UI Classic v1.1.1
+## Tommy UI v1.2
 
-**USB is the recommended way to update.** Classic v1.1.1 moves the clock 4 dp inward and gives Tommy Browser a native start page, loading progress and a navigation menu. The original v1.003 and Classic v1.1 have direct paths to v1.1.1. Wireless installation and restart may fail. Back up the phone and SD card before updating. [USB instructions and wireless preview](guides/CLASSIC-UPDATE.md) · [Release files](https://github.com/tommylikestech/Tommy-UI/releases/tag/v1.101)
+**Style Classic** pairs round icons with a new mountain-and-river wallpaper. Tommy Camera gives you a visible Modes button, front and rear photo and video capture, and a horizon indicator when you enable the composition grid. The level turns mint when the phone is within two degrees of horizontal. On an upgraded phone, open **Settings > About Tommy UI > River at dusk** to preview and apply the new wallpaper.
 
-Older versions are retained for existing installations. Archived v1.1 is tagged v1.100 and v1.1.1 is tagged v1.101. The Update Zero and v1.004 trials remain withdrawn. [Release history](WITHDRAWN.md)
+USB is the recommended update method. Original v1.003, v1.1 and v1.1.1 each have a direct signed OTA preview to v1.2 for the matching North American XT2413-2. Wireless installation or restart may fail. Back up your phone and adopted SD card. [Update instructions](guides/CLASSIC-UPDATE.md) / [v1.2 release](https://github.com/tommylikestech/Tommy-UI/releases/tag/v1.200)
+
+Older releases are archived. The GitHub tags are v1.100 for v1.1, v1.101 for v1.1.1 and v1.200 for v1.2. The published OS uses Android development signing keys. The GitHub Pages descriptors have a separate maintainer signature.
 
 ## What you can do
 
@@ -32,6 +34,6 @@ Older versions are retained for existing installations. Archived v1.1 is tagged 
 
 ## Build and test status
 
-The original v1.003 system image passed verification and was flashed on the XT2413-2. The build uses AOSP development keys and declares the **2025-08-05** Android security patch. On-device confirmation of the v1.003 build, corrected SD totals, browser APK downloads, and an end-to-end wireless OS upgrade remains pending.
+The retail XT2413-2 has completed the v1.1 to v1.1.1 OTA, booted the expected system image and mounted adopted storage. Tommy UI v1.2 declares the **2025-08-05** Android security patch. Camera capture and the v1.2 OTA reboot still need testing on hardware.
 
 For build commands, the original image checksum, and a map of the source tree, see the [build guide](guides/BUILD.md). Tommy UI additions use Apache License 2.0. Upstream components retain their own terms. [License](LICENSE) · [Third-party notices](NOTICE)

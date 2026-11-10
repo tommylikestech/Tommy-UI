@@ -1,0 +1,47 @@
+--- a/packages/apps/Camera2/res/values/colors.xml
++++ b/packages/apps/Camera2/res/values/colors.xml
+@@ -24,14 +24,14 @@
+     <color name="icon_disabled_color">#DD777777</color>
+     <color name="time_lapse_arc">#FFC5C5C5</color>
+     <color name="indicator_background">#40000000</color>
+-    <color name="popup_title_color">#ff33b5e5</color>
++    <color name="popup_title_color">#FFA1DCC4</color>
+     <color name="popup_background">#ff282828</color>
+     <color name="pano_progress_empty">#FF2E2E2E</color>
+     <color name="pano_progress_done">#FF33525E</color>
+     <color name="pano_progress_indication">#FF0099CC</color>
+     <color name="pano_progress_indication_fast">#FFFF2222</color>
+-    <color name="mode_selection_border">#33B5E5</color>
+-    <color name="holo_blue_light">#ff33b5e5</color>
++    <color name="mode_selection_border">#A1DCC4</color>
++    <color name="holo_blue_light">#FFA1DCC4</color>
+     <color name="bright_foreground_disabled_holo_dark">#ff4c4c4c</color>
+     <color name="bright_foreground_holo_dark">#fff3f3f3</color>
+     <color name="face_detect_start">#ffffff00</color>
+@@ -52,8 +52,8 @@
+     <color name="mode_list_settings_icon_background">#26000000</color>
+     <color name="mode_list_settings_icon_pressed_background">#99000000</color>
+ 
+-    <color name="camera_mode_color">#4285f4</color>
+-    <color name="video_mode_color">#db4437</color>
++    <color name="camera_mode_color">#34745E</color>
++    <color name="video_mode_color">#C84644</color>
+     <color name="refocus_mode_color">#0f9d58</color>
+     <color name="photosphere_mode_color">#ab47bc</color>
+     <color name="panorama_mode_color">#ff9e00</color>
+@@ -62,7 +62,7 @@
+     <color name="bottombar_pressed">#262626</color>
+     <color name="mode_options_background">#4C000000</color>
+ 
+-    <color name="camera_gray_background">#1b1b1b</color>
++    <color name="camera_gray_background">#172E26</color>
+ 
+     <color name="indicators_background_color">#4c000000</color>
+ 
+@@ -77,5 +77,5 @@
+     <color name="mode_icon_hover_highlight">#2DFFFFFF</color>
+ 
+     <color name="blue_button_text_color">#00838F</color>
+-    <color name="ic_launcher_background">#4285f4</color>
++    <color name="ic_launcher_background">#34745E</color>
+ </resources>

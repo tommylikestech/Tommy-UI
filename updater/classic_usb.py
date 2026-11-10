@@ -1,4 +1,4 @@
-"""Check or install Tommy UI Classic v1.1.1 on an unlocked North American retail Moto."""
+"""Check or install Tommy UI v1.2 on an unlocked North American retail Moto."""
 import argparse
 import hashlib
 import json
@@ -7,10 +7,11 @@ import re
 import subprocess
 import time
 
-BUILD = "TommyUI.v1.101.dev.20261109"
-IMAGE_SHA256 = "0539fd853af72a1844bfd0384ebc682b7ba6806919418e2a0b76c61934691ca8"
+BUILD = "TommyUI.v1.200.dev.20261109"
+IMAGE_SHA256 = "07af7fbf3aa7464059175bf6fa4d96c1beaf0afa67477138f24e77edcd5ef6ea"
 VENDOR = "motorola/fogona/fogona:13/U1TFS34.100-35-14-1-12/ad64fa:user/release-keys"
 SOURCES = {
+    "TommyUI.v1.101.dev.20261109": "0539fd853af72a1844bfd0384ebc682b7ba6806919418e2a0b76c61934691ca8",
     "TommyUI.v1.002.dev.20261106": "b09409cb8afff2f12462189fffcef7c8defe97d4d2af9d536239e50f726a23e0",
     "TommyUI.v1.003.dev.20261106": "58672f248a7491fa026a8343f845bd648d31eb9536dd9f2481b55745d1e7d76f",
     "TommyUI.v1.100.dev.20261109": "b2c95b70bc2d2a57acb345b026075c50d7224b57730c58ccb0cd1e191bacf95e",
@@ -37,7 +38,7 @@ def main():
     parser.add_argument("--install", action="store_true", help="Flash after checking the image and phone")
     args = parser.parse_args()
     image = args.image.resolve()
-    report = json.loads((image.parent / "Tommy-UI-v1.1.1-Classic-build.json").read_text())
+    report = json.loads((image.parent / "Tommy-UI-v1.2-build.json").read_text())
     expect(report["build_number"], BUILD, "target build")
     expect(report["image_sha256"], IMAGE_SHA256, "released image checksum")
     expect(image.name, report["image"], "image name")
@@ -64,7 +65,7 @@ def main():
     expect(shell("su", "0", "bootctl", "get-snapshot-merge-status"), "none", "snapshot state")
     digest = shell("su", "0", "sha256sum", "/dev/block/mapper/" + partition).split()[0]
     expect(digest, SOURCES[source], "installed system checksum")
-    print(f"Verified {source} on slot {slot} and the v1.1.1 image.", flush=True)
+    print(f"Verified {source} on slot {slot} and the v1.2 image.", flush=True)
     if not args.install:
         return
     run("adb", "-s", args.serial, "reboot", "fastboot")
@@ -87,7 +88,7 @@ def main():
         if prop("sys.boot_completed") == "1":
             expect(prop("ro.build.version.incremental"), BUILD, "running build")
             expect(prop("ro.boot.slot_suffix"), suffix, "running slot")
-            print("Android booted Tommy UI Classic v1.1.1 on slot " + slot)
+            print("Android booted Tommy UI v1.2 on slot " + slot)
             return
         time.sleep(2)
     raise SystemExit("Flash completed. Unlock Android and check Settings > About Tommy UI.")

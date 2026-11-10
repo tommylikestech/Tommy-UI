@@ -14,6 +14,11 @@
     "result": "24b7e5e31151a380365322c50a14a561acddf8dd7dfcc26f5293c82b27620e1e",
     "source": "patches/build/make/target/product/gsi/Android.bp.patch"
   },
+  "build/soong/scripts/gen_build_prop.py": {
+    "upstream": "d2c77f1cd6c76afa29be61afae8330b2a715e07b989ff960b57294d81009e346",
+    "result": "681165577e2fdffb297927f461b8fe796438ec15eff49f534492251534e9107a",
+    "source": "patches/build/soong/scripts/gen_build_prop.py.patch"
+  },
   "build/soong/ui/build/soong.go": {
     "upstream": "7c370f5367bcf7bbfc1243184704b97b60351bb1fbeb84d70ab679d632bd3f86",
     "result": "f64f7d8fd1fcdf9ad191cbd47e3f35a0b2ce0d9e005bd058b98d384f65896911",
@@ -26,7 +31,7 @@
   },
   "device/tommyui/bootanimation.zip": {
     "upstream": null,
-    "result": "303186993db0b8288021612059033d45cf828dfe59d7323a193b53fdf3fcba77",
+    "result": "1d38b0e11483bb3dac0f9fb8cbec7c9aef6e1d8f0aef4da64eeaa24de0b7cc60",
     "source": "overlay/device/tommyui/bootanimation.zip"
   },
   "device/tommyui/product.mk": {
@@ -36,7 +41,7 @@
   },
   "frameworks/base/core/res/res/drawable-nodpi/default_wallpaper.png": {
     "upstream": "4e18bbf114e4af69fccfae67d16ab18b740356108d403f3cd2a198a9d9cec066",
-    "result": "39e4f3d4fd154b618d8c363ed7b7ff08b9277285828e22740f880fc4c5904774",
+    "result": "f8865ae69b153190acd83f3c7f0b35c46e53bcb8aacbd12434c686d5eb9a5a51",
     "source": "overlay/frameworks/base/core/res/res/drawable-nodpi/default_wallpaper.png"
   },
   "frameworks/base/core/res/res/values/config.xml": {
@@ -109,6 +114,56 @@
     "result": "82856975efc07068220b08719427bc7dd96f54d0b295e3856d75e4fcc6fa97a9",
     "source": "overlay/packages/apps/Browser2/src/org/chromium/webview_shell/TommyBrowser.java"
   },
+  "packages/apps/Camera2/AndroidManifest.xml": {
+    "upstream": "0a7921704cc1bb288ecbd0838aac5d4533c6104f84d7af3cf9aaaaeb5968222a",
+    "result": "9c6fbca82123c934e80b8996cd0c97e9afa24293527dbe00b93d3039e2aed434",
+    "source": "patches/packages/apps/Camera2/AndroidManifest.xml.patch"
+  },
+  "packages/apps/Camera2/res/drawable/tommy_lens.xml": {
+    "upstream": null,
+    "result": "74ffc9f5c9d8bde96760940c9c5ba1f5ec8b364e64606a781bee486e8c3f4cda",
+    "source": "overlay/packages/apps/Camera2/res/drawable/tommy_lens.xml"
+  },
+  "packages/apps/Camera2/res/drawable/tommy_modes_pill.xml": {
+    "upstream": null,
+    "result": "8f73dc4bc4d2444ed27fb84d03acf2bb02c4a23f19f0e45c7b1df19376e08937",
+    "source": "overlay/packages/apps/Camera2/res/drawable/tommy_modes_pill.xml"
+  },
+  "packages/apps/Camera2/res/layout/camera.xml": {
+    "upstream": "4f83df5af88a4601ad2baafea93ae8ffb0432577cc8644c9dbf461a6db0f11ee",
+    "result": "20e94a42ab63fdd960a3102acfa1bc9ba6c5bf768b6437cbc51fb1abe5eed46a",
+    "source": "patches/packages/apps/Camera2/res/layout/camera.xml.patch"
+  },
+  "packages/apps/Camera2/res/mipmap-anydpi-v26/tommy_camera_icon.xml": {
+    "upstream": null,
+    "result": "516012c1f2a061744d28b562f34ca2e7160a03b708480b481546d95b999e916b",
+    "source": "overlay/packages/apps/Camera2/res/mipmap-anydpi-v26/tommy_camera_icon.xml"
+  },
+  "packages/apps/Camera2/res/values/colors.xml": {
+    "upstream": "fe038712a885f4e92026c905bcc6d21abf7165902c6e5ac01d54ebffb4d04225",
+    "result": "dd80590d9a27f6ca9e4bee1ad645de16b2783bc5fb93d4a1bdcac45a454cd891",
+    "source": "patches/packages/apps/Camera2/res/values/colors.xml.patch"
+  },
+  "packages/apps/Camera2/res/values/tommy_camera.xml": {
+    "upstream": null,
+    "result": "5a58a15a7c83c1276b8fc4ebe98530cd54a9e7627464c69876bcd02e4d02745a",
+    "source": "overlay/packages/apps/Camera2/res/values/tommy_camera.xml"
+  },
+  "packages/apps/Camera2/src/com/android/camera/Storage.java": {
+    "upstream": "ca0b0afafd805bdbb942d7939e95036544c7607de4be91e6cee392e18825968c",
+    "result": "ed36e0e95d2c877e7a2a1d23be91b872d6ccb8b4f5b965bcfc78de69423736c4",
+    "source": "patches/packages/apps/Camera2/src/com/android/camera/Storage.java.patch"
+  },
+  "packages/apps/Camera2/src/com/android/camera/app/CameraAppUI.java": {
+    "upstream": "ec8f14c4baf0cba092be51ac1f0b9f7935a1e11637cd59e8b2d02a1b5031ae51",
+    "result": "851bce465ceed44f51db9cc6212c0131a14f759531be5c8828164bce8fa3aefa",
+    "source": "patches/packages/apps/Camera2/src/com/android/camera/app/CameraAppUI.java.patch"
+  },
+  "packages/apps/Camera2/src/com/android/camera/ui/GridLines.java": {
+    "upstream": "5348de13745cd1021f5cef3295a529d9e834d40afb893349ec0f3f2bc481f654",
+    "result": "76faacc94768fd132f3f000d51d5b25f280f008823c55ce7fc8cb7d21ac4208b",
+    "source": "patches/packages/apps/Camera2/src/com/android/camera/ui/GridLines.java.patch"
+  },
   "packages/apps/Dialer/java/com/android/dialer/main/impl/MainActivity.java": {
     "upstream": "89012d9259aeaa2dbff6b6dd166011c67ae7b50126bd4c43fce5aec52fa519f7",
     "result": "5d13afe4fdcffdf365f5c68aed2a17e8cd3afeef3e908ff47b6ee450cd8cbc05",
@@ -151,7 +206,7 @@
   },
   "packages/apps/Settings/AndroidManifest.xml": {
     "upstream": "1f9b4703f4639612ff3eb1b30023abd4bddefe211868b7afa6a65889af0b22ec",
-    "result": "c0ce08531be0d1eece53c4977df7afcf0fa4bf4646ef486a98cc5a04b9033a50",
+    "result": "45630c453107bcf2dba99d2af2d079a66f6eca20f6ccdc41900d1042fb9584d4",
     "source": "patches/packages/apps/Settings/AndroidManifest.xml.patch"
   },
   "packages/apps/Settings/res/raw/tommy_feed_key.der": {
@@ -166,7 +221,7 @@
   },
   "packages/apps/Settings/res/values/tommyui.xml": {
     "upstream": null,
-    "result": "6232be1c274dc43be3cc9dc7ed099acf6f78be96726aa13e56371b6129d720e3",
+    "result": "e825c5d368ea764725c63d82f8a1c8863979f035df278b80948040458ce646d9",
     "source": "overlay/packages/apps/Settings/res/values/tommyui.xml"
   },
   "packages/apps/Settings/res/xml/firmware_version.xml": {
@@ -181,17 +236,17 @@
   },
   "packages/apps/Settings/res/xml/top_level_settings.xml": {
     "upstream": "5a0bc0b81f3df4795cb4e789d78c5cf414ab383fc16ca422035df0672f8ca1bc",
-    "result": "330e6e1471acb1e5726932ffa99f560721ab3a190e0695bdad86d056b7f6c0df",
+    "result": "a9660c6609dd5b156bcdc7d9dbe0237a71f87b792bf78c3dff619ad50c252341",
     "source": "patches/packages/apps/Settings/res/xml/top_level_settings.xml.patch"
   },
   "packages/apps/Settings/res/xml/top_level_settings_expressive.xml": {
     "upstream": "b9f27114200f9c7799dbf6ef5afb528109a3482016a29d940bf0c47a1040ed87",
-    "result": "21f9917275f2688d272d0c3069148ebc9eda8886cf6ac6dc9eddaf3fcf6acc29",
+    "result": "ff6d0a0095ece6af5f0c53d16ad35bf5e606ac013f56dc22f74af99a40eb790d",
     "source": "patches/packages/apps/Settings/res/xml/top_level_settings_expressive.xml.patch"
   },
   "packages/apps/Settings/res/xml/top_level_settings_v2.xml": {
     "upstream": "2868b75dd30ed65b7ca501a916dbe1d49662b9fae056def00f9af66d79d5e4ab",
-    "result": "d364515dd3e083dbc52907d0e14f6d6fb66ce7573f44d5163aeecb064009e601",
+    "result": "bc4a35d76a3fe85e3784a1c46af02c9752cf388c5ee268c2fa4ebed36fae27ec",
     "source": "patches/packages/apps/Settings/res/xml/top_level_settings_v2.xml.patch"
   },
   "packages/apps/Settings/src/com/android/settings/deviceinfo/DeviceNamePreferenceController.java": {
@@ -236,7 +291,7 @@
   },
   "packages/apps/Settings/src/com/android/settings/tommyui/UpdateCheck.java": {
     "upstream": null,
-    "result": "7a1a22c9ca4a835ef07215a3d144c514fb1b997d94bb63a9051ca086010be512",
+    "result": "f24cff822c6b6ecc1b33506c7aa4a351c15cb34c83e05b7c7c3bdf7f68640f25",
     "source": "overlay/packages/apps/Settings/src/com/android/settings/tommyui/UpdateCheck.java"
   },
   "packages/apps/Settings/src/com/android/settings/tommyui/UpdateFeed.java": {
@@ -246,7 +301,7 @@
   },
   "packages/apps/Settings/src/com/android/settings/tommyui/UpdatePage.java": {
     "upstream": null,
-    "result": "68d83594ad04c99425791853f4605f763883c86d6050569cdf18b61a49f9d6d9",
+    "result": "91a3c8ae1207a9328d723aa818ed4a140fffb4b67610ea3ac45ad51ffd834ebd",
     "source": "overlay/packages/apps/Settings/src/com/android/settings/tommyui/UpdatePage.java"
   },
   "packages/apps/TommyStorage/Android.bp": {
@@ -256,7 +311,7 @@
   },
   "packages/apps/TommyStorage/AndroidManifest.xml": {
     "upstream": null,
-    "result": "265c9d68605c7efc7c46182c86d12b13255f469afc53e3eddb92a3f450d48f00",
+    "result": "7435d259dfb22e5fb800e13ad640e7d3b9c2982e92dbaa000bbaabb24754f408",
     "source": "overlay/packages/apps/TommyStorage/AndroidManifest.xml"
   },
   "packages/apps/TommyStorage/privapp-permissions-tommy-storage.xml": {
@@ -296,7 +351,7 @@
   },
   "packages/apps/TommyStorage/res/layout/about_tommy.xml": {
     "upstream": null,
-    "result": "d15410c5b9874a239a46a9854980fb5624752f43051f9b2d16ab47996a5dcdfc",
+    "result": "506ae51ba83306b19f5e4e73a7811e1ec5c70ccfa0b94a9926681015ef9a7235",
     "source": "overlay/packages/apps/TommyStorage/res/layout/about_tommy.xml"
   },
   "packages/apps/TommyStorage/res/values-night/classic_colors.xml": {
@@ -316,7 +371,7 @@
   },
   "packages/apps/TommyStorage/res/values/classic_strings.xml": {
     "upstream": null,
-    "result": "38cebd1314714012e3018a569f056627aa282e0139bea8603a23173b0bc277f4",
+    "result": "06bad6c5a05a890a2e9a142c51b9d4268f96da605d6aba80042d5456ecc5e0bc",
     "source": "overlay/packages/apps/TommyStorage/res/values/classic_strings.xml"
   },
   "packages/apps/TommyStorage/res/values/icon_color.xml": {
@@ -331,12 +386,12 @@
   },
   "packages/apps/TommyStorage/src/com/tommyui/storage/AboutTommy.java": {
     "upstream": null,
-    "result": "d44d9cf6f8dc63d82ec8115729d625909544a2b485be1f4c4ce9214d822ee0ea",
+    "result": "4657e46dc4426c807783f478efb00e68b4a2868b7a18d33ad5346e10fc0bd89c",
     "source": "overlay/packages/apps/TommyStorage/src/com/tommyui/storage/AboutTommy.java"
   },
   "packages/apps/TommyStorage/src/com/tommyui/storage/MainActivity.java": {
     "upstream": null,
-    "result": "b8ce5a8a5978d1ef11628b2282679d26bd94c9ebd3a5d449d4f606dc57b664f3",
+    "result": "cb844f58c232427bab0cec3a35f24199155abacf2c3abaf4e109d8387ded51f6",
     "source": "overlay/packages/apps/TommyStorage/src/com/tommyui/storage/MainActivity.java"
   },
   "packages/apps/TommyStorage/src/com/tommyui/storage/MoveRules.java": {

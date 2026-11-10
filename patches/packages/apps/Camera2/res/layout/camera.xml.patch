@@ -1,0 +1,13 @@
+--- a/packages/apps/Camera2/res/layout/camera.xml
++++ b/packages/apps/Camera2/res/layout/camera.xml
+@@ -69,6 +69,10 @@
+         android:layout_height="match_parent" />
+ 
+     <include layout="@layout/sticky_bottom_capture_layout" />
++    <Button android:id="@+id/tommy_modes" android:layout_width="wrap_content" android:layout_height="48dp"
++        android:layout_gravity="top|start" android:layout_marginTop="56dp" android:layout_marginStart="12dp"
++        android:background="@drawable/tommy_modes_pill" android:textColor="#ECF7F0" android:textAllCaps="false"
++        android:paddingStart="16dp" android:paddingEnd="16dp" android:text="@string/tommy_camera_modes" />
+ 
+     <FrameLayout
+         android:id="@+id/tutorials_placeholder_wrapper"

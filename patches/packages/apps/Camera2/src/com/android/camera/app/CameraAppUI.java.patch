@@ -1,0 +1,23 @@
+--- a/packages/apps/Camera2/src/com/android/camera/app/CameraAppUI.java
++++ b/packages/apps/Camera2/src/com/android/camera/app/CameraAppUI.java
+@@ -821,6 +821,11 @@
+         mAppRootView.setNonDecorWindowSizeChangedListener(mCaptureLayoutHelper);
+         initDisplayListener();
+         mAccessibilityAffordances = mAppRootView.findViewById(R.id.accessibility_affordances);
++        View modes = mAppRootView.findViewById(R.id.tommy_modes);
++        modes.setVisibility(mIsCaptureIntent || !mSwipeEnabled ? View.GONE : View.VISIBLE);
++        modes.setOnClickListener(view -> {
++            if (!mDisableAllUserInteractions && mSwipeEnabled && !mIsCaptureIntent) openModeList();
++        });
+         View modeListToggle = mAppRootView.findViewById(R.id.accessibility_mode_toggle_button);
+         modeListToggle.setOnClickListener(new View.OnClickListener() {
+             @Override
+@@ -908,6 +913,8 @@
+      */
+     public void setSwipeEnabled(boolean enabled) {
+         mSwipeEnabled = enabled;
++        View modes = mAppRootView.findViewById(R.id.tommy_modes);
++        if (modes != null) modes.setVisibility(enabled && !mIsCaptureIntent ? View.VISIBLE : View.GONE);
+         // TODO: This can be removed once we come up with a new design for handling swipe
+         // on shutter button and mode options. (More details: b/13751653)
+         mAppRootView.setSwipeEnabled(enabled);

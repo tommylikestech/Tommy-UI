@@ -17,7 +17,8 @@ public final class UpdateCheck extends JobService {
             String channel = trial ? "trial" : "";
             if (!trial && previewSupported() && previewEnabled(context)) {
                 channel = "TommyUI.v1.003.dev.20261106".equals(Build.VERSION.INCREMENTAL)
-                        ? "classic-preview/from-v1.003" : "classic-preview";
+                        ? "classic-preview/from-v1.003" : "TommyUI.v1.101.dev.20261109".equals(Build.VERSION.INCREMENTAL)
+                        ? "classic-preview/from-v1.101" : "classic-preview";
             }
             return UpdateFeed.fetch(in.readAllBytes(), channel);
         }
@@ -28,6 +29,7 @@ public final class UpdateCheck extends JobService {
     static boolean previewSupported() {
         return "XT2413-2".equals(SystemProperties.get("ro.boot.hardware.sku"))
                 && ("TommyUI.v1.100.dev.20261109".equals(Build.VERSION.INCREMENTAL)
+                    || "TommyUI.v1.101.dev.20261109".equals(Build.VERSION.INCREMENTAL)
                     || "TommyUI.v1.003.dev.20261106".equals(Build.VERSION.INCREMENTAL));
     }
     static boolean previewEnabled(Context context) {

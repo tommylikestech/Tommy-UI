@@ -165,7 +165,7 @@ public final class UpdatePage extends Activity {
             }).show();
     }
     private static String displayVersion(String version) {
-        return "v1.100".equals(version) ? "v1.1" : "v1.101".equals(version) ? "v1.1.1" : version;
+        return "v1.100".equals(version) ? "v1.1" : "v1.101".equals(version) ? "v1.1.1" : "v1.200".equals(version) ? "v1.2" : version;
     }
     private void refresh() { refresh(false); }
     private void refresh(boolean testing) {

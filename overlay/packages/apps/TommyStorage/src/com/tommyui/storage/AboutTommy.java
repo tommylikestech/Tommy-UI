@@ -23,7 +23,7 @@ public class AboutTommy extends Activity {
         Button version = findViewById(R.id.classic_version);
         if (match.matches()) {
             String versionName = match.group(1);
-            version.setText(getString(R.string.classic_version, "v1.100".equals(versionName) ? "1.1" : "v1.101".equals(versionName) ? "1.1.1" : versionName.substring(1)));
+            version.setText(getString(R.string.classic_version, "v1.100".equals(versionName) ? "1.1" : "v1.101".equals(versionName) ? "1.1.1" : "v1.200".equals(versionName) ? "1.2" : versionName.substring(1)));
         } else {
             version.setText(R.string.classic_version_unknown);
         }

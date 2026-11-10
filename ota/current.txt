@@ -1,4 +1,12 @@
-version=v1.101
+version=v1.200
 type=content
-summary=Classic v1.1.1 is available. USB is recommended. Original v1.003 and Classic v1.1 can opt in to separate wireless previews. Back up your data. Wireless updates may fail.
-url=
+summary=Tommy UI v1.2 introduces Tommy Camera, Style Classic and the River at dusk wallpaper. USB is recommended. Wireless updates may fail. Back up first.
+url=https://github.com/tommylikestech/Tommy-UI/releases/download/v1.200/Tommy-UI-fogona-from-v1-101.bin
+sku=XT2413-2
+device=fogona
+from=TommyUI.v1.101.dev.20261109
+vendor=motorola/fogona/fogona:13/U1TFS34.100-35-14-1-12/ad64fa:user/release-keys
+FILE_HASH=3T2CwbgqyyWS7WOd7Q2UTMNdQnuRlSm+PKzaSys3XYg=
+FILE_SIZE=3734729
+METADATA_HASH=JQfnZJvEalSQn6hXyG6xotP5MhAP5sA2rgw7Hk6UnLI=
+METADATA_SIZE=166090

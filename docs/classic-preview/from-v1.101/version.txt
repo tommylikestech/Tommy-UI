@@ -1,0 +1,13 @@
+version=v1.200
+type=content
+summary=Tommy UI v1.2 introduces Tommy Camera, Style Classic and the River at dusk wallpaper. USB is recommended. Wireless updates may fail. Back up first.
+url=https://github.com/tommylikestech/Tommy-UI/releases/download/v1.200/Tommy-UI-fogona-from-v1-101.bin
+sku=XT2413-2
+device=fogona
+from=TommyUI.v1.101.dev.20261109
+vendor=motorola/fogona/fogona:13/U1TFS34.100-35-14-1-12/ad64fa:user/release-keys
+FILE_HASH=3T2CwbgqyyWS7WOd7Q2UTMNdQnuRlSm+PKzaSys3XYg=
+FILE_SIZE=3734729
+METADATA_HASH=JQfnZJvEalSQn6hXyG6xotP5MhAP5sA2rgw7Hk6UnLI=
+METADATA_SIZE=166090
+signature=XsDivtm48KGUUAmD1oj/0LdNq7mfGY41253zDPC605/gQ2nCkuzmGCj0Q2DkuiK5o9EL8yr28j56FkU2HJsAquDYoXK+GsVn8QsVwEw3ClMeuBL6IkAekJYuVrTQ0zlTJqm7hw6b+zUSp606cc8D18PZ+GrXd47RpjrjfoKi4tG8anSCk6dw+/uCKAobmkPptjDB9TetH4dDiVXEeuFtZCuEwXybg+GCuPWVjSS3Hk+RYn0oH0vI+t2FdSuf2ymjXFoRpyRTEMwcMIKkERKathDUREeKQw4Oq0ef7aKygiLtOjOULbzFpxU2/EPtyUOOJ07B+WHZpvoq9YCRKyI/8g/xE0mlj8I7q8dJU62xAbVUgx67OuBIgdDY2GzSfCiGqQnnregOXJVq+FRLvehHOBAynMwJaepjY7CDqiGEwQ9ZtE6hHp/mpISGFyi+/7GzpL1ir/FqcSTliICty5CqHwtihymdziEvro8RRXxm4WAR/OTXqasL4FPbhuesui4a

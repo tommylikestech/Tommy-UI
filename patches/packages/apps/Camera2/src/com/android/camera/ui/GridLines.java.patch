@@ -1,0 +1,99 @@
+--- a/packages/apps/Camera2/src/com/android/camera/ui/GridLines.java
++++ b/packages/apps/Camera2/src/com/android/camera/ui/GridLines.java
+@@ -20,6 +20,10 @@
+ import android.graphics.Canvas;
+ import android.graphics.Paint;
+ import android.graphics.RectF;
++import android.hardware.Sensor;
++import android.hardware.SensorEvent;
++import android.hardware.SensorEventListener;
++import android.hardware.SensorManager;
+ import android.util.AttributeSet;
+ import android.view.View;
+ 
+@@ -30,21 +34,84 @@
+  * evenly spaced grid lines.
+  */
+ public class GridLines extends View
+-    implements PreviewStatusListener.PreviewAreaChangedListener {
++    implements PreviewStatusListener.PreviewAreaChangedListener, SensorEventListener {
+ 
++    private final SensorManager sensors;
++    private final Sensor gravity;
++    private final Paint levelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
++    private float tilt = Float.NaN;
++    private boolean listening;
++    private float filteredX = Float.NaN, filteredY;
+     private RectF mDrawBounds;
+     Paint mPaint = new Paint();
+ 
+     public GridLines(Context context, AttributeSet attrs) {
+         super(context, attrs);
++        sensors = context.getSystemService(SensorManager.class);
++        Sensor preferred = sensors == null ? null : sensors.getDefaultSensor(Sensor.TYPE_GRAVITY);
++        gravity = preferred != null || sensors == null ? preferred : sensors.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
++        levelPaint.setStrokeCap(Paint.Cap.ROUND);
++        levelPaint.setStrokeWidth(3 * getResources().getDisplayMetrics().density);
+         mPaint.setStrokeWidth(getResources().getDimensionPixelSize(R.dimen.grid_line_width));
+         mPaint.setColor(getResources().getColor(R.color.grid_line));
++    }
++
++    @Override public void onVisibilityAggregated(boolean visible) {
++        super.onVisibilityAggregated(visible);
++        if (visible && !listening && gravity != null) {
++            listening = sensors.registerListener(this, gravity, SensorManager.SENSOR_DELAY_UI);
++        } else if (!visible) {
++            stopLevel();
++        }
++    }
++
++    private void stopLevel() {
++        if (listening) sensors.unregisterListener(this);
++        listening = false;
++        tilt = Float.NaN;
++        filteredX = Float.NaN;
++    }
++
++    @Override protected void onDetachedFromWindow() {
++        stopLevel();
++        super.onDetachedFromWindow();
++    }
++
++    @Override public void onAccuracyChanged(Sensor sensor, int accuracy) {}
++
++    @Override public void onSensorChanged(SensorEvent event) {
++        float x = event.values[0], y = event.values[1];
++        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
++            boolean first = Float.isNaN(filteredX);
++            filteredX = first ? x : filteredX + 0.22f * (x - filteredX);
++            filteredY = first ? y : filteredY + 0.22f * (y - filteredY);
++            x = filteredX;
++            y = filteredY;
++        }
++        float next = Math.hypot(x, y) < 3 ? Float.NaN
++                : (float) Math.IEEEremainder(Math.toDegrees(Math.atan2(x, y)), 90);
++        if (Float.compare(tilt, next) != 0 && (Float.isNaN(tilt) || Float.isNaN(next) || Math.abs(next - tilt) >= 0.25f)) {
++            tilt = next;
++            postInvalidateOnAnimation();
++        }
+     }
+ 
+     @Override
+     public void onDraw(Canvas canvas) {
+         super.onDraw(canvas);
+         if (mDrawBounds != null) {
++            if (!Float.isNaN(tilt)) {
++                float x = mDrawBounds.centerX(), y = mDrawBounds.centerY();
++                float half = Math.min(mDrawBounds.width(), mDrawBounds.height()) * 0.10f;
++                levelPaint.setColor(0xCCFFFFFF);
++                canvas.drawLine(x-half, y, x-half*0.64f, y, levelPaint);
++                canvas.drawLine(x+half*0.64f, y, x+half, y, levelPaint);
++                canvas.save();
++                canvas.rotate(tilt, x, y);
++                levelPaint.setColor(Math.abs(tilt) <= 2 ? 0xFF99EDBE : 0xFFEDCD98);
++                canvas.drawLine(x-half*0.50f, y, x+half*0.50f, y, levelPaint);
++                canvas.restore();
++            }
+             float thirdWidth = mDrawBounds.width() / 3;
+             float thirdHeight = mDrawBounds.height() / 3;
+             for (int i = 1; i < 3; i++) {

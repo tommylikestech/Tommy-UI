@@ -9,7 +9,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--serial", required=True)
     parser.add_argument("output", type=Path)
-    parser.add_argument("--classic", action="store_true", help="Audit the v1.1 Classic source image")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("--v111", action="store_true", help="Audit the v1.1.1 source image")
+    group.add_argument("--classic", action="store_true", help="Audit the v1.1 Classic source image")
     args = parser.parse_args()
     adb = ["adb", "-s", args.serial, "shell"]
 
@@ -17,12 +19,15 @@ def main():
         return subprocess.check_output([*adb, *command], text=True).strip()
 
     suffix = query("getprop", "ro.boot.slot_suffix")
-    if suffix not in ("_a", "_b") or (not args.classic and suffix != "_a"):
+    if suffix not in ("_a", "_b") or (not args.classic and not args.v111 and suffix != "_a"):
         parser.error("Unsupported source slot")
     slot = str(int(suffix == "_b"))
     source = "TommyUI.v1.100.dev.20261109" if args.classic else "TommyUI.v1.003.dev.20261106"
     digest = ("b2c95b70bc2d2a57acb345b026075c50d7224b57730c58ccb0cd1e191bacf95e" if args.classic
               else "58672f248a7491fa026a8343f845bd648d31eb9536dd9f2481b55745d1e7d76f")
+    if args.v111:
+        source = "TommyUI.v1.101.dev.20261109"
+        digest = "0539fd853af72a1844bfd0384ebc682b7ba6806919418e2a0b76c61934691ca8"
     for key, expected in {
         "ro.boot.hardware.sku": "XT2413-2", "ro.product.vendor.device": "fogona",
         "ro.build.version.incremental": source,

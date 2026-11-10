@@ -1,0 +1,4 @@
+<resources>
+    <string name="tommy_camera_name" translatable="false">Tommy Camera</string>
+    <string name="tommy_camera_modes">Modes</string>
+</resources>

@@ -9,7 +9,7 @@
 +            android:key="about_tommy_ui"
 +            android:order="-9"
 +            android:title="About Tommy UI"
-+            android:summary="Tommy UI Classic · v1.1"
++            android:summary="@string/tommyui_version_summary"
 +            android:icon="@drawable/ic_homepage_about">
 +            <intent android:action="android.intent.action.VIEW"
 +                android:targetPackage="com.tommyui.storage"

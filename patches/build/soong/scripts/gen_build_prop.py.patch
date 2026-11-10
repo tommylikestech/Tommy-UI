@@ -1,0 +1,12 @@
+--- a/build/soong/scripts/gen_build_prop.py
++++ b/build/soong/scripts/gen_build_prop.py
+@@ -195,7 +195,8 @@
+       print(f"ro.build.display.id?={config['BuildId']} {config['BuildKeys']}")
+   else:
+     # Non-user builds should show detailed build information (See build desc above)
+-    print(f"ro.build.display.id?={config['BuildDesc']}")
++    display = config['BuildNumber'] if config['BuildNumber'].startswith("TommyUI.") else config['BuildDesc']
++    print(f"ro.build.display.id?={display}")
+   print(f"ro.build.version.incremental={config['BuildNumber']}")
+   print(f"ro.build.version.sdk={config['Platform_sdk_version']}")
+   print(f"ro.build.version.sdk_full={config['Platform_sdk_version_full']}")

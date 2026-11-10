@@ -108,7 +108,7 @@ public final class MainActivity extends Activity {
             return insets;
         });
         setContentView(scroll);
-        page.addView(text("TOMMY UI CLASSIC  /  v1.1.1", 12, green, true));
+        page.addView(text("TOMMY UI  /  v1.2", 12, green, true));
         TextView title = text("Tommy Storage", 30, ink, true);
         title.setPadding(0, dp(8), 0, dp(8)); page.addView(title);
         page.addView(text("Choose where your apps live.", 16, muted, false));
